@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'package:synchronized/synchronized.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -23,7 +21,7 @@ class FFAppState extends ChangeNotifier {
   }
 
   Future initializePersistedState() async {
-    secureStorage = FlutterSecureStorage();
+    secureStorage = const FlutterSecureStorage();
     await _safeInitAsync(() async {
       _idGenerated =
           await secureStorage.getBool('ff_idGenerated') ?? _idGenerated;
@@ -48,9 +46,9 @@ class FFAppState extends ChangeNotifier {
 
   bool _idGenerated = false;
   bool get idGenerated => _idGenerated;
-  set idGenerated(bool _value) {
-    _idGenerated = _value;
-    secureStorage.setBool('ff_idGenerated', _value);
+  set idGenerated(bool value) {
+    _idGenerated = value;
+    secureStorage.setBool('ff_idGenerated', value);
   }
 
   void deleteIdGenerated() {
@@ -59,9 +57,9 @@ class FFAppState extends ChangeNotifier {
 
   String _deviceIdentifier = '';
   String get deviceIdentifier => _deviceIdentifier;
-  set deviceIdentifier(String _value) {
-    _deviceIdentifier = _value;
-    secureStorage.setString('ff_deviceIdentifier', _value);
+  set deviceIdentifier(String value) {
+    _deviceIdentifier = value;
+    secureStorage.setString('ff_deviceIdentifier', value);
   }
 
   void deleteDeviceIdentifier() {
@@ -70,15 +68,15 @@ class FFAppState extends ChangeNotifier {
 
   dynamic _user;
   dynamic get user => _user;
-  set user(dynamic _value) {
-    _user = _value;
+  set user(dynamic value) {
+    _user = value;
   }
 
   String _activeUserId = '';
   String get activeUserId => _activeUserId;
-  set activeUserId(String _value) {
-    _activeUserId = _value;
-    secureStorage.setString('ff_activeUserId', _value);
+  set activeUserId(String value) {
+    _activeUserId = value;
+    secureStorage.setString('ff_activeUserId', value);
   }
 
   void deleteActiveUserId() {
@@ -87,22 +85,22 @@ class FFAppState extends ChangeNotifier {
 
   int _recommendationsCount = 0;
   int get recommendationsCount => _recommendationsCount;
-  set recommendationsCount(int _value) {
-    _recommendationsCount = _value;
+  set recommendationsCount(int value) {
+    _recommendationsCount = value;
   }
 
   bool _premium = false;
   bool get premium => _premium;
-  set premium(bool _value) {
-    _premium = _value;
+  set premium(bool value) {
+    _premium = value;
   }
 
   ActivePageInfoStruct _activePageInfo =
       ActivePageInfoStruct.fromSerializableMap(
-          jsonDecode('{\"activePage\":\"zbad0\"}'));
+          jsonDecode('{"activePage":"zbad0"}'));
   ActivePageInfoStruct get activePageInfo => _activePageInfo;
-  set activePageInfo(ActivePageInfoStruct _value) {
-    _activePageInfo = _value;
+  set activePageInfo(ActivePageInfoStruct value) {
+    _activePageInfo = value;
   }
 
   void updateActivePageInfoStruct(Function(ActivePageInfoStruct) updateFn) {
@@ -225,12 +223,12 @@ extension FlutterSecureStorageExtensions on FlutterSecureStorage {
         if (result == null || result.isEmpty) {
           return null;
         }
-        return CsvToListConverter()
+        return const CsvToListConverter()
             .convert(result)
             .first
             .map((e) => e.toString())
             .toList();
       });
   Future<void> setStringList(String key, List<String> value) async =>
-      await writeSync(key: key, value: ListToCsvConverter().convert([value]));
+      await writeSync(key: key, value: const ListToCsvConverter().convert([value]));
 }

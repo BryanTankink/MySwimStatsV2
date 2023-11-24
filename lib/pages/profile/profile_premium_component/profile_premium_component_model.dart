@@ -1,17 +1,10 @@
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/profile/profile_distance_settings/profile_distance_settings_widget.dart';
 import '/pages/profile/profile_stroke_settings/profile_stroke_settings_widget.dart';
 import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
 import 'profile_premium_component_widget.dart'
     show ProfilePremiumComponentWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePremiumComponentModel
     extends FlutterFlowModel<ProfilePremiumComponentWidget> {
@@ -34,6 +27,7 @@ class ProfilePremiumComponentModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     profileUsersPageModel = createModel(context, () => ProfileUsersPageModel());
     profileDistanceSettingsModel =
@@ -42,6 +36,7 @@ class ProfilePremiumComponentModel
         createModel(context, () => ProfileStrokeSettingsModel());
   }
 
+  @override
   void dispose() {
     profileUsersPageModel.dispose();
     profileDistanceSettingsModel.dispose();

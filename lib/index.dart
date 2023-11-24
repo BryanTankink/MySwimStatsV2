@@ -19,3 +19,7 @@ export '/pages/contests/contest_detail/contest_detail_widget.dart'
     show ContestDetailWidget;
 export '/pages/advice/advice_details/advice_details_widget.dart'
     show AdviceDetailsWidget;
+export '/pages/contests/contest_club_details/contest_club_details_widget.dart'
+    show ContestClubDetailsWidget;
+export '/pages/loaders/generic_loader/generic_loader_widget.dart'
+    show GenericLoaderWidget;

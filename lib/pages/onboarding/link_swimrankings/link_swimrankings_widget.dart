@@ -3,27 +3,22 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'link_swimrankings_model.dart';
 export 'link_swimrankings_model.dart';
 
 class LinkSwimrankingsWidget extends StatefulWidget {
   const LinkSwimrankingsWidget({
-    Key? key,
+    super.key,
     bool? showHeader,
     bool? isFavorite,
-  })  : this.showHeader = showHeader ?? false,
-        this.isFavorite = isFavorite ?? false,
-        super(key: key);
+  })  : showHeader = showHeader ?? false,
+        isFavorite = isFavorite ?? false;
 
   final bool showHeader;
   final bool isFavorite;
@@ -54,8 +49,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
           curve: Curves.bounceOut,
           delay: 300.ms,
           duration: 600.ms,
-          begin: Offset(0.6, 0.6),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.6, 0.6),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -106,7 +101,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                   borderRadius: 30.0,
                   borderWidth: 1.0,
                   buttonSize: 60.0,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.white,
                     size: 30.0,
@@ -123,7 +118,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                         fontSize: 22.0,
                       ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: true,
                 elevation: 2.0,
               )
@@ -144,12 +139,12 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
               gradient: LinearGradient(
                 colors: [
                   FlutterFlowTheme.of(context).primary,
-                  Color(0xD8000000),
-                  Color(0xE7000000)
+                  const Color(0xD8000000),
+                  const Color(0xE7000000)
                 ],
-                stops: [0.0, 0.25, 1.0],
-                begin: AlignmentDirectional(0.0, -1.0),
-                end: AlignmentDirectional(0, 1.0),
+                stops: const [0.0, 0.25, 1.0],
+                begin: const AlignmentDirectional(0.0, -1.0),
+                end: const AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Column(
@@ -162,7 +157,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.00, 0.00),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
@@ -174,18 +169,18 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.00, 0.00),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(-1.00, -1.00),
+                                alignment: const AlignmentDirectional(-1.00, -1.00),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 8.0, 0.0),
                                   child: Text(
                                     'Naam',
@@ -195,10 +190,10 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 0.0, 8.0, 0.0),
                                 child: TextFormField(
-                                  key: ValueKey('NameField_6sov'),
+                                  key: const ValueKey('NameField_6sov'),
                                   controller: _model.nameFieldController,
                                   focusNode: _model.nameFieldFocusNode,
                                   autofocus: true,
@@ -259,9 +254,9 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(-1.00, 0.00),
+                                alignment: const AlignmentDirectional(-1.00, 0.00),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 32.0, 10.0, 0.0),
                                   child: Text(
                                     'Let op:\nDe naam die jij in voert moet bekend zijn bij SwimRankings. Als jij niet vindbaar bent met deze naam op SwimRankings zullen wij helaas geen mooie overzichten voor jou kunnen maken!',
@@ -285,7 +280,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 44.0),
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 44.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -294,37 +289,36 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                         model: _model.operationButtonModel,
                         updateCallback: () => setState(() {}),
                         child: OperationButtonWidget(
-                          key: ValueKey('OperationButton_ku9o'),
+                          key: const ValueKey('OperationButton_ku9o'),
                           text: 'Controleren',
                           onClick: () async {
-                            var _shouldSetState = false;
-                            if (!(_model.nameFieldController.text != null &&
-                                _model.nameFieldController.text != '')) {
+                            var shouldSetState = false;
+                            if (!(_model.nameFieldController.text != '')) {
                               HapticFeedback.mediumImpact();
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('Error'),
-                                    content: Text('Vul een naam in!'),
+                                    title: const Text('Error'),
+                                    content: const Text('Vul een naam in!'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
+                                        child: const Text('Ok'),
                                       ),
                                     ],
                                   );
                                 },
                               );
-                              if (_shouldSetState) setState(() {});
+                              if (shouldSetState) setState(() {});
                               return;
                             }
                             _model.nameVerifyResultCopy =
                                 await VerifyFullNameCall.call(
                               fullName: _model.nameFieldController.text,
                             );
-                            _shouldSetState = true;
+                            shouldSetState = true;
                             if ((_model.nameVerifyResultCopy?.succeeded ??
                                 true)) {
                               if (VerifyFullNameCall.userCount(
@@ -368,7 +362,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                       }.withoutNulls,
                                     );
 
-                                    if (_shouldSetState) setState(() {});
+                                    if (shouldSetState) setState(() {});
                                     return;
                                   } else {
                                     HapticFeedback.heavyImpact();
@@ -376,20 +370,20 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                       context: context,
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
-                                          title: Text('Verfijn naam'),
-                                          content: Text(
+                                          title: const Text('Verfijn naam'),
+                                          content: const Text(
                                               'We krijgen te veel resultaten terug! Vul je volledige naam in om je zoekresultaat te verfijnen!'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   alertDialogContext),
-                                              child: Text('Ok'),
+                                              child: const Text('Ok'),
                                             ),
                                           ],
                                         );
                                       },
                                     );
-                                    if (_shouldSetState) setState(() {});
+                                    if (shouldSetState) setState(() {});
                                     return;
                                   }
                                 } else {
@@ -412,7 +406,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                             ''),
                                       ).toString(),
                                     );
-                                    _shouldSetState = true;
+                                    shouldSetState = true;
                                   } else {
                                     await ApiGroup
                                         .createUserByDeviceIdentifierCall
@@ -435,11 +429,11 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
 
                                   _model.hasValidUserAuthCopy =
                                       await action_blocks.getUserAuth(context);
-                                  _shouldSetState = true;
+                                  shouldSetState = true;
                                   if (_model.hasValidUserAuthCopy!) {
                                     context.goNamed('Dashboard');
 
-                                    if (_shouldSetState) setState(() {});
+                                    if (shouldSetState) setState(() {});
                                     return;
                                   } else {
                                     HapticFeedback.heavyImpact();
@@ -447,20 +441,20 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                       context: context,
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
-                                          title: Text('Onbekende fout'),
-                                          content: Text(
+                                          title: const Text('Onbekende fout'),
+                                          content: const Text(
                                               'Ons systeem lijkt momenteel niet goed te werken, probeer het later opnieuw!'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   alertDialogContext),
-                                              child: Text('Ok'),
+                                              child: const Text('Ok'),
                                             ),
                                           ],
                                         );
                                       },
                                     );
-                                    if (_shouldSetState) setState(() {});
+                                    if (shouldSetState) setState(() {});
                                     return;
                                   }
                                 }
@@ -470,20 +464,20 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text('Niet gevonden'),
-                                      content: Text(
+                                      title: const Text('Niet gevonden'),
+                                      content: const Text(
                                           'De ingevoerde naam is niet gevonden bij SwimRankings, Probeer het opnieuw!'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
+                                          child: const Text('Ok'),
                                         ),
                                       ],
                                     );
                                   },
                                 );
-                                if (_shouldSetState) setState(() {});
+                                if (shouldSetState) setState(() {});
                                 return;
                               }
                             } else {
@@ -492,24 +486,24 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('Error'),
-                                    content: Text(
+                                    title: const Text('Error'),
+                                    content: const Text(
                                         'Het lijkt erop alsof de app even niet gebruikt kan worden! Probeer het later opnieuw!'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
+                                        child: const Text('Ok'),
                                       ),
                                     ],
                                   );
                                 },
                               );
-                              if (_shouldSetState) setState(() {});
+                              if (shouldSetState) setState(() {});
                               return;
                             }
 
-                            if (_shouldSetState) setState(() {});
+                            if (shouldSetState) setState(() {});
                           },
                         ),
                       ),

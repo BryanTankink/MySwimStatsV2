@@ -1,19 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/request_manager.dart';
 
 import 'race_list_widget.dart' show RaceListWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 
 class RaceListModel extends FlutterFlowModel<RaceListWidget> {
   ///  State fields for stateful widgets in this page.
@@ -23,6 +13,9 @@ class RaceListModel extends FlutterFlowModel<RaceListWidget> {
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
+
+  // Stores action output result for [Backend Call - API (swimTimeToClubId)] action in Container widget.
+  ApiCallResponse? clubIdResult;
 
   /// Query cache managers for this widget.
 
@@ -43,8 +36,10 @@ class RaceListModel extends FlutterFlowModel<RaceListWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();

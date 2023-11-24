@@ -1,8 +1,6 @@
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
 import '/pages/profile/profile_default_component/profile_default_component_widget.dart';
@@ -10,17 +8,15 @@ import '/pages/profile/profile_premium_component/profile_premium_component_widge
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
-    Key? key,
+    super.key,
     this.distanceValueChanged,
-  }) : super(key: key);
+  });
 
   final bool? distanceValueChanged;
 
@@ -78,7 +74,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           child: wrapWithModel(
             model: _model.appDrawerModel,
             updateCallback: () => setState(() {}),
-            child: AppDrawerWidget(),
+            child: const AppDrawerWidget(),
           ),
         ),
         appBar: AppBar(
@@ -93,7 +89,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -105,13 +101,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 return wrapWithModel(
                   model: _model.profilePremiumComponentModel,
                   updateCallback: () => setState(() {}),
-                  child: ProfilePremiumComponentWidget(),
+                  child: const ProfilePremiumComponentWidget(),
                 );
               } else {
                 return wrapWithModel(
                   model: _model.profileDefaultComponentModel,
                   updateCallback: () => setState(() {}),
-                  child: ProfileDefaultComponentWidget(),
+                  child: const ProfileDefaultComponentWidget(),
                 );
               }
             },

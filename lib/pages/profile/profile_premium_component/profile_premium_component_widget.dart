@@ -6,15 +6,12 @@ import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_premium_component_model.dart';
 export 'profile_premium_component_model.dart';
 
 class ProfilePremiumComponentWidget extends StatefulWidget {
-  const ProfilePremiumComponentWidget({Key? key}) : super(key: key);
+  const ProfilePremiumComponentWidget({super.key});
 
   @override
   _ProfilePremiumComponentWidgetState createState() =>
@@ -64,26 +61,26 @@ class _ProfilePremiumComponentWidgetState
           gradient: LinearGradient(
             colors: [
               FlutterFlowTheme.of(context).primary,
-              Color(0xD9000000),
-              Color(0xF3000000)
+              const Color(0xD9000000),
+              const Color(0xF3000000)
             ],
-            stops: [0.0, 0.25, 1.0],
-            begin: AlignmentDirectional(0.0, -1.0),
-            end: AlignmentDirectional(0, 1.0),
+            stops: const [0.0, 0.25, 1.0],
+            begin: const AlignmentDirectional(0.0, -1.0),
+            end: const AlignmentDirectional(0, 1.0),
           ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: 500.0,
                 child: Stack(
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                       child: PageView(
                         controller: _model.pageViewController ??=
                             PageController(initialPage: 0),
@@ -92,32 +89,32 @@ class _ProfilePremiumComponentWidgetState
                           wrapWithModel(
                             model: _model.profileUsersPageModel,
                             updateCallback: () => setState(() {}),
-                            child: ProfileUsersPageWidget(),
+                            child: const ProfileUsersPageWidget(),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.00, 0.00),
                             child: wrapWithModel(
                               model: _model.profileDistanceSettingsModel,
                               updateCallback: () => setState(() {}),
-                              child: ProfileDistanceSettingsWidget(),
+                              child: const ProfileDistanceSettingsWidget(),
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.00, 0.00),
                             child: wrapWithModel(
                               model: _model.profileStrokeSettingsModel,
                               updateCallback: () => setState(() {}),
-                              child: ProfileStrokeSettingsWidget(),
+                              child: const ProfileStrokeSettingsWidget(),
                             ),
                           ),
                         ],
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.00, 1.00),
+                      alignment: const AlignmentDirectional(0.00, 1.00),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: smooth_page_indicator.SmoothPageIndicator(
                           controller: _model.pageViewController ??=
                               PageController(initialPage: 0),
@@ -126,7 +123,7 @@ class _ProfilePremiumComponentWidgetState
                           onDotClicked: (i) async {
                             await _model.pageViewController!.animateToPage(
                               i,
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.ease,
                             );
                           },

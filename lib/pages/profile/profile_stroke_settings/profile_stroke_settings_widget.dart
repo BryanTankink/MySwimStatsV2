@@ -6,15 +6,12 @@ import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_stroke_settings_model.dart';
 export 'profile_stroke_settings_model.dart';
 
 class ProfileStrokeSettingsWidget extends StatefulWidget {
-  const ProfileStrokeSettingsWidget({Key? key}) : super(key: key);
+  const ProfileStrokeSettingsWidget({super.key});
 
   @override
   _ProfileStrokeSettingsWidgetState createState() =>
@@ -55,11 +52,11 @@ class _ProfileStrokeSettingsWidgetState
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -75,7 +72,7 @@ class _ProfileStrokeSettingsWidgetState
                 color: FlutterFlowTheme.of(context).accent4,
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: wrapWithModel(
                   model: _model.strokeButterflyModel,
                   updateCallback: () => setState(() {}),
@@ -94,7 +91,7 @@ class _ProfileStrokeSettingsWidgetState
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: wrapWithModel(
                   model: _model.strokeBackstrokeModel,
                   updateCallback: () => setState(() {}),
@@ -113,7 +110,7 @@ class _ProfileStrokeSettingsWidgetState
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: wrapWithModel(
                   model: _model.strokeBreaststrokeModel,
                   updateCallback: () => setState(() {}),
@@ -132,7 +129,7 @@ class _ProfileStrokeSettingsWidgetState
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: wrapWithModel(
                   model: _model.strokeFreestyleModel,
                   updateCallback: () => setState(() {}),
@@ -151,7 +148,7 @@ class _ProfileStrokeSettingsWidgetState
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                 child: wrapWithModel(
                   model: _model.strokeMedleyModel,
                   updateCallback: () => setState(() {}),
@@ -171,7 +168,7 @@ class _ProfileStrokeSettingsWidgetState
               ),
               if (_model.strokeSettingChanged)
                 Align(
-                  alignment: AlignmentDirectional(0.00, 1.00),
+                  alignment: const AlignmentDirectional(0.00, 1.00),
                   child: wrapWithModel(
                     model: _model.operationButtonModel,
                     updateCallback: () => setState(() {}),

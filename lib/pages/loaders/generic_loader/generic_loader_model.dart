@@ -1,10 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
-import 'swim_rankings_loading_widget.dart' show SwimRankingsLoadingWidget;
+import 'generic_loader_widget.dart' show GenericLoaderWidget;
 import 'package:flutter/material.dart';
 
-class SwimRankingsLoadingModel
-    extends FlutterFlowModel<SwimRankingsLoadingWidget> {
+class GenericLoaderModel extends FlutterFlowModel<GenericLoaderWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

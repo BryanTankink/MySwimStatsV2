@@ -1,23 +1,19 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'custom_slider_model.dart';
 export 'custom_slider_model.dart';
 
 class CustomSliderWidget extends StatefulWidget {
   const CustomSliderWidget({
-    Key? key,
+    super.key,
     required this.title,
     int? value,
     int? stepSize,
     required this.onValueChanged,
-  })  : this.value = value ?? 5,
-        this.stepSize = stepSize ?? 1,
-        super(key: key);
+  })  : value = value ?? 5,
+        stepSize = stepSize ?? 1;
 
   final String? title;
   final int value;
@@ -59,16 +55,16 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
     return Container(
       width: double.infinity,
       height: 45.0,
-      decoration: BoxDecoration(),
-      child: Container(
+      decoration: const BoxDecoration(),
+      child: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Stack(
           children: [
             Align(
-              alignment: AlignmentDirectional(-1.00, -1.00),
+              alignment: const AlignmentDirectional(-1.00, -1.00),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 2.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 2.0, 0.0, 0.0),
                 child: Text(
                   widget.title!,
                   style: FlutterFlowTheme.of(context).labelMedium.override(
@@ -79,11 +75,11 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.00, 1.00),
+              alignment: const AlignmentDirectional(0.00, 1.00),
               child: Container(
                 height: 25.0,
-                decoration: BoxDecoration(),
-                child: Container(
+                decoration: const BoxDecoration(),
+                child: SizedBox(
                   width: double.infinity,
                   child: Slider(
                     activeColor: FlutterFlowTheme.of(context).text,

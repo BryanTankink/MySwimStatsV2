@@ -5,15 +5,12 @@ import '/pages/generic/custom_slider/custom_slider_widget.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_distance_settings_model.dart';
 export 'profile_distance_settings_model.dart';
 
 class ProfileDistanceSettingsWidget extends StatefulWidget {
-  const ProfileDistanceSettingsWidget({Key? key}) : super(key: key);
+  const ProfileDistanceSettingsWidget({super.key});
 
   @override
   _ProfileDistanceSettingsWidgetState createState() =>
@@ -48,13 +45,13 @@ class _ProfileDistanceSettingsWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.00, -1.00),
+      alignment: const AlignmentDirectional(0.00, -1.00),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -70,7 +67,7 @@ class _ProfileDistanceSettingsWidgetState
                   color: FlutterFlowTheme.of(context).accent4,
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: wrapWithModel(
                     model: _model.meter50Model,
                     updateCallback: () => setState(() {}),
@@ -88,7 +85,7 @@ class _ProfileDistanceSettingsWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: wrapWithModel(
                     model: _model.meter100Model,
                     updateCallback: () => setState(() {}),
@@ -106,7 +103,7 @@ class _ProfileDistanceSettingsWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: wrapWithModel(
                     model: _model.meter200Model,
                     updateCallback: () => setState(() {}),
@@ -124,7 +121,7 @@ class _ProfileDistanceSettingsWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: wrapWithModel(
                     model: _model.meter400Model,
                     updateCallback: () => setState(() {}),
@@ -142,7 +139,7 @@ class _ProfileDistanceSettingsWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: wrapWithModel(
                     model: _model.meterMoreThen400Model,
                     updateCallback: () => setState(() {}),
@@ -161,7 +158,7 @@ class _ProfileDistanceSettingsWidgetState
                 ),
                 if (_model.distancePropertyChanged)
                   Align(
-                    alignment: AlignmentDirectional(0.00, 1.00),
+                    alignment: const AlignmentDirectional(0.00, 1.00),
                     child: wrapWithModel(
                       model: _model.operationButtonModel,
                       updateCallback: () => setState(() {}),
@@ -212,14 +209,14 @@ class _ProfileDistanceSettingsWidgetState
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text('Fout'),
+                                  title: const Text('Fout'),
                                   content: Text(
                                       'Er is iets fout gegaan bij het opslaan van jou gegevens! - ${(_model.apiResulte3q?.jsonBody ?? '').toString()}'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
+                                      child: const Text('Ok'),
                                     ),
                                   ],
                                 );

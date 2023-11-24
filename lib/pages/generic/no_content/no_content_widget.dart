@@ -1,19 +1,16 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'no_content_model.dart';
 export 'no_content_model.dart';
 
 class NoContentWidget extends StatefulWidget {
   const NoContentWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? description;
@@ -64,7 +61,7 @@ class _NoContentWidgetState extends State<NoContentWidget> {
           style: FlutterFlowTheme.of(context).labelMedium,
         ),
         Align(
-          alignment: AlignmentDirectional(0.00, 0.00),
+          alignment: const AlignmentDirectional(0.00, 0.00),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(

@@ -5,17 +5,15 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'favorite_bottom_sheet_model.dart';
 export 'favorite_bottom_sheet_model.dart';
 
 class FavoriteBottomSheetWidget extends StatefulWidget {
   const FavoriteBottomSheetWidget({
-    Key? key,
+    super.key,
     required this.favoriteAthleteId,
-  }) : super(key: key);
+  });
 
   final int? favoriteAthleteId;
 
@@ -55,14 +53,14 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
       height: 230.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primary,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             blurRadius: 5.0,
             color: Color(0x3B1D2429),
             offset: Offset(0.0, -3.0),
           )
         ],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(16.0),
@@ -70,34 +68,34 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  var _shouldSetState = false;
+                  var shouldSetState = false;
                   _model.apiResultoov = await ApiGroup.setActiveUserCall.call(
                     deviceIdentifier: FFAppState().deviceIdentifier,
                     swimrankingsIdentifier:
                         widget.favoriteAthleteId?.toString(),
                   );
-                  _shouldSetState = true;
+                  shouldSetState = true;
                   if ((_model.apiResultoov?.succeeded ?? true)) {
                     _model.userAuthOk =
                         await action_blocks.getUserAuth(context);
-                    _shouldSetState = true;
+                    shouldSetState = true;
                     if (_model.userAuthOk!) {
                       Navigator.pop(context);
 
                       context.pushNamed('Dashboard');
 
-                      if (_shouldSetState) setState(() {});
+                      if (shouldSetState) setState(() {});
                       return;
                     } else {
-                      if (_shouldSetState) setState(() {});
+                      if (shouldSetState) setState(() {});
                       return;
                     }
                   } else {
@@ -106,39 +104,39 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                       context: context,
                       builder: (alertDialogContext) {
                         return AlertDialog(
-                          title: Text('ERROR'),
-                          content: Text(
+                          title: const Text('ERROR'),
+                          content: const Text(
                               'Er is iets fout gegaan aan de kant van de server! Probeer het later opnieuw!'),
                           actions: [
                             TextButton(
                               onPressed: () =>
                                   Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
+                              child: const Text('Ok'),
                             ),
                           ],
                         );
                       },
                     );
-                    if (_shouldSetState) setState(() {});
+                    if (shouldSetState) setState(() {});
                     return;
                   }
 
-                  if (_shouldSetState) setState(() {});
+                  if (shouldSetState) setState(() {});
                 },
                 text: 'Gebruiken',
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 45.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).buttonsnew,
                   textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
                         fontFamily: 'Poppins',
                         color: FlutterFlowTheme.of(context).text3,
                       ),
                   elevation: 2.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 1.0,
                   ),
@@ -146,7 +144,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   _model.apiResulthws =
@@ -167,13 +165,13 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 45.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).buttonCancel,
                   textStyle: FlutterFlowTheme.of(context).bodyLarge,
                   elevation: 2.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 1.0,
                   ),
@@ -181,7 +179,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   Navigator.pop(context);
@@ -190,9 +188,9 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 45.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Lexend Deca',
@@ -201,7 +199,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                         fontWeight: FontWeight.normal,
                       ),
                   elevation: 0.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 0.0,
                   ),

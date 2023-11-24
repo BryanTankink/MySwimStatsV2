@@ -2,18 +2,15 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_personal_record_line_model.dart';
 export 'dashboard_personal_record_line_model.dart';
 
 class DashboardPersonalRecordLineWidget extends StatefulWidget {
   const DashboardPersonalRecordLineWidget({
-    Key? key,
+    super.key,
     required this.stroke,
-  }) : super(key: key);
+  });
 
   final dynamic stroke;
 
@@ -88,7 +85,7 @@ class _DashboardPersonalRecordLineWidgetState
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 50.0,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +93,7 @@ class _DashboardPersonalRecordLineWidgetState
             Expanded(
               flex: 2,
               child: Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.00, 0.00),
                 child: Text(
                   valueOrDefault<String>(
                     getJsonField(
@@ -116,7 +113,7 @@ class _DashboardPersonalRecordLineWidgetState
             Expanded(
               flex: 1,
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: const AlignmentDirectional(0.00, 0.00),
                 child: Text(
                   valueOrDefault<String>(
                     getJsonField(
@@ -136,7 +133,7 @@ class _DashboardPersonalRecordLineWidgetState
             Expanded(
               flex: 1,
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: const AlignmentDirectional(0.00, 0.00),
                 child: Text(
                   valueOrDefault<String>(
                     getJsonField(
@@ -156,7 +153,7 @@ class _DashboardPersonalRecordLineWidgetState
             Expanded(
               flex: 1,
               child: Align(
-                alignment: AlignmentDirectional(1.00, 0.00),
+                alignment: const AlignmentDirectional(1.00, 0.00),
                 child: Text(
                   valueOrDefault<String>(
                     getJsonField(
@@ -174,7 +171,7 @@ class _DashboardPersonalRecordLineWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
               child: Icon(
                 Icons.play_arrow,
                 color: FlutterFlowTheme.of(context).secondaryText,

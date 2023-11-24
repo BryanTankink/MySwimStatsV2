@@ -1,21 +1,17 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'swimrankings_list_item_model.dart';
 export 'swimrankings_list_item_model.dart';
 
 class SwimrankingsListItemWidget extends StatefulWidget {
   const SwimrankingsListItemWidget({
-    Key? key,
+    super.key,
     String? name,
     String? date,
-  })  : this.name = name ?? 'Onbekend',
-        this.date = date ?? 'Onbekend',
-        super(key: key);
+  })  : name = name ?? 'Onbekend',
+        date = date ?? 'Onbekend';
 
   final String name;
   final String date;
@@ -53,13 +49,13 @@ class _SwimrankingsListItemWidgetState
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 75.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondary,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 4.0,
               color: Color(0x33FFFFFF),
@@ -68,14 +64,14 @@ class _SwimrankingsListItemWidgetState
           ],
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +79,7 @@ class _SwimrankingsListItemWidgetState
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                         child: Text(
                           valueOrDefault<String>(
                             widget.name,

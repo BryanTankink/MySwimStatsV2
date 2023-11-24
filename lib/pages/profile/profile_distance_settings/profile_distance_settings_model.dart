@@ -1,16 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/custom_slider/custom_slider_widget.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
-import '/actions/actions.dart' as action_blocks;
 import 'profile_distance_settings_widget.dart'
     show ProfileDistanceSettingsWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ProfileDistanceSettingsModel
     extends FlutterFlowModel<ProfileDistanceSettingsWidget> {
@@ -37,6 +31,7 @@ class ProfileDistanceSettingsModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     meter50Model = createModel(context, () => CustomSliderModel());
     meter100Model = createModel(context, () => CustomSliderModel());
@@ -46,6 +41,7 @@ class ProfileDistanceSettingsModel
     operationButtonModel = createModel(context, () => OperationButtonModel());
   }
 
+  @override
   void dispose() {
     meter50Model.dispose();
     meter100Model.dispose();

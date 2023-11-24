@@ -12,33 +12,46 @@ import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 
 double calculatePercentage(
-  int currentscore,
-  int maxscore,
+  int? currentscore,
+  int? maxscore,
 ) {
+  if (currentscore == null || maxscore == null) return 100;
   return currentscore / maxscore;
 }
 
-String placementFunction(int placement) {
-  if (placement == 0) {
-    return "-";
-  }
+String placementFunction(int? placement) {
+  if (placement == null || placement == 0) return "-";
   return placement.toString();
 }
 
-bool hasValidPlacement(int placement) {
+bool hasValidPlacement(int? placement) {
+  if (placement == null) return false;
   return placement > 0;
 }
 
 int addValues(
-  int base,
-  int offset,
+  int? base,
+  int? offset,
 ) {
-  int newPlace = base + offset;
+  if (offset == null && base != null) {
+    return base;
+  }
+
+  if (base == null && offset != null) {
+    return offset;
+  }
+
+  if (offset == null && base == null) {
+    return 0;
+  }
+
+  int newPlace = base! + offset!;
   if (newPlace < 1) newPlace = 1;
   return newPlace;
 }
 
-String convertCourseTypeToString(int coursetype) {
+String convertCourseTypeToString(int? coursetype) {
+  if (coursetype == null) return "(FOUT)";
   switch (coursetype) {
     case 0:
       return "(KB)";
@@ -49,18 +62,22 @@ String convertCourseTypeToString(int coursetype) {
   return "";
 }
 
-bool? isGoodPercentage(String percentage) {
-  double percentageDouble = double.parse(percentage);
+bool? isGoodPercentage(String? percentage) {
+  if (percentage == null) return false;
+  double? percentageDouble = double.tryParse(percentage);
+  if (percentageDouble == null) return false;
   return percentageDouble >= 100.0;
 }
 
-int getJsonListCount(List<dynamic> input) {
+int getJsonListCount(List<dynamic>? input) {
+  if (input == null) return 0;
   return input.length;
 }
 
 bool greaterThan(
-  int valueA,
-  int valueB,
+  int? valueA,
+  int? valueB,
 ) {
+  if (valueA == null || valueB == null) return false;
   return valueA > valueB;
 }

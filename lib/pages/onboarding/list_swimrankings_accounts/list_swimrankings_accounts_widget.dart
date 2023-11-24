@@ -2,25 +2,21 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'list_swimrankings_accounts_model.dart';
 export 'list_swimrankings_accounts_model.dart';
 
 class ListSwimrankingsAccountsWidget extends StatefulWidget {
   const ListSwimrankingsAccountsWidget({
-    Key? key,
+    super.key,
     required this.accounts,
     bool? isFavorite,
     required this.enteredName,
-  })  : this.isFavorite = isFavorite ?? false,
-        super(key: key);
+  })  : isFavorite = isFavorite ?? false;
 
   final List<dynamic>? accounts;
   final bool isFavorite;
@@ -78,7 +74,7 @@ class _ListSwimrankingsAccountsWidgetState
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -95,7 +91,7 @@ class _ListSwimrankingsAccountsWidgetState
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -115,22 +111,22 @@ class _ListSwimrankingsAccountsWidgetState
               gradient: LinearGradient(
                 colors: [
                   FlutterFlowTheme.of(context).primary,
-                  Color(0xDA000000),
-                  Color(0xF1000000)
+                  const Color(0xDA000000),
+                  const Color(0xF1000000)
                 ],
-                stops: [0.0, 0.25, 1.0],
-                begin: AlignmentDirectional(0.0, -1.0),
-                end: AlignmentDirectional(0, 1.0),
+                stops: const [0.0, 0.25, 1.0],
+                begin: const AlignmentDirectional(0.0, -1.0),
+                end: const AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 32.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 32.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 3.0,
@@ -145,7 +141,7 @@ class _ListSwimrankingsAccountsWidgetState
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 12.0),
                             child: Text(
                               'Meerdere personen gevonden, kies de juiste persoon om door te gaan',
@@ -160,7 +156,7 @@ class _ListSwimrankingsAccountsWidgetState
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
                       child: Builder(
                         builder: (context) {
                           final account =
@@ -177,7 +173,7 @@ class _ListSwimrankingsAccountsWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  var _shouldSetState = false;
+                                  var shouldSetState = false;
 
                                   context.pushNamed('SwimRankingsLoading');
 
@@ -196,34 +192,34 @@ class _ListSwimrankingsAccountsWidgetState
                                         r'''$.fullname''',
                                       ).toString(),
                                     );
-                                    _shouldSetState = true;
+                                    shouldSetState = true;
                                     if ((_model.apiResultbp8?.succeeded ??
                                         true)) {
                                       _model.userIsAuth2 = await action_blocks
                                           .getUserAuth(context);
-                                      _shouldSetState = true;
+                                      shouldSetState = true;
                                       if (!_model.userIsAuth2!) {
                                         HapticFeedback.heavyImpact();
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
                                             return AlertDialog(
-                                              title: Text('Niet gelukt'),
-                                              content: Text(
+                                              title: const Text('Niet gelukt'),
+                                              content: const Text(
                                                   'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
                                               actions: [
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.pop(
                                                           alertDialogContext),
-                                                  child: Text('Ok'),
+                                                  child: const Text('Ok'),
                                                 ),
                                               ],
                                             );
                                           },
                                         );
                                         context.safePop();
-                                        if (_shouldSetState) setState(() {});
+                                        if (shouldSetState) setState(() {});
                                         return;
                                       }
                                     } else {
@@ -232,21 +228,21 @@ class _ListSwimrankingsAccountsWidgetState
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: Text('Niet gelukt'),
-                                            content: Text(
+                                            title: const Text('Niet gelukt'),
+                                            content: const Text(
                                                 'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext),
-                                                child: Text('Ok'),
+                                                child: const Text('Ok'),
                                               ),
                                             ],
                                           );
                                         },
                                       );
                                       context.safePop();
-                                      if (_shouldSetState) setState(() {});
+                                      if (shouldSetState) setState(() {});
                                       return;
                                     }
                                   } else {
@@ -266,35 +262,35 @@ class _ListSwimrankingsAccountsWidgetState
                                     );
                                     _model.userIsAuth = await action_blocks
                                         .getUserAuth(context);
-                                    _shouldSetState = true;
+                                    shouldSetState = true;
                                     if (!_model.userIsAuth!) {
                                       HapticFeedback.heavyImpact();
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: Text('Niet gelukt'),
-                                            content: Text(
+                                            title: const Text('Niet gelukt'),
+                                            content: const Text(
                                                 'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext),
-                                                child: Text('Ok'),
+                                                child: const Text('Ok'),
                                               ),
                                             ],
                                           );
                                         },
                                       );
                                       context.safePop();
-                                      if (_shouldSetState) setState(() {});
+                                      if (shouldSetState) setState(() {});
                                       return;
                                     }
                                   }
 
                                   context.goNamed('Dashboard');
 
-                                  if (_shouldSetState) setState(() {});
+                                  if (shouldSetState) setState(() {});
                                 },
                                 child: SwimrankingsListItemWidget(
                                   key: Key(

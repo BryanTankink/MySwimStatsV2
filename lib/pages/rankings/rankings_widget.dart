@@ -2,27 +2,25 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'rankings_model.dart';
 export 'rankings_model.dart';
 
 class RankingsWidget extends StatefulWidget {
   const RankingsWidget({
-    Key? key,
+    super.key,
     required this.rankingId,
     required this.fromRank,
     required this.toRank,
     required this.title,
     this.myRank,
     required this.myTime,
-  }) : super(key: key);
+  });
 
   final int? rankingId;
   final int? fromRank;
@@ -81,7 +79,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -98,7 +96,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -118,12 +116,12 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xDA000000),
-                    Color(0xF1000000)
+                    const Color(0xDA000000),
+                    const Color(0xF1000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: FutureBuilder<ApiCallResponse>(
@@ -154,14 +152,14 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, -1.00),
+                          alignment: const AlignmentDirectional(0.00, -1.00),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 16.0),
                             child: Text(
                               valueOrDefault<String>(
@@ -178,7 +176,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, -1.00),
+                          alignment: const AlignmentDirectional(0.00, -1.00),
                           child: Text(
                             'Jou rang',
                             style: FlutterFlowTheme.of(context)
@@ -190,23 +188,23 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 4.0),
                           child: Container(
                             width: double.infinity,
                             height: 50.0,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Stack(
                               children: [
                                 Container(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Color(0x40BE9E44),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 8.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -214,7 +212,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Container(
                                           width: 35.0,
@@ -225,7 +223,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 0.00, 0.00),
                                             child: AutoSizeText(
                                               valueOrDefault<String>(
@@ -251,10 +249,10 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-1.00, 0.00),
+                                            const AlignmentDirectional(-1.00, 0.00),
                                         child: Container(
                                           width: 185.0,
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -284,10 +282,10 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                       Container(
                                         width: 75.0,
                                         height: 100.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              const AlignmentDirectional(0.00, 0.00),
                                           child: Text(
                                             widget.myTime!,
                                             style: FlutterFlowTheme.of(context)
@@ -304,7 +302,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                       Container(
                                         width: 25.0,
                                         height: 100.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                       ),
                                     ],
                                   ),
@@ -333,7 +331,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                 itemBuilder: (context, rankingIndex) {
                                   final rankingItem = ranking[rankingIndex];
                                   return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 4.0, 0.0, 4.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -341,7 +339,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        var _shouldSetState = false;
+                                        var shouldSetState = false;
                                         _model.apiResult5z2 = await ApiGroup
                                             .setActiveUserCall
                                             .call(
@@ -352,7 +350,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                             r'''$.athleteId''',
                                           ).toString(),
                                         );
-                                        _shouldSetState = true;
+                                        shouldSetState = true;
                                         if ((_model.apiResult5z2?.succeeded ??
                                             true)) {
                                           await action_blocks
@@ -364,30 +362,30 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
-                                                title: Text('Error'),
-                                                content: Text(
+                                                title: const Text('Error'),
+                                                content: const Text(
                                                     'Kon momenteel de gekozen zwemmer niet inzien! probeer het later opnieuw!'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () =>
                                                         Navigator.pop(
                                                             alertDialogContext),
-                                                    child: Text('Ok'),
+                                                    child: const Text('Ok'),
                                                   ),
                                                 ],
                                               );
                                             },
                                           );
-                                          if (_shouldSetState) setState(() {});
+                                          if (shouldSetState) setState(() {});
                                           return;
                                         }
 
-                                        if (_shouldSetState) setState(() {});
+                                        if (shouldSetState) setState(() {});
                                       },
                                       child: Container(
                                         width: 100.0,
                                         height: 50.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Stack(
                                           children: [
                                             if (getJsonField(
@@ -401,12 +399,12 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                               Container(
                                                 width: double.infinity,
                                                 height: double.infinity,
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Color(0x40BE9E44),
                                                 ),
                                               ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 8.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -416,7 +414,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 8.0, 0.0),
                                                     child: Container(
@@ -431,7 +429,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.00, 0.00),
                                                         child: AutoSizeText(
                                                           getJsonField(
@@ -462,12 +460,12 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             -1.00, 0.00),
                                                     child: Container(
                                                       width: 185.0,
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -496,7 +494,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                           ),
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     -1.00,
                                                                     0.00),
                                                             child: Text(
@@ -523,10 +521,10 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                   Container(
                                                     width: 75.0,
                                                     height: 100.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.00, 0.00),
                                                       child: Text(
                                                         getJsonField(
@@ -550,7 +548,7 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                   Container(
                                                     width: 25.0,
                                                     height: 100.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Icon(
                                                       Icons.chevron_right,
                                                       color:

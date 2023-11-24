@@ -1,19 +1,16 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'operation_button_model.dart';
 export 'operation_button_model.dart';
 
 class OperationButtonWidget extends StatefulWidget {
   const OperationButtonWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.onClick,
-  }) : super(key: key);
+  });
 
   final String? text;
   final Future<dynamic> Function()? onClick;
@@ -49,7 +46,7 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.00, 0.00),
+      alignment: const AlignmentDirectional(0.00, 0.00),
       child: InkWell(
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
@@ -72,7 +69,7 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
             borderRadius: BorderRadius.circular(14.0),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
             child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -87,7 +84,7 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
                 children: [
                   if (!_model.isLoading)
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.00, 0.00),
                       child: Text(
                         widget.text!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(

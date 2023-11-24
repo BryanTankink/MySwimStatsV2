@@ -1,21 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '/backend/schema/structs/index.dart';
-import '/backend/schema/enums/enums.dart';
 
 import '/index.dart';
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -43,7 +34,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => appStateNotifier.showSplashImage
           ? Builder(
               builder: (context) => Container(
-                color: Color(0xF1000000),
+                color: const Color(0xF1000000),
                 child: Center(
                   child: Image.asset(
                     'assets/images/logo_square_600x600.png',
@@ -53,7 +44,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
               ),
             )
-          : InitialLoadingWidget(),
+          : const InitialLoadingWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -61,7 +52,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: Color(0xF1000000),
+                    color: const Color(0xF1000000),
                     child: Center(
                       child: Image.asset(
                         'assets/images/logo_square_600x600.png',
@@ -71,12 +62,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
                   ),
                 )
-              : InitialLoadingWidget(),
+              : const InitialLoadingWidget(),
         ),
         FFRoute(
           name: 'Onboarding',
           path: '/onboarding',
-          builder: (context, params) => OnboardingWidget(),
+          builder: (context, params) => const OnboardingWidget(),
         ),
         FFRoute(
           name: 'LinkSwimrankings',
@@ -89,19 +80,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'SwimRankingsLoading',
           path: '/swimRankingsLoading',
-          builder: (context, params) => SwimRankingsLoadingWidget(),
+          builder: (context, params) => const SwimRankingsLoadingWidget(),
         ),
         FFRoute(
           name: 'InitialLoading',
           path: '/initialLoading',
-          builder: (context, params) => InitialLoadingWidget(),
+          builder: (context, params) => const InitialLoadingWidget(),
         ),
         FFRoute(
           name: 'Dashboard',
           path: '/dashboard',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Dashboard')
-              : DashboardWidget(),
+              ? const NavBarPage(initialPage: 'Dashboard')
+              : const DashboardWidget(),
         ),
         FFRoute(
           name: 'ListSwimrankingsAccounts',
@@ -137,13 +128,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'advice',
           path: '/advice',
-          builder: (context, params) => AdviceWidget(),
+          builder: (context, params) => const AdviceWidget(),
         ),
         FFRoute(
           name: 'profile',
           path: '/profile',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'profile')
+              ? const NavBarPage(initialPage: 'profile')
               : ProfileWidget(
                   distanceValueChanged:
                       params.getParam('distanceValueChanged', ParamType.bool),
@@ -153,8 +144,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'contests',
           path: '/contests',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'contests')
-              : ContestsWidget(),
+              ? const NavBarPage(initialPage: 'contests')
+              : const ContestsWidget(),
         ),
         FFRoute(
           name: 'contestDetail',
@@ -170,6 +161,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/adviceDetails',
           builder: (context, params) => AdviceDetailsWidget(
             advice: params.getParam('advice', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'contestClubDetails',
+          path: '/contestClubDetails',
+          builder: (context, params) => ContestClubDetailsWidget(
+            contestData: params.getParam('contestData', ParamType.JSON),
+            raceName: params.getParam('raceName', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'genericLoader',
+          path: '/genericLoader',
+          builder: (context, params) => GenericLoaderWidget(
+            loadingMessage: params.getParam('loadingMessage', ParamType.String),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -326,7 +332,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

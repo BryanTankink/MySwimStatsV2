@@ -129,14 +129,14 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
 
-  late Color buttonYes = Color(0xFF4B39EF);
-  late Color buttonCancel = Color(0xFF834849);
-  late Color text = Color(0xFFBE9E44);
-  late Color text2 = Color(0xFF8B97A2);
-  late Color text3 = Color(0xFFFFFFFF);
-  late Color buttonsnew = Color(0xCD0F4E4A);
-  late Color performanceGood = Color(0xFFBCFFB7);
-  late Color performanceBad = Color(0xFFFF8F95);
+  late Color buttonYes = const Color(0xFF4B39EF);
+  late Color buttonCancel = const Color(0xFF834849);
+  late Color text = const Color(0xFFBE9E44);
+  late Color text2 = const Color(0xFF8B97A2);
+  late Color text3 = const Color(0xFFFFFFFF);
+  late Color buttonsnew = const Color(0xCD0F4E4A);
+  late Color performanceGood = const Color(0xFFBCFFB7);
+  late Color performanceBad = const Color(0xFFFF8F95);
 }
 
 abstract class Typography {

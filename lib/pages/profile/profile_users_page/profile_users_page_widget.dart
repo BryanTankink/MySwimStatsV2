@@ -7,15 +7,12 @@ import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_users_page_model.dart';
 export 'profile_users_page_model.dart';
 
 class ProfileUsersPageWidget extends StatefulWidget {
-  const ProfileUsersPageWidget({Key? key}) : super(key: key);
+  const ProfileUsersPageWidget({super.key});
 
   @override
   _ProfileUsersPageWidgetState createState() => _ProfileUsersPageWidgetState();
@@ -48,13 +45,13 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           if (!FFAppState().premium)
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: wrapWithModel(
                 model: _model.operationButtonModel,
                 updateCallback: () => setState(() {}),
@@ -75,9 +72,9 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
               ),
             ),
           Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: const AlignmentDirectional(-1.00, 0.00),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: Text(
                 'Momenteel zien wij de data van',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -91,9 +88,9 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.00, 0.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Text(
                     getJsonField(
                       FFAppState().user,
@@ -108,9 +105,9 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.00, 0.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Text(
                     ' (${getJsonField(
                       FFAppState().user,
@@ -127,9 +124,9 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             ],
           ),
           Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: const AlignmentDirectional(-1.00, 0.00),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
               child: Text(
                 'Account verbonden met',
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -185,9 +182,9 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.00, 0.00),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Text(
                     'Favoriete zwemmers',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -209,7 +206,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                           FFAppState().user,
                           r'''$.favorites''',
                           true,
-                        )!),
+                        )),
                         3,
                       ),
                       3) ||
@@ -237,13 +234,13 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                   child: Container(
                     width: double.infinity,
                     height: 50.0,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 0.0),
                           child: Icon(
                             Icons.add,
@@ -252,7 +249,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'Nieuwe favoriet toevoegen',
@@ -272,7 +269,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                 return Container(
                   width: double.infinity,
                   height: 1.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                 );
               }
             },

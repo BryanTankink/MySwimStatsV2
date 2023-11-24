@@ -1,9 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -11,13 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'contests_model.dart';
 export 'contests_model.dart';
 
 class ContestsWidget extends StatefulWidget {
-  const ContestsWidget({Key? key}) : super(key: key);
+  const ContestsWidget({super.key});
 
   @override
   _ContestsWidgetState createState() => _ContestsWidgetState();
@@ -73,7 +70,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
           child: wrapWithModel(
             model: _model.appDrawerModel,
             updateCallback: () => setState(() {}),
-            child: AppDrawerWidget(),
+            child: const AppDrawerWidget(),
           ),
         ),
         appBar: AppBar(
@@ -88,7 +85,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -112,12 +109,12 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xD9000000),
-                    Color(0xF2000000)
+                    const Color(0xD9000000),
+                    const Color(0xF2000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Column(
@@ -125,7 +122,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           15.0, 15.0, 15.0, 15.0),
                       child: FutureBuilder<ApiCallResponse>(
                         future: FFAppState().raceList(
@@ -198,7 +195,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                     },
                                     child: Container(
                                       width: double.infinity,
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -208,10 +205,10 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                               Expanded(
                                                 child: Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.00, 0.00),
                                                   child: Container(
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -260,7 +257,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           4.0,
                                                                           0.0,

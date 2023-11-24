@@ -4,26 +4,30 @@ import '/pages/loaders/loader_component/loader_component_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'swim_rankings_loading_model.dart';
-export 'swim_rankings_loading_model.dart';
+import 'generic_loader_model.dart';
+export 'generic_loader_model.dart';
 
-class SwimRankingsLoadingWidget extends StatefulWidget {
-  const SwimRankingsLoadingWidget({super.key});
+class GenericLoaderWidget extends StatefulWidget {
+  const GenericLoaderWidget({
+    super.key,
+    String? loadingMessage,
+  })  : loadingMessage = loadingMessage ?? 'Bezig met laden...';
+
+  final String loadingMessage;
 
   @override
-  _SwimRankingsLoadingWidgetState createState() =>
-      _SwimRankingsLoadingWidgetState();
+  _GenericLoaderWidgetState createState() => _GenericLoaderWidgetState();
 }
 
-class _SwimRankingsLoadingWidgetState extends State<SwimRankingsLoadingWidget> {
-  late SwimRankingsLoadingModel _model;
+class _GenericLoaderWidgetState extends State<GenericLoaderWidget> {
+  late GenericLoaderModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SwimRankingsLoadingModel());
+    _model = createModel(context, () => GenericLoaderModel());
   }
 
   @override
@@ -56,9 +60,8 @@ class _SwimRankingsLoadingWidgetState extends State<SwimRankingsLoadingWidget> {
         body: wrapWithModel(
           model: _model.loaderComponentModel,
           updateCallback: () => setState(() {}),
-          child: const LoaderComponentWidget(
-            message:
-                'Wij zijn jou aan het valideren bij Swimrankings.\n\nEven geduld A.U.B.',
+          child: LoaderComponentWidget(
+            message: widget.loadingMessage,
           ),
         ),
       ),

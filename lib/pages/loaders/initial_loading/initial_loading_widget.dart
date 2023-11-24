@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -8,14 +7,12 @@ import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'initial_loading_model.dart';
 export 'initial_loading_model.dart';
 
 class InitialLoadingWidget extends StatefulWidget {
-  const InitialLoadingWidget({Key? key}) : super(key: key);
+  const InitialLoadingWidget({super.key});
 
   @override
   _InitialLoadingWidgetState createState() => _InitialLoadingWidgetState();
@@ -88,7 +85,7 @@ class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
         body: wrapWithModel(
           model: _model.loaderComponentModel,
           updateCallback: () => setState(() {}),
-          child: LoaderComponentWidget(
+          child: const LoaderComponentWidget(
             message: 'Bezig met laden...',
           ),
         ),

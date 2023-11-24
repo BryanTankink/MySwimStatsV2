@@ -2,24 +2,23 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/contests/contest_swim_line/contest_swim_line_widget.dart';
+import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'contest_detail_model.dart';
 export 'contest_detail_model.dart';
 
 class ContestDetailWidget extends StatefulWidget {
   const ContestDetailWidget({
-    Key? key,
+    super.key,
     required this.raceName,
     required this.clubId,
     required this.contestId,
-  }) : super(key: key);
+  });
 
   final String? raceName;
   final String? clubId;
@@ -75,7 +74,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -92,7 +91,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -116,16 +115,16 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xD9000000),
-                    Color(0xF2000000)
+                    const Color(0xD9000000),
+                    const Color(0xF2000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
                 child: FutureBuilder<ApiCallResponse>(
                   future: ApiGroup.getContestCall.call(
                     swimrankingsIdentifier: FFAppState().activeUserId,
@@ -152,7 +151,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Text(
                             widget.raceName!,
                             textAlign: TextAlign.center,
@@ -165,15 +164,16 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: Text(
                             'Mijn gemiddelde performance',
+                            textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).titleMedium,
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Text(
                             valueOrDefault<String>(
                               '${ApiGroup.getContestCall.myPerformance(
@@ -201,12 +201,12 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             height: 25.0,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,7 +215,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                   flex: 2,
                                   child: Align(
                                     alignment:
-                                        AlignmentDirectional(-1.00, 0.00),
+                                        const AlignmentDirectional(-1.00, 0.00),
                                     child: Text(
                                       'Afstand',
                                       textAlign: TextAlign.center,
@@ -233,7 +233,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.00, 0.00),
                                     child: Text(
                                       '%',
                                       textAlign: TextAlign.center,
@@ -251,7 +251,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.00, 0.00),
                                     child: Text(
                                       'Tijd',
                                       textAlign: TextAlign.center,
@@ -269,7 +269,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: AlignmentDirectional(1.00, 0.00),
+                                    alignment: const AlignmentDirectional(1.00, 0.00),
                                     child: Text(
                                       'Punten',
                                       textAlign: TextAlign.center,
@@ -289,7 +289,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Builder(
                             builder: (context) {
                               final race = getJsonField(
@@ -313,15 +313,16 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: Text(
                             'Gemiddelde performance club',
+                            textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).titleMedium,
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.00, 0.00),
                           child: Text(
                             valueOrDefault<String>(
                               '${ApiGroup.getContestCall.clubPerformance(
@@ -348,6 +349,46 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 ),
                           ),
                         ),
+                        if (FFAppState().premium)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 32.0, 0.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'contestClubDetails',
+                                  queryParameters: {
+                                    'contestData': serializeParam(
+                                      getJsonField(
+                                        listViewGetContestResponse.jsonBody,
+                                        r'''$.data''',
+                                      ),
+                                      ParamType.JSON,
+                                    ),
+                                    'raceName': serializeParam(
+                                      widget.raceName,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: wrapWithModel(
+                                model: _model.swimrankingsListItemModel,
+                                updateCallback: () => setState(() {}),
+                                child: SwimrankingsListItemWidget(
+                                  name: 'Bekijk resultaten van clubgenoten',
+                                  date:
+                                      '${functions.addValues(ApiGroup.getContestCall.clubSwimmers(
+                                            listViewGetContestResponse.jsonBody,
+                                          ).length, 1).toString()} zwemmers',
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     );
                   },

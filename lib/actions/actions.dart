@@ -1,8 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/api_requests/api_manager.dart';
-import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
@@ -16,28 +12,28 @@ Future<bool> getUserAuth(BuildContext context) async {
   apiResultv4f = await GetUserByDeviceIdentifierCall.call(
     deviceidentifier: FFAppState().deviceIdentifier,
   );
-  if ((apiResultv4f?.succeeded ?? true)) {
+  if ((apiResultv4f.succeeded ?? true)) {
     if (getJsonField(
-      (apiResultv4f?.jsonBody ?? ''),
+      (apiResultv4f.jsonBody ?? ''),
       r'''$.data.exists''',
     )) {
       isPremiumOtp = await action_blocks.isPremium(context);
-      if (isPremiumOtp!) {
+      if (isPremiumOtp) {
         apiResult6ha = await ApiGroup.getRecomendationsCountCall.call(
           deviceIdentifier: FFAppState().deviceIdentifier,
         );
-        if ((apiResult6ha?.succeeded ?? true)) {
+        if ((apiResult6ha.succeeded ?? true)) {
           FFAppState().recommendationsCount =
               ApiGroup.getRecomendationsCountCall.unreadAmount(
-            (apiResult6ha?.jsonBody ?? ''),
+            (apiResult6ha.jsonBody ?? ''),
           );
         }
       }
       FFAppState().activeUserId = getJsonField(
-        (apiResultv4f?.jsonBody ?? ''),
+        (apiResultv4f.jsonBody ?? ''),
         r'''$.data.active.athleteId''',
       ).toString().toString();
-      FFAppState().premium = isPremiumOtp!;
+      FFAppState().premium = isPremiumOtp;
       FFAppState().update(() {
         FFAppState().user = getJsonField(
           (apiResultv4f?.jsonBody ?? ''),
@@ -49,7 +45,7 @@ Future<bool> getUserAuth(BuildContext context) async {
       context.goNamed(
         'Onboarding',
         extra: <String, dynamic>{
-          kTransitionInfoKey: TransitionInfo(
+          kTransitionInfoKey: const TransitionInfo(
             hasTransition: true,
             transitionType: PageTransitionType.fade,
             duration: Duration(milliseconds: 0),
@@ -63,7 +59,7 @@ Future<bool> getUserAuth(BuildContext context) async {
     context.goNamed(
       'Onboarding',
       extra: <String, dynamic>{
-        kTransitionInfoKey: TransitionInfo(
+        kTransitionInfoKey: const TransitionInfo(
           hasTransition: true,
           transitionType: PageTransitionType.fade,
           duration: Duration(milliseconds: 0),

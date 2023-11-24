@@ -2,18 +2,16 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'advice_model.dart';
 export 'advice_model.dart';
 
 class AdviceWidget extends StatefulWidget {
-  const AdviceWidget({Key? key}) : super(key: key);
+  const AdviceWidget({super.key});
 
   @override
   _AdviceWidgetState createState() => _AdviceWidgetState();
@@ -65,7 +63,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -82,7 +80,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -102,16 +100,16 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xDA000000),
-                    Color(0xF2000000)
+                    const Color(0xDA000000),
+                    const Color(0xF2000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -168,9 +166,9 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                       );
                                     },
                                     child: Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 14.0, 0.0, 14.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -180,10 +178,10 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.00, 0.00),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 16.0, 0.0),
                                                 child: Container(
@@ -197,7 +195,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                   ),
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.00, 0.00),
                                                     child: Text(
                                                       functions
@@ -244,14 +242,14 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           4.0, 0.0, 0.0, 0.0),
                                                   child: Text(
-                                                    '${functions.convertCourseTypeToString(getJsonField(
+                                                    functions.convertCourseTypeToString(getJsonField(
                                                       performanceItem,
                                                       r'''$.toSwim.courseType''',
-                                                    ))}',
+                                                    )),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -277,11 +275,11 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                   ))
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.00, 0.00),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -304,7 +302,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                     ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             1.00, 0.00),
                                                     child: Icon(
                                                       Icons.play_arrow,

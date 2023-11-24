@@ -2,15 +2,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_default_component_model.dart';
 export 'profile_default_component_model.dart';
 
 class ProfileDefaultComponentWidget extends StatefulWidget {
-  const ProfileDefaultComponentWidget({Key? key}) : super(key: key);
+  const ProfileDefaultComponentWidget({super.key});
 
   @override
   _ProfileDefaultComponentWidgetState createState() =>
@@ -63,18 +60,18 @@ class _ProfileDefaultComponentWidgetState
           gradient: LinearGradient(
             colors: [
               FlutterFlowTheme.of(context).primary,
-              Color(0xD9000000),
-              Color(0xF3000000)
+              const Color(0xD9000000),
+              const Color(0xF3000000)
             ],
-            stops: [0.0, 0.25, 1.0],
-            begin: AlignmentDirectional(0.0, -1.0),
-            end: AlignmentDirectional(0, 1.0),
+            stops: const [0.0, 0.25, 1.0],
+            begin: const AlignmentDirectional(0.0, -1.0),
+            end: const AlignmentDirectional(0, 1.0),
           ),
         ),
         child: wrapWithModel(
           model: _model.profileUsersPageModel,
           updateCallback: () => setState(() {}),
-          child: ProfileUsersPageWidget(),
+          child: const ProfileUsersPageWidget(),
         ),
       ),
     );

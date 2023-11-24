@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -39,6 +38,7 @@ class ApiGroup {
       GetRecomendationsCountCall();
   static MarkRecomendationAsReadCall markRecomendationAsReadCall =
       MarkRecomendationAsReadCall();
+  static SwimTimeToClubIdCall swimTimeToClubIdCall = SwimTimeToClubIdCall();
 }
 
 class DashboardCall {
@@ -626,6 +626,43 @@ class MarkRecomendationAsReadCall {
       cache: false,
     );
   }
+}
+
+class SwimTimeToClubIdCall {
+  Future<ApiCallResponse> call({
+    String? swimrankingsIdentifier = '',
+    String? contestId = '',
+    String? genderId = '',
+    String? styleId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'swimTimeToClubId',
+      apiUrl: '${ApiGroup.baseUrl}Contest/GetClubId',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'swimrankingsIdentifier': swimrankingsIdentifier,
+        'contestId': contestId,
+        'genderId': genderId,
+        'styleId': styleId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic clubId(dynamic response) => getJsonField(
+        response,
+        r'''$.data.clubId''',
+      );
+  dynamic raceName(dynamic response) => getJsonField(
+        response,
+        r'''$.data.raceName''',
+      );
 }
 
 /// End API Group Code

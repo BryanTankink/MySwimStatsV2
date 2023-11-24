@@ -2,18 +2,15 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/dashboard/dashboard_personal_record_line/dashboard_personal_record_line_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_tab_page_model.dart';
 export 'dashboard_tab_page_model.dart';
 
 class DashboardTabPageWidget extends StatefulWidget {
   const DashboardTabPageWidget({
-    Key? key,
+    super.key,
     required this.strokes,
-  }) : super(key: key);
+  });
 
   final List<dynamic>? strokes;
 
@@ -51,11 +48,11 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: 25.0,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +60,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                 Expanded(
                   flex: 2,
                   child: Align(
-                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    alignment: const AlignmentDirectional(-1.00, 0.00),
                     child: Text(
                       'Afstand',
                       textAlign: TextAlign.center,
@@ -78,7 +75,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                 Expanded(
                   flex: 1,
                   child: Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.00, 0.00),
                     child: Text(
                       'Baan',
                       textAlign: TextAlign.center,
@@ -93,7 +90,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                 Expanded(
                   flex: 1,
                   child: Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.00, 0.00),
                     child: Text(
                       'Tijd',
                       textAlign: TextAlign.center,
@@ -108,7 +105,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                 Expanded(
                   flex: 1,
                   child: Align(
-                    alignment: AlignmentDirectional(1.00, 0.00),
+                    alignment: const AlignmentDirectional(1.00, 0.00),
                     child: Text(
                       'Punten',
                       textAlign: TextAlign.center,
@@ -123,7 +120,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                 Opacity(
                   opacity: 0.0,
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                     child: Icon(
                       Icons.play_arrow,
                       color: FlutterFlowTheme.of(context).secondaryText,
@@ -137,7 +134,7 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: Builder(
               builder: (context) {
                 final stroke = widget.strokes!.map((e) => e).toList();

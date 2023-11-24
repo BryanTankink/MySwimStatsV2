@@ -1,18 +1,15 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'base_header_model.dart';
 export 'base_header_model.dart';
 
 class BaseHeaderWidget extends StatefulWidget {
   const BaseHeaderWidget({
-    Key? key,
+    super.key,
     required this.drawerClick,
-  }) : super(key: key);
+  });
 
   final Future<dynamic> Function()? drawerClick;
 
@@ -53,7 +50,7 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Align(
-              alignment: AlignmentDirectional(0.00, 0.00),
+              alignment: const AlignmentDirectional(0.00, 0.00),
               child: Container(
                 width: 200.0,
                 height: 50.0,
@@ -71,7 +68,7 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
         ),
         if (FFAppState().premium)
           Align(
-            alignment: AlignmentDirectional(1.00, 0.00),
+            alignment: const AlignmentDirectional(1.00, 0.00),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -83,11 +80,11 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
               child: Container(
                 width: 50.0,
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.00, 0.00),
                       child: Icon(
                         Icons.circle_notifications,
                         color: FlutterFlowTheme.of(context).text3,
@@ -96,16 +93,16 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
                     ),
                     if (FFAppState().recommendationsCount > 0)
                       Align(
-                        alignment: AlignmentDirectional(1.00, -1.00),
+                        alignment: const AlignmentDirectional(1.00, -1.00),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 2.0, 2.0, 0.0),
                           child: Container(
                             width: 20.0,
                             height: 20.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context).text,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
@@ -115,7 +112,7 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
                               shape: BoxShape.circle,
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: const AlignmentDirectional(0.00, 0.00),
                               child: Text(
                                 FFAppState().recommendationsCount.toString(),
                                 textAlign: TextAlign.center,
@@ -148,7 +145,7 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
           child: Container(
             width: 50.0,
             height: 50.0,
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Icon(
               Icons.menu_open,
               color: FlutterFlowTheme.of(context).text3,

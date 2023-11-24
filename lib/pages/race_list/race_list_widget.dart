@@ -2,13 +2,11 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'race_list_model.dart';
@@ -16,11 +14,11 @@ export 'race_list_model.dart';
 
 class RaceListWidget extends StatefulWidget {
   const RaceListWidget({
-    Key? key,
+    super.key,
     required this.style,
     required this.course,
     required this.title,
-  }) : super(key: key);
+  });
 
   final int? style;
   final int? course;
@@ -83,7 +81,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
               size: 30.0,
@@ -100,7 +98,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 2.0,
         ),
@@ -120,12 +118,12 @@ class _RaceListWidgetState extends State<RaceListWidget>
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xD9000000),
-                    Color(0xF3000000)
+                    const Color(0xD9000000),
+                    const Color(0xF3000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: FutureBuilder<ApiCallResponse>(
@@ -154,14 +152,14 @@ class _RaceListWidgetState extends State<RaceListWidget>
                   return Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: MediaQuery.sizeOf(context).height * 1.0,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, -1.00),
+                          alignment: const AlignmentDirectional(0.00, -1.00),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 16.0),
                             child: Text(
                               widget.title!,
@@ -178,23 +176,23 @@ class _RaceListWidgetState extends State<RaceListWidget>
                           child: Column(
                             children: [
                               Align(
-                                alignment: Alignment(0.0, 0),
+                                alignment: const Alignment(0.0, 0),
                                 child: TabBar(
                                   labelColor: FlutterFlowTheme.of(context).text,
                                   unselectedLabelColor:
-                                      FlutterFlowTheme.of(context).text3,
+                                      FlutterFlowTheme.of(context).text2,
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
                                         fontFamily: 'Poppins',
                                         fontSize: 14.0,
                                       ),
-                                  unselectedLabelStyle: TextStyle(),
+                                  unselectedLabelStyle: const TextStyle(),
                                   indicatorColor:
                                       FlutterFlowTheme.of(context).primary,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       4.0, 4.0, 4.0, 4.0),
-                                  tabs: [
+                                  tabs: const [
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -244,14 +242,14 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     15.0, 15.0, 15.0, 0.0),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   1.0,
                                               height: 40.0,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -262,7 +260,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                     flex: 2,
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               -1.00, -1.00),
                                                       child: Text(
                                                         'Plaats',
@@ -282,11 +280,11 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.00, -1.00),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -312,7 +310,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             1.00, -1.00),
                                                     child: Text(
                                                       'Seizoen',
@@ -337,7 +335,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 0.0),
                                             child: Builder(
                                               builder: (context) {
@@ -361,7 +359,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                         ranking[rankingIndex];
                                                     return Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -375,7 +373,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                 1.0,
                                                         height: 50.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -393,7 +391,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                   Expanded(
                                                                     child:
                                                                         Align(
-                                                                      alignment: AlignmentDirectional(
+                                                                      alignment: const AlignmentDirectional(
                                                                           -1.00,
                                                                           1.00),
                                                                       child:
@@ -414,7 +412,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                   Expanded(
                                                                     child:
                                                                         Align(
-                                                                      alignment: AlignmentDirectional(
+                                                                      alignment: const AlignmentDirectional(
                                                                           -1.00,
                                                                           -1.00),
                                                                       child:
@@ -439,12 +437,12 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                             ),
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       1.00,
                                                                       0.00),
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -455,7 +453,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                   width: 50.0,
                                                                   height: 35.0,
                                                                   decoration:
-                                                                      BoxDecoration(),
+                                                                      const BoxDecoration(),
                                                                   child:
                                                                       Visibility(
                                                                     visible: functions
@@ -553,7 +551,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                         ),
                                                                         child:
                                                                             Align(
-                                                                          alignment: AlignmentDirectional(
+                                                                          alignment: const AlignmentDirectional(
                                                                               0.00,
                                                                               0.00),
                                                                           child:
@@ -578,14 +576,14 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                             ),
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       1.00,
                                                                       0.00),
                                                               child: Container(
                                                                 width: 50.0,
                                                                 height: 35.0,
                                                                 decoration:
-                                                                    BoxDecoration(),
+                                                                    const BoxDecoration(),
                                                                 child:
                                                                     Visibility(
                                                                   visible: functions
@@ -596,7 +594,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                   )),
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             4.0,
                                                                             0.0,
@@ -691,7 +689,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                         ),
                                                                         child:
                                                                             Align(
-                                                                          alignment: AlignmentDirectional(
+                                                                          alignment: const AlignmentDirectional(
                                                                               0.00,
                                                                               0.00),
                                                                           child:
@@ -736,14 +734,14 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     15.0, 15.0, 15.0, 0.0),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   1.0,
                                               height: 25.0,
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -756,10 +754,10 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                 context)
                                                             .height *
                                                         1.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -774,7 +772,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                         children: [
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     -1.00,
                                                                     0.00),
                                                             child: Container(
@@ -785,14 +783,14 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                       .height *
                                                                   1.0,
                                                               decoration:
-                                                                  BoxDecoration(),
+                                                                  const BoxDecoration(),
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       0.00,
                                                                       0.00),
                                                               child: Align(
                                                                 alignment:
-                                                                    AlignmentDirectional(
+                                                                    const AlignmentDirectional(
                                                                         -1.00,
                                                                         0.00),
                                                                 child: Text(
@@ -816,16 +814,16 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                           Expanded(
                                                             child: Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       0.00,
                                                                       0.00),
                                                               child: Container(
                                                                 width: 75.0,
                                                                 decoration:
-                                                                    BoxDecoration(),
+                                                                    const BoxDecoration(),
                                                                 child: Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           0.00,
                                                                           0.00),
                                                                   child: Text(
@@ -875,7 +873,7 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 0.0),
                                             child: Builder(
                                               builder: (context) {
@@ -898,205 +896,318 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                       (context, raceIndex) {
                                                     final raceItem =
                                                         race[raceIndex];
-                                                    return Container(
-                                                      width: MediaQuery.sizeOf(
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'genericLoader',
+                                                          queryParameters: {
+                                                            'loadingMessage':
+                                                                serializeParam(
+                                                              'Wij zijn jou wedstrijd gegevens aan het verzamelen..  Even geduld A.U.B.',
+                                                              ParamType.String,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+
+                                                        _model.clubIdResult =
+                                                            await ApiGroup
+                                                                .swimTimeToClubIdCall
+                                                                .call(
+                                                          swimrankingsIdentifier:
+                                                              FFAppState()
+                                                                  .activeUserId,
+                                                          contestId:
+                                                              getJsonField(
+                                                            raceItem,
+                                                            r'''$.meetId''',
+                                                          ).toString(),
+                                                          genderId:
+                                                              getJsonField(
+                                                            raceItem,
+                                                            r'''$.genderId''',
+                                                          ).toString(),
+                                                          styleId: widget.style
+                                                              ?.toString(),
+                                                        );
+                                                        if ((_model.clubIdResult
+                                                                ?.succeeded ??
+                                                            true)) {
+                                                          if (Navigator.of(
                                                                   context)
-                                                              .width *
-                                                          1.0,
-                                                      height: 50.0,
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 275.0,
-                                                            height: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .height *
-                                                                1.0,
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            -1.00,
-                                                                            0.00),
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          150.0,
-                                                                      height:
-                                                                          MediaQuery.sizeOf(context).height *
-                                                                              1.0,
-                                                                      decoration:
-                                                                          BoxDecoration(),
-                                                                      alignment: AlignmentDirectional(
-                                                                          0.00,
-                                                                          0.00),
-                                                                      child:
-                                                                          Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -1.00,
-                                                                            0.00),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Align(
-                                                                              alignment: AlignmentDirectional(-1.00, 0.00),
-                                                                              child: Text(
-                                                                                getJsonField(
-                                                                                  raceItem,
-                                                                                  r'''$.place''',
-                                                                                ).toString(),
-                                                                                textAlign: TextAlign.start,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Poppins',
-                                                                                      color: FlutterFlowTheme.of(context).text2,
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                            Align(
-                                                                              alignment: AlignmentDirectional(-1.00, 0.00),
-                                                                              child: Text(
-                                                                                getJsonField(
-                                                                                  raceItem,
-                                                                                  r'''$.date''',
-                                                                                ).toString(),
-                                                                                textAlign: TextAlign.start,
-                                                                                style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                      fontFamily: 'Poppins',
-                                                                                      color: FlutterFlowTheme.of(context).text2,
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
+                                                              .canPop()) {
+                                                            context.pop();
+                                                          }
+                                                          context.pushNamed(
+                                                            'contestDetail',
+                                                            queryParameters: {
+                                                              'clubId':
+                                                                  serializeParam(
+                                                                ApiGroup
+                                                                    .swimTimeToClubIdCall
+                                                                    .clubId(
+                                                                      (_model.clubIdResult
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    )
+                                                                    .toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'contestId':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  raceItem,
+                                                                  r'''$.meetId''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'raceName':
+                                                                  serializeParam(
+                                                                ApiGroup
+                                                                    .swimTimeToClubIdCall
+                                                                    .raceName(
+                                                                      (_model.clubIdResult
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    )
+                                                                    .toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return AlertDialog(
+                                                                title: const Text(
+                                                                    'Error'),
+                                                                content: const Text(
+                                                                    'Kan geen verdere gegevens inzien!'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext),
+                                                                    child: const Text(
+                                                                        'Ok'),
                                                                   ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Align(
-                                                                      alignment: AlignmentDirectional(
-                                                                          0.00,
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                          context.safePop();
+                                                        }
+
+                                                        setState(() {});
+                                                      },
+                                                      child: Container(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                1.0,
+                                                        height: 50.0,
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Container(
+                                                              width: 275.0,
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  1.0,
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment: const AlignmentDirectional(
+                                                                          -1.00,
                                                                           0.00),
                                                                       child:
                                                                           Container(
                                                                         width:
-                                                                            75.0,
+                                                                            150.0,
+                                                                        height: MediaQuery.sizeOf(context).height *
+                                                                            1.0,
                                                                         decoration:
-                                                                            BoxDecoration(),
+                                                                            const BoxDecoration(),
+                                                                        alignment: const AlignmentDirectional(
+                                                                            0.00,
+                                                                            0.00),
                                                                         child:
                                                                             Align(
-                                                                          alignment: AlignmentDirectional(
-                                                                              0.00,
+                                                                          alignment: const AlignmentDirectional(
+                                                                              -1.00,
                                                                               0.00),
                                                                           child:
-                                                                              Text(
-                                                                            getJsonField(
-                                                                              raceItem,
-                                                                              r'''$.time''',
-                                                                            ).toString(),
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Poppins',
-                                                                                  color: FlutterFlowTheme.of(context).text2,
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Align(
+                                                                                alignment: const AlignmentDirectional(-1.00, 0.00),
+                                                                                child: Text(
+                                                                                  getJsonField(
+                                                                                    raceItem,
+                                                                                    r'''$.place''',
+                                                                                  ).toString(),
+                                                                                  textAlign: TextAlign.start,
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Poppins',
+                                                                                        color: FlutterFlowTheme.of(context).text2,
+                                                                                      ),
                                                                                 ),
+                                                                              ),
+                                                                              Align(
+                                                                                alignment: const AlignmentDirectional(-1.00, 0.00),
+                                                                                child: Text(
+                                                                                  getJsonField(
+                                                                                    raceItem,
+                                                                                    r'''$.date''',
+                                                                                  ).toString(),
+                                                                                  textAlign: TextAlign.start,
+                                                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                        fontFamily: 'Poppins',
+                                                                                        color: FlutterFlowTheme.of(context).text2,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
                                                                           ),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1.00,
-                                                                      0.00),
-                                                              child:
-                                                                  LinearPercentIndicator(
-                                                                percent: functions
-                                                                    .calculatePercentage(
-                                                                        getJsonField(
-                                                                          raceItem,
-                                                                          r'''$.points''',
+                                                                    Expanded(
+                                                                      child:
+                                                                          Align(
+                                                                        alignment: const AlignmentDirectional(
+                                                                            0.00,
+                                                                            0.00),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              75.0,
+                                                                          decoration:
+                                                                              const BoxDecoration(),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(0.00, 0.00),
+                                                                            child:
+                                                                                Text(
+                                                                              getJsonField(
+                                                                                raceItem,
+                                                                                r'''$.time''',
+                                                                              ).toString(),
+                                                                              textAlign: TextAlign.start,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: FlutterFlowTheme.of(context).text2,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
                                                                         ),
-                                                                        ApiGroup
-                                                                            .raceListCall
-                                                                            .max(
-                                                                          containerRaceListResponse
-                                                                              .jsonBody,
-                                                                        )),
-                                                                lineHeight:
-                                                                    50.0,
-                                                                animation:
-                                                                    false,
-                                                                animateFromLastPercent:
-                                                                    true,
-                                                                progressColor:
-                                                                    Color(
-                                                                        0xFFBE9E44),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .text3,
-                                                                center: Text(
-                                                                  getJsonField(
-                                                                    raceItem,
-                                                                    r'''$.points''',
-                                                                  ).toString(),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
                                                                       ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                                barRadius: Radius
-                                                                    .circular(
-                                                                        0.0),
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .zero,
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        1.00,
+                                                                        0.00),
+                                                                child:
+                                                                    LinearPercentIndicator(
+                                                                  percent: functions
+                                                                      .calculatePercentage(
+                                                                          getJsonField(
+                                                                            raceItem,
+                                                                            r'''$.points''',
+                                                                          ),
+                                                                          ApiGroup
+                                                                              .raceListCall
+                                                                              .max(
+                                                                            containerRaceListResponse.jsonBody,
+                                                                          )),
+                                                                  lineHeight:
+                                                                      50.0,
+                                                                  animation:
+                                                                      false,
+                                                                  animateFromLastPercent:
+                                                                      true,
+                                                                  progressColor:
+                                                                      const Color(
+                                                                          0xFFBE9E44),
+                                                                  backgroundColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .text3,
+                                                                  center: Text(
+                                                                    getJsonField(
+                                                                      raceItem,
+                                                                      r'''$.points''',
+                                                                    ).toString(),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                  ),
+                                                                  barRadius: const Radius
+                                                                      .circular(
+                                                                          0.0),
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     );
                                                   },

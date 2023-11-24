@@ -6,15 +6,12 @@ import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'app_drawer_model.dart';
 export 'app_drawer_model.dart';
 
 class AppDrawerWidget extends StatefulWidget {
-  const AppDrawerWidget({Key? key}) : super(key: key);
+  const AppDrawerWidget({super.key});
 
   @override
   _AppDrawerWidgetState createState() => _AppDrawerWidgetState();
@@ -64,21 +61,21 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
           gradient: LinearGradient(
             colors: [
               FlutterFlowTheme.of(context).primary,
-              Color(0xD9000000),
-              Color(0xF2000000)
+              const Color(0xD9000000),
+              const Color(0xF2000000)
             ],
-            stops: [0.0, 0.25, 1.0],
-            begin: AlignmentDirectional(0.0, -1.0),
-            end: AlignmentDirectional(0, 1.0),
+            stops: const [0.0, 0.25, 1.0],
+            begin: const AlignmentDirectional(0.0, -1.0),
+            end: const AlignmentDirectional(0, 1.0),
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
@@ -90,7 +87,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Text(
                   'Hallo, ${getJsonField(
                     FFAppState().user,
@@ -104,7 +101,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
               ),
               if (!FFAppState().premium)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: wrapWithModel(
                     model: _model.operationButtonModel,
                     updateCallback: () => setState(() {}),

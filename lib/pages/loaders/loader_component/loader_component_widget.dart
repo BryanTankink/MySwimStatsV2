@@ -2,21 +2,16 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'loader_component_model.dart';
 export 'loader_component_model.dart';
 
 class LoaderComponentWidget extends StatefulWidget {
   const LoaderComponentWidget({
-    Key? key,
+    super.key,
     String? message,
-  })  : this.message = message ?? 'Bezig met laden...',
-        super(key: key);
+  })  : message = message ?? 'Bezig met laden...';
 
   final String message;
 
@@ -38,8 +33,8 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(1.0, 1.0),
-          end: Offset(1.1, 1.1),
+          begin: const Offset(1.0, 1.0),
+          end: const Offset(1.1, 1.1),
         ),
       ],
     ),
@@ -80,7 +75,7 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: MediaQuery.sizeOf(context).height * 1.0,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xDA000000), Color(0xE6000000)],
             stops: [0.0, 1.0],
@@ -98,10 +93,10 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.00, 0.00),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
@@ -115,18 +110,18 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.00, 0.00),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, -1.00),
+                            alignment: const AlignmentDirectional(0.00, -1.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 8.0, 0.0),
                               child: Text(
                                 widget.message,

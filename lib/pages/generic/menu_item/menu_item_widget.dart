@@ -1,20 +1,17 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'menu_item_model.dart';
 export 'menu_item_model.dart';
 
 class MenuItemWidget extends StatefulWidget {
   const MenuItemWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     required this.isOnPage,
-  }) : super(key: key);
+  });
 
   final String? title;
   final Widget? icon;
@@ -53,12 +50,12 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
     return Container(
       width: double.infinity,
       height: 40.0,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
             child: widget.icon!,
           ),
           Text(
@@ -73,9 +70,9 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
           ),
           Expanded(
             child: Align(
-              alignment: AlignmentDirectional(1.00, 0.00),
+              alignment: const AlignmentDirectional(1.00, 0.00),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                 child: Icon(
                   Icons.play_arrow,
                   color: widget.isOnPage!

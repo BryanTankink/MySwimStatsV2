@@ -1,6 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,13 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_model.dart';
 export 'dashboard_model.dart';
 
 class DashboardWidget extends StatefulWidget {
-  const DashboardWidget({Key? key}) : super(key: key);
+  const DashboardWidget({super.key});
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -81,7 +79,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
           child: wrapWithModel(
             model: _model.appDrawerModel,
             updateCallback: () => setState(() {}),
-            child: AppDrawerWidget(),
+            child: const AppDrawerWidget(),
           ),
         ),
         appBar: AppBar(
@@ -96,7 +94,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -118,12 +116,12 @@ class _DashboardWidgetState extends State<DashboardWidget>
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    Color(0xD9000000),
-                    Color(0xF2000000)
+                    const Color(0xD9000000),
+                    const Color(0xF2000000)
                   ],
-                  stops: [0.0, 0.25, 1.0],
-                  begin: AlignmentDirectional(0.0, -1.0),
-                  end: AlignmentDirectional(0, 1.0),
+                  stops: const [0.0, 0.25, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
               child: FutureBuilder<ApiCallResponse>(
@@ -158,7 +156,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Builder(
                       builder: (context) {
                         if (containerDashboardResponse.succeeded &&
@@ -169,7 +167,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 16.0),
                                 child: Text(
                                   'Informatie van: ${getJsonField(
@@ -187,12 +185,12 @@ class _DashboardWidgetState extends State<DashboardWidget>
                               ),
                               if (FFAppState().premium)
                                 Container(
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         child: FutureBuilder<ApiCallResponse>(
                                           future: FFAppState().dashboardGraph(
@@ -210,7 +208,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             if (!snapshot.hasData) {
                                               return Center(
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 25.0, 0.0, 25.0),
                                                   child: SizedBox(
@@ -229,7 +227,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             }
                                             final chartDashboardGraphResponse =
                                                 snapshot.data!;
-                                            return Container(
+                                            return SizedBox(
                                               width: double.infinity,
                                               height: 150.0,
                                               child: FlutterFlowLineChart(
@@ -258,25 +256,25 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                                   )
                                                 ],
                                                 chartStylingInfo:
-                                                    ChartStylingInfo(
+                                                    const ChartStylingInfo(
                                                   enableTooltip: true,
                                                   backgroundColor:
                                                       Color(0x00FFFFFF),
                                                   showBorder: false,
                                                 ),
-                                                axisBounds: AxisBounds(),
-                                                xAxisLabelInfo: AxisLabelInfo(),
-                                                yAxisLabelInfo: AxisLabelInfo(),
+                                                axisBounds: const AxisBounds(),
+                                                xAxisLabelInfo: const AxisLabelInfo(),
+                                                yAxisLabelInfo: const AxisLabelInfo(),
                                               ),
                                             );
                                           },
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 16.0),
                                         child: Container(
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                         ),
                                       ),
                                     ],
@@ -286,7 +284,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                 child: Column(
                                   children: [
                                     Align(
-                                      alignment: Alignment(0.0, 0),
+                                      alignment: const Alignment(0.0, 0),
                                       child: TabBar(
                                         isScrollable: true,
                                         labelColor:
@@ -300,13 +298,13 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                               fontFamily: 'Poppins',
                                               fontSize: 14.0,
                                             ),
-                                        unselectedLabelStyle: TextStyle(),
+                                        unselectedLabelStyle: const TextStyle(),
                                         indicatorColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             4.0, 4.0, 4.0, 4.0),
-                                        tabs: [
+                                        tabs: const [
                                           Tab(
                                             key: ValueKey('Tab_uw2r'),
                                             text: 'Vlinderslag',
@@ -332,7 +330,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                         controller: _model.tabBarController,
                                         children: [
                                           Align(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 0.00, 0.00),
                                             child: wrapWithModel(
                                               model:
@@ -410,9 +408,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                           );
                         } else {
                           return Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.00, 0.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 0.0),
                               child: Container(
                                 width: double.infinity,
@@ -422,7 +420,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 8.0, 8.0, 8.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -447,7 +445,7 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                       Expanded(
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              const AlignmentDirectional(0.00, 0.00),
                                           child: FFButtonWidget(
                                             onPressed: () async {
                                               context.goNamed('Onboarding');
@@ -456,9 +454,9 @@ class _DashboardWidgetState extends State<DashboardWidget>
                                             options: FFButtonOptions(
                                               width: 230.0,
                                               height: 52.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
