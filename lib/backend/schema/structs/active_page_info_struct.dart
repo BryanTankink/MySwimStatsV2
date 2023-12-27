@@ -22,8 +22,9 @@ class ActivePageInfoStruct extends BaseStruct {
         activePage: deserializeEnum<PageId>(data['activePage']),
       );
 
-  static ActivePageInfoStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? ActivePageInfoStruct.fromMap(data) : null;
+  static ActivePageInfoStruct? maybeFromMap(dynamic data) => data is Map
+      ? ActivePageInfoStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'activePage': _activePage?.toString(),

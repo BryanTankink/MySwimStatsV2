@@ -18,6 +18,8 @@ class LinkSwimrankingsModel extends FlutterFlowModel<LinkSwimrankingsWidget> {
   ApiCallResponse? nameVerifyResultCopy;
   // Stores action output result for [Backend Call - API (Add favorited user)] action in OperationButton widget.
   ApiCallResponse? apiResultbp8;
+  // Stores action output result for [Backend Call - API (Set active user)] action in OperationButton widget.
+  ApiCallResponse? apiResultd62;
   // Stores action output result for [Action Block - GetUserAuth] action in OperationButton widget.
   bool? hasValidUserAuthCopy;
 

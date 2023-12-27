@@ -89,12 +89,13 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.arrow_left_outlined,
               color: Colors.white,
               size: 30.0,
             ),
             onPressed: () async {
               context.pop();
+              HapticFeedback.selectionClick();
             },
           ),
           title: Text(
@@ -138,7 +139,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -149,6 +150,8 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          HapticFeedback.selectionClick();
+
                           context.pushNamed(
                             'RaceList',
                             queryParameters: {
@@ -172,6 +175,10 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                   r'''$.toSwim.event''',
                                 ).toString(),
                                 ParamType.String,
+                              ),
+                              'timeId': serializeParam(
+                                -1,
+                                ParamType.int,
                               ),
                             }.withoutNulls,
                           );
@@ -241,7 +248,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 color: FlutterFlowTheme.of(context).accent4,
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.00, 0.00),
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
                                 child: Text(
                                   'Informatie over de afstand',
                                   style: FlutterFlowTheme.of(context)
@@ -254,7 +261,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -298,7 +305,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -342,7 +349,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -386,7 +393,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -430,7 +437,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -482,7 +489,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.00, 0.00),
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Text(
                           'Dit hebben wij besloten doordat:',
                           style:
@@ -505,13 +512,15 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 List.generate(reason.length, (reasonIndex) {
                               final reasonItem = reason[reasonIndex];
                               return Align(
-                                alignment: const AlignmentDirectional(-1.00, -1.00),
+                                alignment: const AlignmentDirectional(-1.0, -1.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    HapticFeedback.selectionClick();
+
                                     context.pushNamed(
                                       'RaceList',
                                       queryParameters: {
@@ -536,6 +545,10 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                           ).toString(),
                                           ParamType.String,
                                         ),
+                                        'timeId': serializeParam(
+                                          -1,
+                                          ParamType.int,
+                                        ),
                                       }.withoutNulls,
                                     );
                                   },
@@ -546,8 +559,8 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Align(
-                                          alignment: const AlignmentDirectional(
-                                              -1.00, -1.00),
+                                          alignment:
+                                              const AlignmentDirectional(-1.0, -1.0),
                                           child: Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
@@ -562,7 +575,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                 Align(
                                                   alignment:
                                                       const AlignmentDirectional(
-                                                          -1.00, -1.00),
+                                                          -1.0, -1.0),
                                                   child: Text(
                                                     functions
                                                         .addValues(
@@ -600,7 +613,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, -1.00),
+                                                                -1.0, -1.0),
                                                         child: Text(
                                                           getJsonField(
                                                             reasonItem,
@@ -621,7 +634,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.00, 0.00),
+                                                                0.0, 0.0),
                                                         child: Padding(
                                                           padding:
                                                               const EdgeInsetsDirectional
@@ -685,7 +698,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.00, 0.00),
+                                                                0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -741,7 +754,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.00, 0.00),
+                                                                0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -797,7 +810,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.00, 0.00),
+                                                                0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -853,7 +866,7 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                0.00, 0.00),
+                                                                0.0, 0.0),
                                                         child: Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,

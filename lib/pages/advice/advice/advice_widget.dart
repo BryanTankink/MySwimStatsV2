@@ -64,11 +64,12 @@ class _AdviceWidgetState extends State<AdviceWidget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.arrow_left,
               color: Colors.white,
               size: 30.0,
             ),
             onPressed: () async {
+              HapticFeedback.selectionClick();
               context.pop();
             },
           ),
@@ -155,6 +156,8 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      HapticFeedback.selectionClick();
+
                                       context.pushNamed(
                                         'adviceDetails',
                                         queryParameters: {
@@ -179,7 +182,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                           children: [
                                             Align(
                                               alignment: const AlignmentDirectional(
-                                                  0.00, 0.00),
+                                                  0.0, 0.0),
                                               child: Padding(
                                                 padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -196,7 +199,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                   child: Align(
                                                     alignment:
                                                         const AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: Text(
                                                       functions
                                                           .addValues(
@@ -276,7 +279,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                     Align(
                                                       alignment:
                                                           const AlignmentDirectional(
-                                                              1.00, 0.00),
+                                                              1.0, 0.0),
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsetsDirectional
@@ -303,7 +306,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                                                   Align(
                                                     alignment:
                                                         const AlignmentDirectional(
-                                                            1.00, 0.00),
+                                                            1.0, 0.0),
                                                     child: Icon(
                                                       Icons.play_arrow,
                                                       color:

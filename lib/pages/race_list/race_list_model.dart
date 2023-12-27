@@ -1,14 +1,20 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/achievement_category_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/request_manager.dart';
-
+import '/pages/loaders/loader_component/loader_component_widget.dart';
 import 'race_list_widget.dart' show RaceListWidget;
 import 'package:flutter/material.dart';
 
 class RaceListModel extends FlutterFlowModel<RaceListWidget> {
+  ///  Local state fields for this page.
+
+  bool loading = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for AchievementCategory component.
+  late AchievementCategoryModel achievementCategoryModel;
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
@@ -16,37 +22,24 @@ class RaceListModel extends FlutterFlowModel<RaceListWidget> {
 
   // Stores action output result for [Backend Call - API (swimTimeToClubId)] action in Container widget.
   ApiCallResponse? clubIdResult;
-
-  /// Query cache managers for this widget.
-
-  final _raceDetailPageManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> raceDetailPage({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _raceDetailPageManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearRaceDetailPageCache() => _raceDetailPageManager.clear();
-  void clearRaceDetailPageCacheKey(String? uniqueKey) =>
-      _raceDetailPageManager.clearRequest(uniqueKey);
+  // Model for LoaderComponent component.
+  late LoaderComponentModel loaderComponentModel;
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    achievementCategoryModel =
+        createModel(context, () => AchievementCategoryModel());
+    loaderComponentModel = createModel(context, () => LoaderComponentModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    achievementCategoryModel.dispose();
     tabBarController?.dispose();
-
-    /// Dispose query cache managers for this widget.
-
-    clearRaceDetailPageCache();
+    loaderComponentModel.dispose();
   }
 
   /// Action blocks are added here.

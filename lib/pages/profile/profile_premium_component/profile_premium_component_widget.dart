@@ -92,7 +92,7 @@ class _ProfilePremiumComponentWidgetState
                             child: const ProfileUsersPageWidget(),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: wrapWithModel(
                               model: _model.profileDistanceSettingsModel,
                               updateCallback: () => setState(() {}),
@@ -100,7 +100,7 @@ class _ProfilePremiumComponentWidgetState
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: wrapWithModel(
                               model: _model.profileStrokeSettingsModel,
                               updateCallback: () => setState(() {}),
@@ -111,7 +111,7 @@ class _ProfilePremiumComponentWidgetState
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.00, 1.00),
+                      alignment: const AlignmentDirectional(0.0, 1.0),
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),

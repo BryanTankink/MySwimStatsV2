@@ -68,7 +68,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -77,6 +77,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               child: FFButtonWidget(
                 onPressed: () async {
                   var shouldSetState = false;
+                  HapticFeedback.selectionClick();
                   _model.apiResultoov = await ApiGroup.setActiveUserCall.call(
                     deviceIdentifier: FFAppState().deviceIdentifier,
                     swimrankingsIdentifier:
@@ -90,13 +91,12 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                     if (_model.userAuthOk!) {
                       Navigator.pop(context);
 
-                      context.pushNamed('Dashboard');
+                      context.pushNamed('personalRecords');
 
                       if (shouldSetState) setState(() {});
                       return;
                     } else {
-                      if (shouldSetState) setState(() {});
-                      return;
+                      Navigator.pop(context);
                     }
                   } else {
                     HapticFeedback.heavyImpact();
@@ -117,8 +117,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                         );
                       },
                     );
-                    if (shouldSetState) setState(() {});
-                    return;
+                    Navigator.pop(context);
                   }
 
                   if (shouldSetState) setState(() {});
@@ -130,10 +129,10 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).buttonsnew,
+                  color: FlutterFlowTheme.of(context).text,
                   textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
                         fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).text3,
+                        color: FlutterFlowTheme.of(context).primary,
                       ),
                   elevation: 2.0,
                   borderSide: const BorderSide(
@@ -147,6 +146,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  HapticFeedback.selectionClick();
                   _model.apiResulthws =
                       await ApiGroup.deleteFavoritedUserCall.call(
                     deviceIdentifier: FFAppState().deviceIdentifier,
@@ -161,7 +161,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
 
                   setState(() {});
                 },
-                text: 'Favoriet verwijderen',
+                text: 'Verwijderen',
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 45.0,
@@ -182,6 +182,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  HapticFeedback.selectionClick();
                   Navigator.pop(context);
                 },
                 text: 'Annuleren',

@@ -26,7 +26,7 @@ void main() async {
     await tester.enterText(
         find.byKey(ValueKey('NameField_6sov')), 'Bryan Tankink');
     await tester.tap(find.byKey(ValueKey('OperationButton_ku9o')));
-    expect(find.byKey(ValueKey('Tab_uw2r')), findsOneWidget);
+    expect(find.byKey(ValueKey('UNDEFINED')), findsOneWidget);
   });
 }
 

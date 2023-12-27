@@ -75,11 +75,12 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.arrow_left,
               color: Colors.white,
               size: 30.0,
             ),
             onPressed: () async {
+              HapticFeedback.selectionClick();
               context.pop();
             },
           ),
@@ -124,12 +125,16 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 15.0, 15.0, 15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: FutureBuilder<ApiCallResponse>(
-                  future: ApiGroup.getContestCall.call(
-                    swimrankingsIdentifier: FFAppState().activeUserId,
-                    clubId: widget.clubId,
-                    contestId: widget.contestId,
+                  future: _model.raceInfoCache(
+                    uniqueQueryKey:
+                        '${widget.clubId}-${widget.contestId}-${FFAppState().activeUserId}',
+                    requestFn: () => ApiGroup.getContestCall.call(
+                      swimrankingsIdentifier: FFAppState().activeUserId,
+                      clubId: widget.clubId,
+                      contestId: widget.contestId,
+                    ),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -151,7 +156,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             widget.raceName!,
                             textAlign: TextAlign.center,
@@ -173,7 +178,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
                               '${ApiGroup.getContestCall.myPerformance(
@@ -214,8 +219,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 2,
                                   child: Align(
-                                    alignment:
-                                        const AlignmentDirectional(-1.00, 0.00),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: Text(
                                       'Afstand',
                                       textAlign: TextAlign.center,
@@ -233,7 +237,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       '%',
                                       textAlign: TextAlign.center,
@@ -251,7 +255,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       'Tijd',
                                       textAlign: TextAlign.center,
@@ -269,7 +273,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                 Expanded(
                                   flex: 1,
                                   child: Align(
-                                    alignment: const AlignmentDirectional(1.00, 0.00),
+                                    alignment: const AlignmentDirectional(1.0, 0.0),
                                     child: Text(
                                       'Punten',
                                       textAlign: TextAlign.center,
@@ -289,7 +293,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Builder(
                             builder: (context) {
                               final race = getJsonField(
@@ -322,12 +326,12 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                           ),
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
                               '${ApiGroup.getContestCall.clubPerformance(
                                     listViewGetContestResponse.jsonBody,
-                                  ).toString()}%',
+                                  ).toString().toString()}%',
                               '100%',
                             ),
                             style: FlutterFlowTheme.of(context)
@@ -340,6 +344,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                                 listViewGetContestResponse
                                                     .jsonBody,
                                               )
+                                              .toString()
                                               .toString())!
                                       ? FlutterFlowTheme.of(context)
                                           .performanceGood
@@ -359,6 +364,8 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                HapticFeedback.selectionClick();
+
                                 context.pushNamed(
                                   'contestClubDetails',
                                   queryParameters: {
@@ -384,7 +391,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                   date:
                                       '${functions.addValues(ApiGroup.getContestCall.clubSwimmers(
                                             listViewGetContestResponse.jsonBody,
-                                          ).length, 1).toString()} zwemmers',
+                                          )?.length, 0).toString()} zwemmers',
                                 ),
                               ),
                             ),

@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -174,14 +175,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.00, 0.00),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                'assets/images/logo_square_600x600.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.contain,
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Hero(
+                              tag: 'logo_square',
+                              transitionOnUserGestures: true,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/logo_square_600x600.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ),
@@ -228,7 +233,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                     children: [
                       Expanded(
                         child: Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: wrapWithModel(
                             model: _model.operationButtonModel,
                             updateCallback: () => setState(() {}),
@@ -236,7 +241,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               key: const ValueKey('OperationButton_bahn'),
                               text: 'Begin nu',
                               onClick: () async {
-                                context.pushNamed('LinkSwimrankings');
+                                context.pushNamed(
+                                  'LinkSwimrankings',
+                                  queryParameters: {
+                                    'addState': serializeParam(
+                                      UserAddState.SetActive,
+                                      ParamType.Enum,
+                                    ),
+                                  }.withoutNulls,
+                                );
                               },
                             ),
                           ),

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
@@ -48,7 +49,17 @@ class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
           FFAppState().idGenerated = true;
         });
       }
-      _model.hasValidUser = await action_blocks.getUserAuth(context);
+      _model.hasValidUser = await action_blocks.getUserAuth(
+        context,
+        resetActiveToMe: true,
+      );
+      _model.premiumStateResult = await ApiGroup.premiumStateCall.call();
+      setState(() {
+        FFAppState().isPremiumAllowed =
+            ApiGroup.premiumStateCall.premiumAllowed(
+          (_model.premiumStateResult?.jsonBody ?? ''),
+        );
+      });
       if (_model.hasValidUser!) {
         context.goNamed('Dashboard');
       }

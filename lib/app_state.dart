@@ -107,6 +107,12 @@ class FFAppState extends ChangeNotifier {
     updateFn(_activePageInfo);
   }
 
+  bool _isPremiumAllowed = false;
+  bool get isPremiumAllowed => _isPremiumAllowed;
+  set isPremiumAllowed(bool value) {
+    _isPremiumAllowed = value;
+  }
+
   final _dashboardManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> dashboard({
     String? uniqueQueryKey,
@@ -136,21 +142,6 @@ class FFAppState extends ChangeNotifier {
   void clearRankingCache() => _rankingManager.clear();
   void clearRankingCacheKey(String? uniqueKey) =>
       _rankingManager.clearRequest(uniqueKey);
-
-  final _dashboardGraphManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> dashboardGraph({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<ApiCallResponse> Function() requestFn,
-  }) =>
-      _dashboardGraphManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearDashboardGraphCache() => _dashboardGraphManager.clear();
-  void clearDashboardGraphCacheKey(String? uniqueKey) =>
-      _dashboardGraphManager.clearRequest(uniqueKey);
 
   final _raceListManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> raceList({

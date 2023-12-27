@@ -61,7 +61,7 @@ class _NoContentWidgetState extends State<NoContentWidget> {
           style: FlutterFlowTheme.of(context).labelMedium,
         ),
         Align(
-          alignment: const AlignmentDirectional(0.00, 0.00),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(

@@ -1,7 +1,9 @@
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
+import '/pages/profile/active_user_switch/active_user_switch_widget.dart';
 import '/pages/profile/favorite_bottom_sheet/favorite_bottom_sheet_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -49,30 +51,37 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          if (!FFAppState().premium)
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-              child: wrapWithModel(
-                model: _model.operationButtonModel,
-                updateCallback: () => setState(() {}),
-                child: OperationButtonWidget(
-                  text: 'Unlock premium',
-                  onClick: () async {
-                    _model.purchaseState = await revenue_cat.purchasePackage(
-                        revenue_cat.offerings!.current!.monthly!.identifier);
-                    if (_model.purchaseState!) {
-                      await action_blocks.getUserAuth(context);
+          if (FFAppState().isPremiumAllowed)
+            Container(
+              decoration: const BoxDecoration(),
+              child: Visibility(
+                visible: !FFAppState().premium,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  child: wrapWithModel(
+                    model: _model.operationButtonModel,
+                    updateCallback: () => setState(() {}),
+                    child: OperationButtonWidget(
+                      text: 'Unlock premium',
+                      onClick: () async {
+                        _model.purchaseState =
+                            await revenue_cat.purchasePackage(revenue_cat
+                                .offerings!.current!.monthly!.identifier);
+                        if (_model.purchaseState!) {
+                          await action_blocks.getUserAuth(context);
 
-                      context.goNamed('Dashboard');
-                    }
+                          context.goNamed('Dashboard');
+                        }
 
-                    setState(() {});
-                  },
+                        setState(() {});
+                      },
+                    ),
+                  ),
                 ),
               ),
             ),
           Align(
-            alignment: const AlignmentDirectional(-1.00, 0.00),
+            alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: Text(
@@ -88,7 +97,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Align(
-                alignment: const AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Text(
@@ -105,7 +114,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Text(
@@ -124,7 +133,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             ],
           ),
           Align(
-            alignment: const AlignmentDirectional(-1.00, 0.00),
+            alignment: const AlignmentDirectional(-1.0, 0.0),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
               child: Text(
@@ -142,19 +151,18 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.pushNamed(
-                'LinkSwimrankings',
-                queryParameters: {
-                  'showHeader': serializeParam(
-                    true,
-                    ParamType.bool,
-                  ),
-                  'isFavorite': serializeParam(
-                    false,
-                    ParamType.bool,
-                  ),
-                }.withoutNulls,
-              );
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                enableDrag: false,
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: const ActiveUserSwitchWidget(),
+                  );
+                },
+              ).then((value) => safeSetState(() {}));
             },
             child: wrapWithModel(
               model: _model.swimrankingsListItemModel1,
@@ -182,7 +190,7 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Align(
-                alignment: const AlignmentDirectional(-1.00, 0.00),
+                alignment: const AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Text(
@@ -227,6 +235,10 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget> {
                         'isFavorite': serializeParam(
                           true,
                           ParamType.bool,
+                        ),
+                        'addState': serializeParam(
+                          UserAddState.AsFavorite,
+                          ParamType.Enum,
                         ),
                       }.withoutNulls,
                     );

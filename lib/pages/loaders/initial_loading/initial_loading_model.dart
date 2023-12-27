@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
 import 'initial_loading_widget.dart' show InitialLoadingWidget;
@@ -11,6 +12,8 @@ class InitialLoadingModel extends FlutterFlowModel<InitialLoadingWidget> {
   String? deviceIdentifier;
   // Stores action output result for [Action Block - GetUserAuth] action in InitialLoading widget.
   bool? hasValidUser;
+  // Stores action output result for [Backend Call - API (premiumState)] action in InitialLoading widget.
+  ApiCallResponse? premiumStateResult;
   // Model for LoaderComponent component.
   late LoaderComponentModel loaderComponentModel;
 

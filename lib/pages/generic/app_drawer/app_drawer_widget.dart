@@ -1,4 +1,5 @@
 import '/backend/schema/enums/enums.dart';
+import '/components/achievement_category_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/menu_item/menu_item_widget.dart';
@@ -6,6 +7,7 @@ import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'app_drawer_model.dart';
 export 'app_drawer_model.dart';
@@ -70,7 +72,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -99,30 +101,74 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                       ),
                 ),
               ),
-              if (!FFAppState().premium)
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: wrapWithModel(
-                    model: _model.operationButtonModel,
-                    updateCallback: () => setState(() {}),
-                    child: OperationButtonWidget(
-                      text: 'Unlock premium',
-                      onClick: () async {
-                        _model.purchaseState =
-                            await revenue_cat.purchasePackage(revenue_cat
-                                .offerings!.current!.monthly!.identifier);
-                        if (_model.purchaseState!) {
-                          await action_blocks.getUserAuth(context);
-                          setState(() {});
+              if (FFAppState().isPremiumAllowed)
+                Container(
+                  decoration: const BoxDecoration(),
+                  child: Visibility(
+                    visible: !FFAppState().premium,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.operationButtonModel,
+                        updateCallback: () => setState(() {}),
+                        child: OperationButtonWidget(
+                          text: 'Unlock premium',
+                          onClick: () async {
+                            _model.purchaseState =
+                                await revenue_cat.purchasePackage(revenue_cat
+                                    .offerings!.current!.monthly!.identifier);
+                            if (_model.purchaseState!) {
+                              await action_blocks.getUserAuth(context);
 
-                          context.goNamed('Dashboard');
-                        }
+                              context.goNamed('Dashboard');
+                            }
 
-                        setState(() {});
-                      },
+                            setState(() {});
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  HapticFeedback.selectionClick();
+
+                  context.pushNamed('AchievementCategories');
+                },
+                child: wrapWithModel(
+                  model: _model.achievementCategoryModel,
+                  updateCallback: () => setState(() {}),
+                  child: AchievementCategoryWidget(
+                    categoryHeader: 'Achievements',
+                    level: getJsonField(
+                      FFAppState().user,
+                      r'''$.swimLevel.level''',
+                    ),
+                    categoryLevelName: getJsonField(
+                      FFAppState().user,
+                      r'''$.swimLevel.name''',
+                    ).toString(),
+                    currentScore: getJsonField(
+                      FFAppState().user,
+                      r'''$.achievementsObtained''',
+                    ),
+                    maxScore: getJsonField(
+                      FFAppState().user,
+                      r'''$.maxAchievements''',
+                    ),
+                    badgePath: getJsonField(
+                      FFAppState().user,
+                      r'''$.swimLevel.badge''',
+                    ).toString(),
+                  ),
+                ),
+              ),
               Divider(
                 height: 32.0,
                 thickness: 1.0,
@@ -134,6 +180,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
+                  HapticFeedback.selectionClick();
+
                   context.pushNamed('Dashboard');
                 },
                 child: wrapWithModel(
@@ -157,10 +205,37 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('contests');
+                  HapticFeedback.selectionClick();
+
+                  context.pushNamed('personalRecords');
                 },
                 child: wrapWithModel(
                   model: _model.menuItemModel2,
+                  updateCallback: () => setState(() {}),
+                  child: MenuItemWidget(
+                    title: 'Persoonlijke records',
+                    icon: Icon(
+                      Icons.fiber_smart_record_outlined,
+                      color: FlutterFlowTheme.of(context).text,
+                      size: 24.0,
+                    ),
+                    isOnPage: FFAppState().activePageInfo.activePage ==
+                        PageId.PersonalRecords,
+                  ),
+                ),
+              ),
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  HapticFeedback.selectionClick();
+
+                  context.pushNamed('contests');
+                },
+                child: wrapWithModel(
+                  model: _model.menuItemModel3,
                   updateCallback: () => setState(() {}),
                   child: MenuItemWidget(
                     title: 'Wedstrijden',
@@ -180,10 +255,12 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
+                  HapticFeedback.selectionClick();
+
                   context.pushNamed('profile');
                 },
                 child: wrapWithModel(
-                  model: _model.menuItemModel3,
+                  model: _model.menuItemModel4,
                   updateCallback: () => setState(() {}),
                   child: MenuItemWidget(
                     title: 'Profiel',
@@ -202,6 +279,31 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                 thickness: 1.0,
                 color: FlutterFlowTheme.of(context).accent4,
               ),
+              if (FFAppState().premium)
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.pushNamed('advice');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel5,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Aanbevelingen',
+                      icon: Icon(
+                        Icons.eco_outlined,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: false,
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

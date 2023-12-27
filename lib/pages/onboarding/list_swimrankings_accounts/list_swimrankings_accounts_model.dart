@@ -9,12 +9,14 @@ class ListSwimrankingsAccountsModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Create user by device identifier)] action in SwimrankingsListItem widget.
+  ApiCallResponse? userCreated;
   // Stores action output result for [Backend Call - API (Add favorited user)] action in SwimrankingsListItem widget.
   ApiCallResponse? apiResultbp8;
+  // Stores action output result for [Backend Call - API (Set active user)] action in SwimrankingsListItem widget.
+  ApiCallResponse? apiResultard;
   // Stores action output result for [Action Block - GetUserAuth] action in SwimrankingsListItem widget.
   bool? userIsAuth2;
-  // Stores action output result for [Action Block - GetUserAuth] action in SwimrankingsListItem widget.
-  bool? userIsAuth;
 
   /// Initialization and disposal methods.
 

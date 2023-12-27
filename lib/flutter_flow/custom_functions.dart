@@ -15,7 +15,7 @@ double calculatePercentage(
   int? currentscore,
   int? maxscore,
 ) {
-  if (currentscore == null || maxscore == null) return 100;
+  if (currentscore == null || maxscore == null) return 0.5;
   return currentscore / maxscore;
 }
 
@@ -80,4 +80,19 @@ bool greaterThan(
 ) {
   if (valueA == null || valueB == null) return false;
   return valueA > valueB;
+}
+
+String achievementCategoryIdToName(String? achievementId) {
+  if (achievementId == "0")
+    return "Vlinderslag";
+  else if (achievementId == "1")
+    return "Rugcrawl";
+  else if (achievementId == "2")
+    return "Schoolslag";
+  else if (achievementId == "3")
+    return "Vrije slag";
+  else if (achievementId == "4")
+    return "Wisselslag";
+  else
+    return "Overig";
 }

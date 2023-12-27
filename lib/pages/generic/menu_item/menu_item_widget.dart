@@ -70,7 +70,7 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
           ),
           Expanded(
             child: Align(
-              alignment: const AlignmentDirectional(1.00, 0.00),
+              alignment: const AlignmentDirectional(1.0, 0.0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                 child: Icon(

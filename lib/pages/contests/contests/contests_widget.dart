@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/achievement_category_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
+import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -117,45 +119,186 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                   end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          15.0, 15.0, 15.0, 15.0),
-                      child: FutureBuilder<ApiCallResponse>(
-                        future: FFAppState().raceList(
-                          uniqueQueryKey: FFAppState().activeUserId,
-                          requestFn: () => ApiGroup.getContestsCall.call(
-                            swimrankingsIdentifier: FFAppState().activeUserId,
-                          ),
+              child: FutureBuilder<ApiCallResponse>(
+                future: FFAppState().raceList(
+                  uniqueQueryKey: FFAppState().activeUserId,
+                  requestFn: () => ApiGroup.getContestsVTwoCall.call(
+                    deviceIdentifier: FFAppState().deviceIdentifier,
+                  ),
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 32.0,
+                        height: 32.0,
+                        child: SpinKitWave(
+                          color: FlutterFlowTheme.of(context).text,
+                          size: 32.0,
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 32.0,
-                                height: 32.0,
-                                child: SpinKitWave(
-                                  color: FlutterFlowTheme.of(context).text,
-                                  size: 32.0,
+                      ),
+                    );
+                  }
+                  final columnGetContestsVTwoResponse = snapshot.data!;
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 16.0, 16.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
+                                'LinkSwimrankings',
+                                queryParameters: {
+                                  'addState': serializeParam(
+                                    UserAddState.AsViewOnly,
+                                    ParamType.Enum,
+                                  ),
+                                  'showHeader': serializeParam(
+                                    true,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                            child: wrapWithModel(
+                              model: _model.swimrankingsListItemModel,
+                              updateCallback: () => setState(() {}),
+                              child: SwimrankingsListItemWidget(
+                                name: valueOrDefault<String>(
+                                  getJsonField(
+                                    FFAppState().user,
+                                    r'''$.active.fullName''',
+                                  ).toString(),
+                                  'Onbekend',
+                                ),
+                                date: valueOrDefault<String>(
+                                  getJsonField(
+                                    FFAppState().user,
+                                    r'''$.active.birthYear''',
+                                  ).toString(),
+                                  '-',
                                 ),
                               ),
-                            );
-                          }
-                          final listViewGetContestsResponse = snapshot.data!;
-                          return Builder(
-                            builder: (context) {
-                              final contest = ApiGroup.getContestsCall
-                                      .contests(
-                                        listViewGetContestsResponse.jsonBody,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 0.0),
+                          child: Text(
+                            getJsonField(
+                              columnGetContestsVTwoResponse.jsonBody,
+                              r'''$.data.count''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).text3,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 16.0),
+                          child: Text(
+                            'wedstrijden gezwommen!',
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).text3,
+                                ),
+                          ),
+                        ),
+                        if (getJsonField(
+                          FFAppState().user,
+                          r'''$.activeIsMe''',
+                        ))
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'AchievementLevels',
+                                  queryParameters: {
+                                    'title': serializeParam(
+                                      ApiGroup.getContestsVTwoCall
+                                          .achievementLevelName(
+                                            columnGetContestsVTwoResponse
+                                                .jsonBody,
+                                          )
+                                          .toString(),
+                                      ParamType.String,
+                                    ),
+                                    'achievement': serializeParam(
+                                      ApiGroup.getContestsVTwoCall.achievement(
+                                        columnGetContestsVTwoResponse.jsonBody,
+                                      ),
+                                      ParamType.JSON,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: wrapWithModel(
+                                model: _model.achievementCategoryModel,
+                                updateCallback: () => setState(() {}),
+                                child: AchievementCategoryWidget(
+                                  categoryHeader: 'Wedstrijden achievement',
+                                  level: ApiGroup.getContestsVTwoCall
+                                      .achievementLevel(
+                                    columnGetContestsVTwoResponse.jsonBody,
+                                  ),
+                                  categoryLevelName: ApiGroup
+                                      .getContestsVTwoCall
+                                      .achievementLevelName(
+                                        columnGetContestsVTwoResponse.jsonBody,
                                       )
-                                      ?.toList() ??
-                                  [];
+                                      .toString(),
+                                  currentScore: ApiGroup.getContestsVTwoCall
+                                      .achievementLevel(
+                                    columnGetContestsVTwoResponse.jsonBody,
+                                  ),
+                                  maxScore: ApiGroup.getContestsVTwoCall
+                                      .achievementMax(
+                                    columnGetContestsVTwoResponse.jsonBody,
+                                  ),
+                                  badgePath: ApiGroup.getContestsVTwoCall
+                                      .achievementBadge(
+                                        columnGetContestsVTwoResponse.jsonBody,
+                                      )
+                                      .toString(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Builder(
+                            builder: (context) {
+                              final contest = getJsonField(
+                                columnGetContestsVTwoResponse.jsonBody,
+                                r'''$.data.contests''',
+                              ).toList();
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: contest.length,
                                 itemBuilder: (context, contestIndex) {
@@ -206,7 +349,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                                 child: Align(
                                                   alignment:
                                                       const AlignmentDirectional(
-                                                          -1.00, 0.00),
+                                                          -1.0, 0.0),
                                                   child: Container(
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
@@ -328,12 +471,12 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                 },
                               );
                             },
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ),

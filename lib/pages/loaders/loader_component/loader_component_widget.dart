@@ -93,24 +93,28 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/logo_square_600x600.png',
-                          width: 100.0,
-                          height: 100.0,
-                          fit: BoxFit.fill,
+                      child: Hero(
+                        tag: 'logo_square',
+                        transitionOnUserGestures: true,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/logo_square_600x600.png',
+                            width: 100.0,
+                            height: 100.0,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ).animateOnPageLoad(
                           animationsMap['imageOnPageLoadAnimation']!),
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
@@ -119,7 +123,7 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.00, -1.00),
+                            alignment: const AlignmentDirectional(0.0, -1.0),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 8.0, 0.0),

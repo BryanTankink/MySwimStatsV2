@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -16,11 +17,13 @@ class ListSwimrankingsAccountsWidget extends StatefulWidget {
     required this.accounts,
     bool? isFavorite,
     required this.enteredName,
+    required this.addState,
   })  : isFavorite = isFavorite ?? false;
 
   final List<dynamic>? accounts;
   final bool isFavorite;
   final String? enteredName;
+  final UserAddState? addState;
 
   @override
   _ListSwimrankingsAccountsWidgetState createState() =>
@@ -75,11 +78,12 @@ class _ListSwimrankingsAccountsWidgetState
             borderWidth: 1.0,
             buttonSize: 60.0,
             icon: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.arrow_left,
               color: Colors.white,
               size: 30.0,
             ),
             onPressed: () async {
+              HapticFeedback.selectionClick();
               context.pop();
             },
           ),
@@ -174,10 +178,53 @@ class _ListSwimrankingsAccountsWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   var shouldSetState = false;
+                                  HapticFeedback.selectionClick();
 
                                   context.pushNamed('SwimRankingsLoading');
 
-                                  if (widget.isFavorite) {
+                                  if (widget.addState ==
+                                      UserAddState.SetActive) {
+                                    _model.userCreated = await ApiGroup
+                                        .createUserByDeviceIdentifierCall
+                                        .call(
+                                      deviceIdentifier:
+                                          FFAppState().deviceIdentifier,
+                                      swimrankingsIdentifier: getJsonField(
+                                        accountItem,
+                                        r'''$.identifier''',
+                                      ).toString(),
+                                      fullName: getJsonField(
+                                        accountItem,
+                                        r'''$.fullname''',
+                                      ).toString(),
+                                    );
+                                    shouldSetState = true;
+                                    if (!(_model.userCreated?.succeeded ??
+                                        true)) {
+                                      HapticFeedback.heavyImpact();
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Niet gelukt'),
+                                            content: const Text(
+                                                'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                      context.safePop();
+                                      if (shouldSetState) setState(() {});
+                                      return;
+                                    }
+                                  } else if (widget.addState ==
+                                      UserAddState.AsFavorite) {
                                     _model.apiResultbp8 = await ApiGroup
                                         .addFavoritedUserCall
                                         .call(
@@ -193,36 +240,8 @@ class _ListSwimrankingsAccountsWidgetState
                                       ).toString(),
                                     );
                                     shouldSetState = true;
-                                    if ((_model.apiResultbp8?.succeeded ??
+                                    if (!(_model.apiResultbp8?.succeeded ??
                                         true)) {
-                                      _model.userIsAuth2 = await action_blocks
-                                          .getUserAuth(context);
-                                      shouldSetState = true;
-                                      if (!_model.userIsAuth2!) {
-                                        HapticFeedback.heavyImpact();
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Niet gelukt'),
-                                              content: const Text(
-                                                  'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: const Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                        context.safePop();
-                                        if (shouldSetState) setState(() {});
-                                        return;
-                                      }
-                                    } else {
                                       HapticFeedback.heavyImpact();
                                       await showDialog(
                                         context: context,
@@ -246,24 +265,18 @@ class _ListSwimrankingsAccountsWidgetState
                                       return;
                                     }
                                   } else {
-                                    await ApiGroup
-                                        .createUserByDeviceIdentifierCall
-                                        .call(
+                                    _model.apiResultard =
+                                        await ApiGroup.setActiveUserCall.call(
                                       deviceIdentifier:
                                           FFAppState().deviceIdentifier,
                                       swimrankingsIdentifier: getJsonField(
                                         accountItem,
                                         r'''$.identifier''',
                                       ).toString(),
-                                      fullName: getJsonField(
-                                        accountItem,
-                                        r'''$.fullname''',
-                                      ).toString(),
                                     );
-                                    _model.userIsAuth = await action_blocks
-                                        .getUserAuth(context);
                                     shouldSetState = true;
-                                    if (!_model.userIsAuth!) {
+                                    if (!(_model.apiResultard?.succeeded ??
+                                        true)) {
                                       HapticFeedback.heavyImpact();
                                       await showDialog(
                                         context: context,
@@ -288,7 +301,34 @@ class _ListSwimrankingsAccountsWidgetState
                                     }
                                   }
 
-                                  context.goNamed('Dashboard');
+                                  _model.userIsAuth2 =
+                                      await action_blocks.getUserAuth(context);
+                                  shouldSetState = true;
+                                  if (!_model.userIsAuth2!) {
+                                    HapticFeedback.heavyImpact();
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: const Text('Niet gelukt'),
+                                          content: const Text(
+                                              'Het lijkt erop alsof ons systeem momenteel iets niet goed doet, probeer het later opnieuw!'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    context.safePop();
+                                    if (shouldSetState) setState(() {});
+                                    return;
+                                  }
+
+                                  context.pushNamed('Dashboard');
 
                                   if (shouldSetState) setState(() {});
                                 },

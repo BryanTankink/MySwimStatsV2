@@ -23,3 +23,19 @@ export '/pages/contests/contest_club_details/contest_club_details_widget.dart'
     show ContestClubDetailsWidget;
 export '/pages/loaders/generic_loader/generic_loader_widget.dart'
     show GenericLoaderWidget;
+export '/pages/personal_records/personal_records_widget.dart'
+    show PersonalRecordsWidget;
+export '/pages/achievement_categories/achievement_categories_widget.dart'
+    show AchievementCategoriesWidget;
+export '/pages/achievement_category_details/achievement_category_details_widget.dart'
+    show AchievementCategoryDetailsWidget;
+export '/pages/achievement_levels/achievement_levels_widget.dart'
+    show AchievementLevelsWidget;
+export '/pages/growth_details/growth_details_widget.dart'
+    show GrowthDetailsWidget;
+export '/pages/growth_year_details/growth_year_details_widget.dart'
+    show GrowthYearDetailsWidget;
+export '/pages/compare/compare_athletes/compare_athletes_widget.dart'
+    show CompareAthletesWidget;
+export '/pages/compare/compare_athletes_obtain/compare_athletes_obtain_widget.dart'
+    show CompareAthletesObtainWidget;

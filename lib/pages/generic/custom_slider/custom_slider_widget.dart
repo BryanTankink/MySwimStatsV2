@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'custom_slider_model.dart';
 export 'custom_slider_model.dart';
@@ -62,7 +63,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
         child: Stack(
           children: [
             Align(
-              alignment: const AlignmentDirectional(-1.00, -1.00),
+              alignment: const AlignmentDirectional(-1.0, -1.0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(24.0, 2.0, 0.0, 0.0),
                 child: Text(
@@ -75,7 +76,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
               ),
             ),
             Align(
-              alignment: const AlignmentDirectional(0.00, 1.00),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Container(
                 height: 25.0,
                 decoration: const BoxDecoration(),
@@ -90,6 +91,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                     divisions: 10,
                     onChanged: (newValue) async {
                       setState(() => _model.sliderValue = newValue);
+                      HapticFeedback.lightImpact();
                       await widget.onValueChanged?.call();
                     },
                   ),

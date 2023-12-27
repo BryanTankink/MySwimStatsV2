@@ -4,19 +4,27 @@ import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 
-Future<bool> getUserAuth(BuildContext context) async {
+Future<bool> getUserAuth(
+  BuildContext context, {
+  bool? resetActiveToMe,
+}) async {
   ApiCallResponse? apiResultv4f;
   bool? isPremiumOtp;
   ApiCallResponse? apiResult6ha;
 
   apiResultv4f = await GetUserByDeviceIdentifierCall.call(
     deviceidentifier: FFAppState().deviceIdentifier,
+    resetActiveToMe: resetActiveToMe ?? false,
   );
   if ((apiResultv4f.succeeded ?? true)) {
     if (getJsonField(
       (apiResultv4f.jsonBody ?? ''),
       r'''$.data.exists''',
     )) {
+      FFAppState().user = getJsonField(
+        (apiResultv4f.jsonBody ?? ''),
+        r'''$.data''',
+      );
       isPremiumOtp = await action_blocks.isPremium(context);
       if (isPremiumOtp) {
         apiResult6ha = await ApiGroup.getRecomendationsCountCall.call(
@@ -33,12 +41,8 @@ Future<bool> getUserAuth(BuildContext context) async {
         (apiResultv4f.jsonBody ?? ''),
         r'''$.data.active.athleteId''',
       ).toString().toString();
-      FFAppState().premium = isPremiumOtp;
       FFAppState().update(() {
-        FFAppState().user = getJsonField(
-          (apiResultv4f?.jsonBody ?? ''),
-          r'''$.data''',
-        );
+        FFAppState().premium = isPremiumOtp!;
       });
       return true;
     } else {
@@ -86,5 +90,11 @@ Future<bool> isPremium(BuildContext context) async {
     return true;
   }
 
-  return false;
+  return valueOrDefault<bool>(
+    getJsonField(
+      FFAppState().user,
+      r'''$.SpecialPremium''',
+    ),
+    false,
+  );
 }

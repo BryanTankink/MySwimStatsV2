@@ -22,7 +22,7 @@ void main() async {
   await appState.initializePersistedState();
 
   await revenue_cat.initialize(
-    "test",
+    "appl_qzUdgkOiJHANBhtCWgWMYYItaeb",
     "goog_aGJCZutXPNPWvBYiNcOZPFRRaWn",
     loadDataAfterLaunch: true,
   );
@@ -125,6 +125,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Dashboard': const DashboardWidget(),
+      'personalRecords': const PersonalRecordsWidget(),
       'contests': const ContestsWidget(),
       'profile': const ProfileWidget(),
     };
@@ -155,6 +156,18 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24.0,
             ),
             label: 'Home',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.fiber_smart_record_outlined,
+              size: 24.0,
+            ),
+            activeIcon: Icon(
+              Icons.fiber_smart_record_sharp,
+              size: 24.0,
+            ),
+            label: 'Records',
             tooltip: '',
           ),
           BottomNavigationBarItem(

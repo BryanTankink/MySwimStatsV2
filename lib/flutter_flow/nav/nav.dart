@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/enums/enums.dart';
 
 import '/index.dart';
 import '/main.dart';
@@ -75,6 +76,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LinkSwimrankingsWidget(
             showHeader: params.getParam('showHeader', ParamType.bool),
             isFavorite: params.getParam('isFavorite', ParamType.bool),
+            addState: params.getParam<UserAddState>('addState', ParamType.Enum),
           ),
         ),
         FFRoute(
@@ -102,6 +104,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 params.getParam<dynamic>('accounts', ParamType.JSON, true),
             isFavorite: params.getParam('isFavorite', ParamType.bool),
             enteredName: params.getParam('enteredName', ParamType.String),
+            addState: params.getParam<UserAddState>('addState', ParamType.Enum),
           ),
         ),
         FFRoute(
@@ -111,6 +114,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             style: params.getParam('style', ParamType.int),
             course: params.getParam('course', ParamType.int),
             title: params.getParam('title', ParamType.String),
+            timeId: params.getParam('timeId', ParamType.int),
+            year: params.getParam('year', ParamType.String),
           ),
         ),
         FFRoute(
@@ -177,6 +182,60 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => GenericLoaderWidget(
             loadingMessage: params.getParam('loadingMessage', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'personalRecords',
+          path: '/personalRecords',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'personalRecords')
+              : const PersonalRecordsWidget(),
+        ),
+        FFRoute(
+          name: 'AchievementCategories',
+          path: '/achievementCategories',
+          builder: (context, params) => const AchievementCategoriesWidget(),
+        ),
+        FFRoute(
+          name: 'AchievementCategoryDetails',
+          path: '/achievementCategoryDetails',
+          builder: (context, params) => AchievementCategoryDetailsWidget(
+            categoryId: params.getParam('categoryId', ParamType.String),
+            categoryName: params.getParam('categoryName', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'AchievementLevels',
+          path: '/achievementLevels',
+          builder: (context, params) => AchievementLevelsWidget(
+            title: params.getParam('title', ParamType.String),
+            achievement: params.getParam('achievement', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'growthDetails',
+          path: '/growthDetails',
+          builder: (context, params) => GrowthDetailsWidget(
+            graphResult: params.getParam('graphResult', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'growthYearDetails',
+          path: '/growthYearDetails',
+          builder: (context, params) => GrowthYearDetailsWidget(
+            yearInfo: params.getParam('yearInfo', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'compareAthletes',
+          path: '/compareAthletes',
+          builder: (context, params) => CompareAthletesWidget(
+            personA: params.getParam('personA', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'compareAthletesObtain',
+          path: '/compareAthletesObtain',
+          builder: (context, params) => const CompareAthletesObtainWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -305,13 +364,20 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: PageTransition(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
                     child: child,
-                  ).transitionsBuilder,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
                 )
               : MaterialPage(key: state.pageKey, child: child);
         },

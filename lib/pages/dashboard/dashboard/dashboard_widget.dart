@@ -1,10 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/achievement_category_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/pages/dashboard/dashboard_tab_page/dashboard_tab_page_widget.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +21,7 @@ class DashboardWidget extends StatefulWidget {
   _DashboardWidgetState createState() => _DashboardWidgetState();
 }
 
-class _DashboardWidgetState extends State<DashboardWidget>
-    with TickerProviderStateMixin {
+class _DashboardWidgetState extends State<DashboardWidget> {
   late DashboardModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,12 +37,6 @@ class _DashboardWidgetState extends State<DashboardWidget>
         (e) => e..activePage = PageId.Dashboard,
       );
     });
-
-    _model.tabBarController = TabController(
-      vsync: this,
-      length: 5,
-      initialIndex: 0,
-    )..addListener(() => setState(() {}));
   }
 
   @override
@@ -124,370 +116,350 @@ class _DashboardWidgetState extends State<DashboardWidget>
                   end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
-              child: FutureBuilder<ApiCallResponse>(
-                future: FFAppState().dashboard(
-                  uniqueQueryKey: FFAppState().activeUserId,
-                  requestFn: () => ApiGroup.dashboardCall.call(
-                    deviceIdentifier: FFAppState().deviceIdentifier,
-                    athleteId: valueOrDefault<int>(
-                      getJsonField(
-                        FFAppState().user,
-                        r'''$.active.athleteId''',
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                    child: Text(
+                      valueOrDefault<String>(
+                        'Welkom: ${getJsonField(
+                          FFAppState().user,
+                          r'''$.me.fullName''',
+                        ).toString()} (${getJsonField(
+                          FFAppState().user,
+                          r'''$.active.birthYear''',
+                        ).toString()})',
+                        'Welkom: Bryan Tankink (1995)',
                       ),
-                      0,
+                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).text3,
+                          ),
                     ),
                   ),
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 32.0,
-                        height: 32.0,
-                        child: SpinKitWave(
-                          color: FlutterFlowTheme.of(context).text,
-                          size: 32.0,
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        HapticFeedback.selectionClick();
+
+                        context.pushNamed('AchievementCategories');
+                      },
+                      child: wrapWithModel(
+                        model: _model.achievementCategoryModel,
+                        updateCallback: () => setState(() {}),
+                        child: AchievementCategoryWidget(
+                          categoryHeader: 'Achievements',
+                          level: getJsonField(
+                            FFAppState().user,
+                            r'''$.swimLevel.level''',
+                          ),
+                          categoryLevelName: getJsonField(
+                            FFAppState().user,
+                            r'''$.swimLevel.name''',
+                          ).toString(),
+                          currentScore: getJsonField(
+                            FFAppState().user,
+                            r'''$.achievementsObtained''',
+                          ),
+                          maxScore: getJsonField(
+                            FFAppState().user,
+                            r'''$.maxAchievements''',
+                          ),
+                          badgePath: getJsonField(
+                            FFAppState().user,
+                            r'''$.swimLevel.badge''',
+                          ).toString(),
                         ),
                       ),
-                    );
-                  }
-                  final containerDashboardResponse = snapshot.data!;
-                  return Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: const BoxDecoration(),
-                    child: Builder(
-                      builder: (context) {
-                        if (containerDashboardResponse.succeeded &&
-                            ApiGroup.dashboardCall.isValid(
-                              containerDashboardResponse.jsonBody,
-                            )) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 16.0),
-                                child: Text(
-                                  'Informatie van: ${getJsonField(
-                                    FFAppState().user,
-                                    r'''$.active.fullName''',
-                                  ).toString()}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color:
-                                            FlutterFlowTheme.of(context).text3,
-                                      ),
-                                ),
+                    ),
+                  ),
+                  if (FFAppState().premium)
+                    Container(
+                      width: double.infinity,
+                      height: 175.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).cards,
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
-                              if (FFAppState().premium)
-                                Container(
+                            ),
+                          ),
+                          FutureBuilder<ApiCallResponse>(
+                            future: ApiGroup.dashboardGraphCall.call(
+                              swimrankingsIdentifier: getJsonField(
+                                FFAppState().user,
+                                r'''$.me.athleteId''',
+                              ).toString(),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 32.0,
+                                    height: 32.0,
+                                    child: SpinKitWave(
+                                      color: FlutterFlowTheme.of(context).text,
+                                      size: 32.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final containerDashboardGraphResponse =
+                                  snapshot.data!;
+                              return InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  HapticFeedback.selectionClick();
+
+                                  context.pushNamed(
+                                    'growthDetails',
+                                    queryParameters: {
+                                      'graphResult': serializeParam(
+                                        getJsonField(
+                                          containerDashboardGraphResponse
+                                              .jsonBody,
+                                          r'''$.data''',
+                                        ),
+                                        ParamType.JSON,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
                                   decoration: const BoxDecoration(),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
+                                  child: Stack(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        child: FutureBuilder<ApiCallResponse>(
-                                          future: FFAppState().dashboardGraph(
-                                            uniqueQueryKey:
-                                                FFAppState().activeUserId,
-                                            requestFn: () => ApiGroup
-                                                .dashboardGraphCall
-                                                .call(
-                                              swimrankingsIdentifier:
-                                                  FFAppState().activeUserId,
-                                            ),
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 25.0, 0.0, 25.0),
-                                                  child: SizedBox(
-                                                    width: 80.0,
-                                                    height: 80.0,
-                                                    child: SpinKitRipple(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .text,
-                                                      size: 80.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final chartDashboardGraphResponse =
-                                                snapshot.data!;
-                                            return SizedBox(
-                                              width: double.infinity,
-                                              height: 150.0,
-                                              child: FlutterFlowLineChart(
-                                                data: [
-                                                  FFLineChartData(
-                                                    xData: ApiGroup
-                                                        .dashboardGraphCall
-                                                        .years(
-                                                      chartDashboardGraphResponse
-                                                          .jsonBody,
-                                                    )!,
-                                                    yData: ApiGroup
-                                                        .dashboardGraphCall
-                                                        .points(
-                                                      chartDashboardGraphResponse
-                                                          .jsonBody,
-                                                    )!,
-                                                    settings: LineChartBarData(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      barWidth: 2.0,
-                                                      isCurved: true,
-                                                    ),
-                                                  )
-                                                ],
-                                                chartStylingInfo:
-                                                    const ChartStylingInfo(
-                                                  enableTooltip: true,
-                                                  backgroundColor:
-                                                      Color(0x00FFFFFF),
-                                                  showBorder: false,
-                                                ),
-                                                axisBounds: const AxisBounds(),
-                                                xAxisLabelInfo: const AxisLabelInfo(),
-                                                yAxisLabelInfo: const AxisLabelInfo(),
+                                            32.0, 16.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Persoonlijke groei',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                            );
-                                          },
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 16.0),
-                                        child: Container(
-                                          decoration: const BoxDecoration(),
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          height: 125.0,
+                                          child: FlutterFlowLineChart(
+                                            data: [
+                                              FFLineChartData(
+                                                xData: ApiGroup
+                                                    .dashboardGraphCall
+                                                    .years(
+                                                  containerDashboardGraphResponse
+                                                      .jsonBody,
+                                                )!,
+                                                yData: ApiGroup
+                                                    .dashboardGraphCall
+                                                    .points(
+                                                  containerDashboardGraphResponse
+                                                      .jsonBody,
+                                                )!,
+                                                settings: LineChartBarData(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  barWidth: 2.0,
+                                                  isCurved: true,
+                                                ),
+                                              )
+                                            ],
+                                            chartStylingInfo: const ChartStylingInfo(
+                                              backgroundColor:
+                                                  Color(0x00FFFFFF),
+                                              showBorder: false,
+                                            ),
+                                            axisBounds: const AxisBounds(),
+                                            xAxisLabelInfo: const AxisLabelInfo(),
+                                            yAxisLabelInfo: const AxisLabelInfo(),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(1.0, 1.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 16.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Container(
+                                                width: 120.0,
+                                                height: 100.0,
+                                                decoration: const BoxDecoration(),
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 16.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        'Bekijk alle informatie',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .text3,
+                                                                ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .chevron_right_sharp,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .text3,
+                                                        size: 24.0,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              Expanded(
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (false)
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'compareAthletes',
+                            queryParameters: {
+                              'personA': serializeParam(
+                                getJsonField(
+                                  FFAppState().user,
+                                  r'''$.me''',
+                                ),
+                                ParamType.JSON,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 98.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).cards,
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 16.0, 0.0, 0.0),
                                 child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Align(
-                                      alignment: const Alignment(0.0, 0),
-                                      child: TabBar(
-                                        isScrollable: true,
-                                        labelColor:
-                                            FlutterFlowTheme.of(context).text,
-                                        unselectedLabelColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 14.0,
-                                            ),
-                                        unselectedLabelStyle: const TextStyle(),
-                                        indicatorColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 4.0, 4.0, 4.0),
-                                        tabs: const [
-                                          Tab(
-                                            key: ValueKey('Tab_uw2r'),
-                                            text: 'Vlinderslag',
+                                    Text(
+                                      'Vergelijking maken',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .text3,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          Tab(
-                                            text: 'Rugcrawl',
-                                          ),
-                                          Tab(
-                                            text: 'Schoolslag',
-                                          ),
-                                          Tab(
-                                            text: 'Vrije slag',
-                                          ),
-                                          Tab(
-                                            text: 'Wisselslag',
-                                          ),
-                                        ],
-                                        controller: _model.tabBarController,
-                                      ),
                                     ),
-                                    Expanded(
-                                      child: TabBarView(
-                                        controller: _model.tabBarController,
-                                        children: [
-                                          Align(
-                                            alignment: const AlignmentDirectional(
-                                                0.00, 0.00),
-                                            child: wrapWithModel(
-                                              model:
-                                                  _model.dashboardTabPageModel1,
-                                              updateCallback: () =>
-                                                  setState(() {}),
-                                              child: DashboardTabPageWidget(
-                                                strokes: ApiGroup.dashboardCall
-                                                    .butterflyPerformances(
-                                                  containerDashboardResponse
-                                                      .jsonBody,
-                                                )!,
-                                              ),
-                                            ),
+                                    Text(
+                                      'Vergelijk jouzelf of een ander met andere zwemmers om van elkaar te leren!',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .text3,
                                           ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.dashboardTabPageModel2,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: DashboardTabPageWidget(
-                                              strokes: ApiGroup.dashboardCall
-                                                  .backstrokePerformances(
-                                                containerDashboardResponse
-                                                    .jsonBody,
-                                              )!,
-                                            ),
-                                          ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.dashboardTabPageModel3,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: DashboardTabPageWidget(
-                                              strokes: ApiGroup.dashboardCall
-                                                  .breaststrokePerformances(
-                                                containerDashboardResponse
-                                                    .jsonBody,
-                                              )!,
-                                            ),
-                                          ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.dashboardTabPageModel4,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: DashboardTabPageWidget(
-                                              strokes: ApiGroup.dashboardCall
-                                                  .freestylePerformances(
-                                                containerDashboardResponse
-                                                    .jsonBody,
-                                              )!,
-                                            ),
-                                          ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.dashboardTabPageModel5,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: DashboardTabPageWidget(
-                                              strokes: ApiGroup.dashboardCall
-                                                  .medleyPerformances(
-                                                containerDashboardResponse
-                                                    .jsonBody,
-                                              )!,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          );
-                        } else {
-                          return Align(
-                            alignment: const AlignmentDirectional(0.00, 0.00),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 16.0, 16.0, 0.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: 150.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
+                              Align(
+                                alignment: const AlignmentDirectional(1.0, 1.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 8.0, 8.0, 8.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        'Oeps...',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
-                                      ),
-                                      Text(
-                                        'Er is iets fout gegaan met jou account! helaas moeten wij hem opnieuw instellen.',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .text3,
-                                            ),
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.00, 0.00),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              context.goNamed('Onboarding');
-                                            },
-                                            text: 'Opnieuw instellen',
-                                            options: FFButtonOptions(
-                                              width: 230.0,
-                                              height: 52.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge,
-                                              elevation: 0.0,
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                      0.0, 0.0, 16.0, 16.0),
+                                  child: Icon(
+                                    Icons.chevron_right_sharp,
+                                    color: FlutterFlowTheme.of(context).text3,
+                                    size: 24.0,
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                      },
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  );
-                },
+                ],
               ),
             ),
           ),

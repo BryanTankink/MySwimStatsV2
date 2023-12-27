@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -17,11 +18,13 @@ class LinkSwimrankingsWidget extends StatefulWidget {
     super.key,
     bool? showHeader,
     bool? isFavorite,
+    required this.addState,
   })  : showHeader = showHeader ?? false,
         isFavorite = isFavorite ?? false;
 
   final bool showHeader;
   final bool isFavorite;
+  final UserAddState? addState;
 
   @override
   _LinkSwimrankingsWidgetState createState() => _LinkSwimrankingsWidgetState();
@@ -102,11 +105,12 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                   borderWidth: 1.0,
                   buttonSize: 60.0,
                   icon: const Icon(
-                    Icons.arrow_back_rounded,
+                    Icons.arrow_left,
                     color: Colors.white,
                     size: 30.0,
                   ),
                   onPressed: () async {
+                    HapticFeedback.selectionClick();
                     context.pop();
                   },
                 ),
@@ -157,19 +161,23 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/logo_square_600x600.png',
-                            width: 100.0,
-                            height: 100.0,
-                            fit: BoxFit.fill,
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Hero(
+                          tag: 'logo_square',
+                          transitionOnUserGestures: true,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/logo_square_600x600.png',
+                              width: 100.0,
+                              height: 100.0,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
@@ -178,7 +186,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
-                                alignment: const AlignmentDirectional(-1.00, -1.00),
+                                alignment: const AlignmentDirectional(-1.0, -1.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 0.0, 8.0, 0.0),
@@ -254,7 +262,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.00, 0.00),
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 32.0, 10.0, 0.0),
@@ -324,18 +332,18 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                               if (VerifyFullNameCall.userCount(
                                     (_model.nameVerifyResultCopy?.jsonBody ??
                                         ''),
-                                  ) >
+                                  )! >
                                   0) {
                                 if (VerifyFullNameCall.userCount(
                                       (_model.nameVerifyResultCopy?.jsonBody ??
                                           ''),
-                                    ) >
+                                    )! >
                                     1) {
                                   if (VerifyFullNameCall.userCount(
                                         (_model.nameVerifyResultCopy
                                                 ?.jsonBody ??
                                             ''),
-                                      ) <
+                                      )! <
                                       25) {
                                     HapticFeedback.lightImpact();
 
@@ -358,6 +366,10 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                         'enteredName': serializeParam(
                                           _model.nameFieldController.text,
                                           ParamType.String,
+                                        ),
+                                        'addState': serializeParam(
+                                          widget.addState,
+                                          ParamType.Enum,
                                         ),
                                       }.withoutNulls,
                                     );
@@ -388,7 +400,27 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                   }
                                 } else {
                                   HapticFeedback.lightImpact();
-                                  if (widget.isFavorite) {
+                                  if (widget.addState ==
+                                      UserAddState.SetActive) {
+                                    await ApiGroup
+                                        .createUserByDeviceIdentifierCall
+                                        .call(
+                                      deviceIdentifier:
+                                          FFAppState().deviceIdentifier,
+                                      swimrankingsIdentifier:
+                                          VerifyFullNameCall.userId(
+                                        (_model.nameVerifyResultCopy
+                                                ?.jsonBody ??
+                                            ''),
+                                      ).toString(),
+                                      fullName: VerifyFullNameCall.userFullname(
+                                        (_model.nameVerifyResultCopy
+                                                ?.jsonBody ??
+                                            ''),
+                                      ).toString(),
+                                    );
+                                  } else if (widget.addState ==
+                                      UserAddState.AsFavorite) {
                                     _model.apiResultbp8 = await ApiGroup
                                         .addFavoritedUserCall
                                         .call(
@@ -408,9 +440,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     );
                                     shouldSetState = true;
                                   } else {
-                                    await ApiGroup
-                                        .createUserByDeviceIdentifierCall
-                                        .call(
+                                    _model.apiResultd62 =
+                                        await ApiGroup.setActiveUserCall.call(
                                       deviceIdentifier:
                                           FFAppState().deviceIdentifier,
                                       swimrankingsIdentifier:
@@ -419,12 +450,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                                 ?.jsonBody ??
                                             ''),
                                       ).toString(),
-                                      fullName: VerifyFullNameCall.userFullname(
-                                        (_model.nameVerifyResultCopy
-                                                ?.jsonBody ??
-                                            ''),
-                                      ).toString(),
                                     );
+                                    shouldSetState = true;
                                   }
 
                                   _model.hasValidUserAuthCopy =

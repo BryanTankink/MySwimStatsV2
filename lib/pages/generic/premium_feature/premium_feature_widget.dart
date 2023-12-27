@@ -63,7 +63,7 @@ class _PremiumFeatureWidgetState extends State<PremiumFeatureWidget> {
                   ),
             ),
             Align(
-              alignment: const AlignmentDirectional(0.00, 0.00),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Text(
                 widget.featureDescription!,
                 textAlign: TextAlign.center,

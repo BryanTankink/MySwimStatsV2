@@ -46,96 +46,191 @@ class _ContestSwimLineWidgetState extends State<ContestSwimLineWidget> {
 
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
-      height: 50.0,
       decoration: const BoxDecoration(),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: const AlignmentDirectional(-1.00, 0.00),
-              child: Text(
-                valueOrDefault<String>(
-                  getJsonField(
-                    widget.stroke,
-                    r'''$.event''',
-                  ).toString(),
-                  'Onbekend',
-                ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.of(context).text2,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Align(
+                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  child: Text(
+                    valueOrDefault<String>(
+                      getJsonField(
+                        widget.stroke,
+                        r'''$.event''',
+                      ).toString(),
+                      'Onbekend',
                     ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: const AlignmentDirectional(0.00, 0.00),
-              child: Text(
-                valueOrDefault<String>(
-                  getJsonField(
-                    widget.stroke,
-                    r'''$.percentage''',
-                  ).toString(),
-                  '--m',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).text2,
+                        ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Poppins',
-                      color: functions.isGoodPercentage(getJsonField(
+              ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Text(
+                    valueOrDefault<String>(
+                      getJsonField(
                         widget.stroke,
                         r'''$.percentage''',
-                      ).toString())!
-                          ? FlutterFlowTheme.of(context).performanceGood
-                          : FlutterFlowTheme.of(context).performanceBad,
+                      ).toString(),
+                      '--m',
                     ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: const AlignmentDirectional(0.00, 0.00),
-              child: Text(
-                valueOrDefault<String>(
-                  getJsonField(
-                    widget.stroke,
-                    r'''$.newSwimTime''',
-                  ).toString(),
-                  'XX.XX',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                          fontFamily: 'Poppins',
+                          color: functions.isGoodPercentage(getJsonField(
+                            widget.stroke,
+                            r'''$.percentage''',
+                          ).toString())!
+                              ? FlutterFlowTheme.of(context).performanceGood
+                              : FlutterFlowTheme.of(context).performanceBad,
+                        ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.of(context).text2,
-                    ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: const AlignmentDirectional(1.00, 0.00),
-              child: Text(
-                valueOrDefault<String>(
-                  getJsonField(
-                    widget.stroke,
-                    r'''$.newPoints''',
-                  ).toString(),
-                  'XXX',
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Text(
+                    valueOrDefault<String>(
+                      getJsonField(
+                        widget.stroke,
+                        r'''$.newSwimTime''',
+                      ).toString(),
+                      'XX.XX',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).text2,
+                        ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.of(context).text2,
-                    ),
               ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: const AlignmentDirectional(1.0, 0.0),
+                  child: Text(
+                    valueOrDefault<String>(
+                      getJsonField(
+                        widget.stroke,
+                        r'''$.newPoints''',
+                      ).toString(),
+                      'XXX',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).text2,
+                        ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (getJsonField(
+                widget.stroke,
+                r'''$.splits''',
+              ) !=
+              null)
+            Builder(
+              builder: (context) {
+                final split = getJsonField(
+                  widget.stroke,
+                  r'''$.splits''',
+                ).toList();
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: List.generate(split.length, (splitIndex) {
+                    final splitItem = split[splitIndex];
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                child: Text(
+                                  getJsonField(
+                                    splitItem,
+                                    r'''$.distance''',
+                                  ).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Text(
+                                  getJsonField(
+                                    splitItem,
+                                    r'''$.splitTime''',
+                                  ).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: const AlignmentDirectional(1.0, 0.0),
+                                child: Text(
+                                  getJsonField(
+                                    splitItem,
+                                    r'''$.timeTotal''',
+                                  ).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }),
+                );
+              },
             ),
+          const Divider(
+            thickness: 1.0,
+            color: Color(0x81EEEEEE),
           ),
         ],
       ),

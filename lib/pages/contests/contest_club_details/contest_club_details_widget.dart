@@ -78,6 +78,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
               size: 30.0,
             ),
             onPressed: () async {
+              HapticFeedback.selectionClick();
               context.pop();
             },
           ),
@@ -122,13 +123,13 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           valueOrDefault<String>(
                             widget.raceName,
@@ -153,7 +154,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           valueOrDefault<String>(
                             '${getJsonField(
@@ -188,7 +189,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           getJsonField(
                             widget.contestData,
@@ -205,7 +206,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           '${getJsonField(
                             widget.contestData,
@@ -231,7 +232,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           getJsonField(
                             widget.contestData,
@@ -249,7 +250,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           '${getJsonField(
                             widget.contestData,
@@ -287,6 +288,8 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    HapticFeedback.selectionClick();
+
                                     context.pushNamed('genericLoader');
 
                                     _model.setActiveUser =
@@ -352,7 +355,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.00, 0.00),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -422,7 +425,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                               flex: 2,
                                               child: Align(
                                                 alignment: const AlignmentDirectional(
-                                                    -1.00, 0.00),
+                                                    -1.0, 0.0),
                                                 child: Text(
                                                   'Afstand',
                                                   textAlign: TextAlign.center,
@@ -445,7 +448,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                               flex: 1,
                                               child: Align(
                                                 alignment: const AlignmentDirectional(
-                                                    0.00, 0.00),
+                                                    0.0, 0.0),
                                                 child: Text(
                                                   '%',
                                                   textAlign: TextAlign.center,
@@ -468,7 +471,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                               flex: 1,
                                               child: Align(
                                                 alignment: const AlignmentDirectional(
-                                                    0.00, 0.00),
+                                                    0.0, 0.0),
                                                 child: Text(
                                                   'Tijd',
                                                   textAlign: TextAlign.center,
@@ -491,7 +494,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                               flex: 1,
                                               child: Align(
                                                 alignment: const AlignmentDirectional(
-                                                    1.00, 0.00),
+                                                    1.0, 0.0),
                                                 child: Text(
                                                   'Punten',
                                                   textAlign: TextAlign.center,

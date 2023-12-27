@@ -52,7 +52,7 @@ class _ProfileStrokeSettingsWidgetState
     context.watch<FFAppState>();
 
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
@@ -168,7 +168,7 @@ class _ProfileStrokeSettingsWidgetState
               ),
               if (_model.strokeSettingChanged)
                 Align(
-                  alignment: const AlignmentDirectional(0.00, 1.00),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.operationButtonModel,
                     updateCallback: () => setState(() {}),

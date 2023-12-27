@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'operation_button_model.dart';
 export 'operation_button_model.dart';
@@ -46,20 +47,25 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: const AlignmentDirectional(0.00, 0.00),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: InkWell(
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          setState(() {
-            _model.isLoading = true;
-          });
-          await widget.onClick?.call();
-          setState(() {
-            _model.isLoading = false;
-          });
+          if (_model.isLoading) {
+            HapticFeedback.lightImpact();
+          } else {
+            setState(() {
+              _model.isLoading = true;
+            });
+            HapticFeedback.selectionClick();
+            await widget.onClick?.call();
+            setState(() {
+              _model.isLoading = false;
+            });
+          }
         },
         child: Container(
           width: 230.0,
@@ -69,7 +75,7 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
             borderRadius: BorderRadius.circular(14.0),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+            padding: const EdgeInsets.all(6.0),
             child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -84,7 +90,7 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
                 children: [
                   if (!_model.isLoading)
                     Align(
-                      alignment: const AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Text(
                         widget.text!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
