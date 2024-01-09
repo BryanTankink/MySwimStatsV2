@@ -1,14 +1,17 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/achievement_category_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'dashboard_model.dart';
@@ -21,10 +24,102 @@ class DashboardWidget extends StatefulWidget {
   _DashboardWidgetState createState() => _DashboardWidgetState();
 }
 
-class _DashboardWidgetState extends State<DashboardWidget> {
+class _DashboardWidgetState extends State<DashboardWidget>
+    with TickerProviderStateMixin {
   late DashboardModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'textOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 3.ms,
+          duration: 400.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 3.ms,
+          duration: 400.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'achievementCategoryOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -95,12 +190,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: MediaQuery.sizeOf(context).height * 1.0,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -137,7 +232,77 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.of(context).text3,
                           ),
-                    ),
+                    ).animateOnPageLoad(
+                        animationsMap['textOnPageLoadAnimation']!),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed('achievementUsers');
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 98.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).cards,
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 0.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Top gebruikers',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .text3,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Bekijk hier de beste zwemmers die de app gebruiken!',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .text3,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(1.0, 1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 16.0, 16.0),
+                                child: Icon(
+                                  Icons.chevron_right_sharp,
+                                  color: FlutterFlowTheme.of(context).text3,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ).animateOnPageLoad(
+                        animationsMap['containerOnPageLoadAnimation1']!),
                   ),
                   Padding(
                     padding:
@@ -179,7 +344,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           ).toString(),
                         ),
                       ),
-                    ),
+                    ).animateOnPageLoad(animationsMap[
+                        'achievementCategoryOnPageLoadAnimation']!),
                   ),
                   if (FFAppState().premium)
                     Container(
@@ -378,87 +544,92 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           ),
                         ],
                       ),
-                    ),
-                  if (false)
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(
-                            'compareAthletes',
-                            queryParameters: {
-                              'personA': serializeParam(
-                                getJsonField(
-                                  FFAppState().user,
-                                  r'''$.me''',
-                                ),
-                                ParamType.JSON,
+                    ).animateOnPageLoad(
+                        animationsMap['containerOnPageLoadAnimation2']!),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed(
+                          'compareAthleteFavorites',
+                          queryParameters: {
+                            'otherAthlete': serializeParam(
+                              getJsonField(
+                                FFAppState().user,
+                                r'''$.active''',
                               ),
-                            }.withoutNulls,
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 98.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).cards,
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 16.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Vergelijking maken',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    Text(
-                                      'Vergelijk jouzelf of een ander met andere zwemmers om van elkaar te leren!',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 16.0, 16.0),
-                                  child: Icon(
-                                    Icons.chevron_right_sharp,
-                                    color: FlutterFlowTheme.of(context).text3,
-                                    size: 24.0,
+                              ParamType.JSON,
+                            ),
+                            'isComparer': serializeParam(
+                              true,
+                              ParamType.bool,
+                            ),
+                          }.withoutNulls,
+                        );
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 98.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).cards,
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 0.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Vergelijking maken',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .text3,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
+                                  Text(
+                                    'Vergelijk jouzelf of een ander met andere zwemmers om van elkaar te leren!',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .text3,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(1.0, 1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 16.0, 16.0),
+                                child: Icon(
+                                  Icons.chevron_right_sharp,
+                                  color: FlutterFlowTheme.of(context).text3,
+                                  size: 24.0,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                    ).animateOnPageLoad(
+                        animationsMap['containerOnPageLoadAnimation3']!),
+                  ),
                 ],
               ),
             ),

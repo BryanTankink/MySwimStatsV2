@@ -1,15 +1,18 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/achievement_category_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'contests_model.dart';
@@ -22,10 +25,83 @@ class ContestsWidget extends StatefulWidget {
   _ContestsWidgetState createState() => _ContestsWidgetState();
 }
 
-class _ContestsWidgetState extends State<ContestsWidget> {
+class _ContestsWidgetState extends State<ContestsWidget>
+    with TickerProviderStateMixin {
   late ContestsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'swimrankingsListItemOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'achievementCategoryOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'listViewOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 450.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -96,12 +172,12 @@ class _ContestsWidgetState extends State<ContestsWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -176,51 +252,58 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                   getJsonField(
                                     FFAppState().user,
                                     r'''$.active.fullName''',
-                                  ).toString(),
+                                  )?.toString(),
                                   'Onbekend',
                                 ),
                                 date: valueOrDefault<String>(
                                   getJsonField(
                                     FFAppState().user,
                                     r'''$.active.birthYear''',
-                                  ).toString(),
+                                  )?.toString(),
                                   '-',
                                 ),
                               ),
                             ),
-                          ),
+                          ).animateOnPageLoad(animationsMap[
+                              'swimrankingsListItemOnPageLoadAnimation']!),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 16.0, 0.0, 0.0),
-                          child: Text(
-                            getJsonField(
-                              columnGetContestsVTwoResponse.jsonBody,
-                              r'''$.data.count''',
-                            ).toString(),
-                            style: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color: FlutterFlowTheme.of(context).text3,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 16.0),
-                          child: Text(
-                            'wedstrijden gezwommen!',
-                            style: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color: FlutterFlowTheme.of(context).text3,
-                                ),
-                          ),
-                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: Text(
+                                getJsonField(
+                                  columnGetContestsVTwoResponse.jsonBody,
+                                  r'''$.data.count''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context).text3,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: Text(
+                                'wedstrijden gezwommen!',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context).text3,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnPageLoad(
+                            animationsMap['columnOnPageLoadAnimation']!),
                         if (getJsonField(
                           FFAppState().user,
                           r'''$.activeIsMe''',
@@ -285,7 +368,8 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                       .toString(),
                                 ),
                               ),
-                            ),
+                            ).animateOnPageLoad(animationsMap[
+                                'achievementCategoryOnPageLoadAnimation']!),
                           ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -430,7 +514,7 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                                         Text(
                                                           getJsonField(
                                                             contestItem,
-                                                            r'''$.date''',
+                                                            r'''$.dateFull''',
                                                           ).toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -469,7 +553,8 @@ class _ContestsWidgetState extends State<ContestsWidget> {
                                     ),
                                   );
                                 },
-                              );
+                              ).animateOnPageLoad(animationsMap[
+                                  'listViewOnPageLoadAnimation']!);
                             },
                           ),
                         ),

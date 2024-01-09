@@ -1,7 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
+import '/pages/generic/premium_sheet/premium_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'premium_feature_model.dart';
@@ -81,37 +81,17 @@ class _PremiumFeatureWidgetState extends State<PremiumFeatureWidget> {
                 child: OperationButtonWidget(
                   text: 'Neem nu!',
                   onClick: () async {
-                    if (revenue_cat.activeEntitlementIds
-                        .contains(FFAppConstants.premiumEntitelment)) {
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: const Text('Al premium!'),
-                            content: const Text(
-                                'Ah, het lijkt erop dat jij al premium bent!'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: const Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
-                      _model.purchaseSuccess =
-                          await revenue_cat.purchasePackage(revenue_cat
-                              .offerings!.current!.monthly!.identifier);
-                      if (_model.purchaseSuccess!) {
-                        FFAppState().update(() {});
-
-                        context.goNamed('Dashboard');
-                      }
-                    }
-
-                    setState(() {});
+                    await showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) {
+                        return Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: const PremiumSheetWidget(),
+                        );
+                      },
+                    ).then((value) => safeSetState(() {}));
                   },
                 ),
               ),

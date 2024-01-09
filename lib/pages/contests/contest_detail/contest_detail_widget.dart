@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/contests/contest_swim_line/contest_swim_line_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'contest_detail_model.dart';
@@ -28,10 +31,118 @@ class ContestDetailWidget extends StatefulWidget {
   _ContestDetailWidgetState createState() => _ContestDetailWidgetState();
 }
 
-class _ContestDetailWidgetState extends State<ContestDetailWidget> {
+class _ContestDetailWidgetState extends State<ContestDetailWidget>
+    with TickerProviderStateMixin {
   late ContestDetailModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'textOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 1.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 150.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 300.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'contestSwimLineOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 750.ms,
+          duration: 699.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 750.ms,
+          duration: 699.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'swimrankingsListItemOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1000.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1000.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -101,12 +212,12 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -166,194 +277,223 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                   fontFamily: 'Poppins',
                                   color: FlutterFlowTheme.of(context).text3,
                                 ),
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['textOnPageLoadAnimation']!),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 16.0, 0.0, 0.0),
-                          child: Text(
-                            'Mijn gemiddelde performance',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).titleMedium,
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              '${ApiGroup.getContestCall.myPerformance(
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: Text(
+                                'Mijn gemiddelde performance',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context).titleMedium,
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                valueOrDefault<String>(
+                                  '${ApiGroup.getContestCall.myPerformance(
+                                        listViewGetContestResponse.jsonBody,
+                                      ).toString()}%',
+                                  '100%',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: functions.isGoodPercentage(
+                                              ApiGroup.getContestCall
+                                                  .myPerformance(
+                                                    listViewGetContestResponse
+                                                        .jsonBody,
+                                                  )
+                                                  .toString())!
+                                          ? FlutterFlowTheme.of(context)
+                                              .performanceGood
+                                          : FlutterFlowTheme.of(context)
+                                              .performanceBad,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnPageLoad(
+                            animationsMap['columnOnPageLoadAnimation1']!),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: 25.0,
+                                decoration: const BoxDecoration(),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(-1.0, 0.0),
+                                        child: Text(
+                                          'Afstand',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          '%',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          'Tijd',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(1.0, 0.0),
+                                        child: Text(
+                                          'Punten',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Builder(
+                                builder: (context) {
+                                  final race = getJsonField(
                                     listViewGetContestResponse.jsonBody,
-                                  ).toString()}%',
-                              '100%',
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color: functions.isGoodPercentage(
-                                          ApiGroup.getContestCall
-                                              .myPerformance(
-                                                listViewGetContestResponse
-                                                    .jsonBody,
-                                              )
-                                              .toString())!
-                                      ? FlutterFlowTheme.of(context)
-                                          .performanceGood
-                                      : FlutterFlowTheme.of(context)
-                                          .performanceBad,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 16.0, 0.0, 0.0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 25.0,
-                            decoration: const BoxDecoration(),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
-                                    child: Text(
-                                      'Afstand',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      '%',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      'Tijd',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(1.0, 0.0),
-                                    child: Text(
-                                      'Punten',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Builder(
-                            builder: (context) {
-                              final race = getJsonField(
-                                listViewGetContestResponse.jsonBody,
-                                r'''$.data.active.swimResults''',
-                              ).toList();
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children:
-                                    List.generate(race.length, (raceIndex) {
-                                  final raceItem = race[raceIndex];
-                                  return ContestSwimLineWidget(
-                                    key: Key(
-                                        'Keyub1_${raceIndex}_of_${race.length}'),
-                                    stroke: raceItem,
+                                    r'''$.data.active.swimResults''',
+                                  ).toList();
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children:
+                                        List.generate(race.length, (raceIndex) {
+                                      final raceItem = race[raceIndex];
+                                      return ContestSwimLineWidget(
+                                        key: Key(
+                                            'Keyub1_${raceIndex}_of_${race.length}'),
+                                        stroke: raceItem,
+                                      ).animateOnPageLoad(animationsMap[
+                                          'contestSwimLineOnPageLoadAnimation']!);
+                                    }),
                                   );
-                                }),
-                              );
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 16.0, 0.0, 0.0),
-                          child: Text(
-                            'Gemiddelde performance club',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).titleMedium,
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              '${ApiGroup.getContestCall.clubPerformance(
-                                    listViewGetContestResponse.jsonBody,
-                                  ).toString().toString()}%',
-                              '100%',
+                                },
+                              ),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color: functions.isGoodPercentage(
-                                          ApiGroup.getContestCall
-                                              .clubPerformance(
-                                                listViewGetContestResponse
-                                                    .jsonBody,
-                                              )
-                                              .toString()
-                                              .toString())!
-                                      ? FlutterFlowTheme.of(context)
-                                          .performanceGood
-                                      : FlutterFlowTheme.of(context)
-                                          .performanceBad,
-                                  fontWeight: FontWeight.bold,
+                          ],
+                        ).animateOnPageLoad(
+                            animationsMap['columnOnPageLoadAnimation2']!),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: Text(
+                                'Gemiddelde performance club',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context).titleMedium,
+                              ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Text(
+                                valueOrDefault<String>(
+                                  '${ApiGroup.getContestCall.clubPerformance(
+                                        listViewGetContestResponse.jsonBody,
+                                      ).toString()}%',
+                                  '100%',
                                 ),
-                          ),
-                        ),
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: functions.isGoodPercentage(
+                                              ApiGroup.getContestCall
+                                                  .clubPerformance(
+                                                    listViewGetContestResponse
+                                                        .jsonBody,
+                                                  )
+                                                  .toString())!
+                                          ? FlutterFlowTheme.of(context)
+                                              .performanceGood
+                                          : FlutterFlowTheme.of(context)
+                                              .performanceBad,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ).animateOnPageLoad(
+                            animationsMap['columnOnPageLoadAnimation3']!),
                         if (FFAppState().premium)
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -394,7 +534,8 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget> {
                                           )?.length, 0).toString()} zwemmers',
                                 ),
                               ),
-                            ),
+                            ).animateOnPageLoad(animationsMap[
+                                'swimrankingsListItemOnPageLoadAnimation']!),
                           ),
                       ],
                     );

@@ -54,6 +54,7 @@ class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
         resetActiveToMe: true,
       );
       _model.premiumStateResult = await ApiGroup.premiumStateCall.call();
+      await action_blocks.isPremium(context);
       setState(() {
         FFAppState().isPremiumAllowed =
             ApiGroup.premiumStateCall.premiumAllowed(

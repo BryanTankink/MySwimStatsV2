@@ -1,14 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/achievement_category_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/split_times_display/split_times_display_widget.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -42,6 +44,73 @@ class _RaceListWidgetState extends State<RaceListWidget>
   late RaceListModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'achievementCategoryOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'tabBarOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -82,45 +151,47 @@ class _RaceListWidgetState extends State<RaceListWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: const Icon(
-              Icons.arrow_left,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              HapticFeedback.selectionClick();
-              context.pop();
-            },
-          ),
-          title: Text(
-            'Races',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 22.0,
+        appBar: !_model.loading
+            ? AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primary,
+                automaticallyImplyLeading: false,
+                leading: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 60.0,
+                  icon: const Icon(
+                    Icons.arrow_left,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    HapticFeedback.selectionClick();
+                    context.pop();
+                  },
                 ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 2.0,
-        ),
+                title: Text(
+                  'Races',
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                        fontSize: 22.0,
+                      ),
+                ),
+                actions: const [],
+                centerTitle: true,
+                elevation: 2.0,
+              )
+            : null,
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -253,7 +324,8 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                           .toString(),
                                     ),
                                   ),
-                                ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'achievementCategoryOnPageLoadAnimation']!),
                               ),
                             Expanded(
                               child: Column(
@@ -284,12 +356,12 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 16.0, 0.0),
-                                              child: Icon(
-                                                Icons.query_stats_outlined,
+                                              child: FaIcon(
+                                                FontAwesomeIcons.clock,
                                               ),
                                             ),
                                             Tab(
-                                              text: 'Ranglijst',
+                                              text: 'Tijden',
                                             ),
                                           ],
                                         ),
@@ -301,23 +373,557 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 16.0, 0.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.clock,
+                                              child: Icon(
+                                                Icons.query_stats,
                                               ),
                                             ),
                                             Tab(
-                                              text: 'Tijden',
+                                              text: 'Ranglijst',
                                             ),
                                           ],
                                         ),
                                       ],
                                       controller: _model.tabBarController,
+                                      onTap: (i) async {
+                                        [() async {}, () async {}][i]();
+                                      },
                                     ),
                                   ),
                                   Expanded(
                                     child: TabBarView(
                                       controller: _model.tabBarController,
                                       children: [
+                                        KeepAliveWidgetWrapper(
+                                          builder: (context) => ListView(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        15.0, 15.0, 15.0, 0.0),
+                                                child: Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 25.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        width: 275.0,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                1.0,
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        -1.0,
+                                                                        0.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 150.0,
+                                                                  height: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .height *
+                                                                      1.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(),
+                                                                  alignment:
+                                                                      const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        const AlignmentDirectional(
+                                                                            -1.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      'Plaats',
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).text3,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Align(
+                                                                  alignment:
+                                                                      const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 75.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Tijd',
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              color: FlutterFlowTheme.of(context).text3,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          'Score',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .text3,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                child: Builder(
+                                                  builder: (context) {
+                                                    final race =
+                                                        ApiGroup.raceListCall
+                                                                .races(
+                                                                  containerRaceListResponse
+                                                                      .jsonBody,
+                                                                )
+                                                                ?.toList() ??
+                                                            [];
+                                                    return ListView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount: race.length,
+                                                      itemBuilder:
+                                                          (context, raceIndex) {
+                                                        final raceItem =
+                                                            race[raceIndex];
+                                                        return Builder(
+                                                          builder: (context) =>
+                                                              InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              HapticFeedback
+                                                                  .selectionClick();
+                                                              setState(() {
+                                                                _model.loading =
+                                                                    true;
+                                                              });
+                                                              _model.clubIdResult =
+                                                                  await ApiGroup
+                                                                      .swimTimeToClubIdCall
+                                                                      .call(
+                                                                swimrankingsIdentifier:
+                                                                    FFAppState()
+                                                                        .activeUserId,
+                                                                contestId:
+                                                                    getJsonField(
+                                                                  raceItem,
+                                                                  r'''$.meetId''',
+                                                                ).toString(),
+                                                                genderId:
+                                                                    getJsonField(
+                                                                  raceItem,
+                                                                  r'''$.genderId''',
+                                                                ).toString(),
+                                                                styleId: widget
+                                                                    .style
+                                                                    ?.toString(),
+                                                              );
+                                                              setState(() {});
+                                                              if ((_model
+                                                                      .clubIdResult
+                                                                      ?.succeeded ??
+                                                                  true)) {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'contestDetail',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'clubId':
+                                                                        serializeParam(
+                                                                      ApiGroup
+                                                                          .swimTimeToClubIdCall
+                                                                          .clubId(
+                                                                            (_model.clubIdResult?.jsonBody ??
+                                                                                ''),
+                                                                          )
+                                                                          .toString(),
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                    'contestId':
+                                                                        serializeParam(
+                                                                      getJsonField(
+                                                                        raceItem,
+                                                                        r'''$.meetId''',
+                                                                      ).toString(),
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                    'raceName':
+                                                                        serializeParam(
+                                                                      ApiGroup
+                                                                          .swimTimeToClubIdCall
+                                                                          .raceName(
+                                                                            (_model.clubIdResult?.jsonBody ??
+                                                                                ''),
+                                                                          )
+                                                                          .toString(),
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              } else {
+                                                                await showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (alertDialogContext) {
+                                                                    return AlertDialog(
+                                                                      title: const Text(
+                                                                          'Error'),
+                                                                      content: const Text(
+                                                                          'Kan geen verdere gegevens inzien!'),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                          child:
+                                                                              const Text('Ok'),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                              }
+
+                                                              setState(() {
+                                                                _model.loading =
+                                                                    false;
+                                                              });
+
+                                                              setState(() {});
+                                                            },
+                                                            onLongPress:
+                                                                () async {
+                                                              if (getJsonField(
+                                                                    raceItem,
+                                                                    r'''$.splits''',
+                                                                  ) !=
+                                                                  null) {
+                                                                await showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (dialogContext) {
+                                                                    return Dialog(
+                                                                      insetPadding:
+                                                                          EdgeInsets
+                                                                              .zero,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      alignment: const AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0)
+                                                                          .resolve(
+                                                                              Directionality.of(context)),
+                                                                      child:
+                                                                          GestureDetector(
+                                                                        onTap: () => _model.unfocusNode.canRequestFocus
+                                                                            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                                                                            : FocusScope.of(context).unfocus(),
+                                                                        child:
+                                                                            SplitTimesDisplayWidget(
+                                                                          splits:
+                                                                              getJsonField(
+                                                                            raceItem,
+                                                                            r'''$.splits''',
+                                                                            true,
+                                                                          )!,
+                                                                          title:
+                                                                              widget.title!,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ).then((value) =>
+                                                                    setState(
+                                                                        () {}));
+                                                              } else {
+                                                                HapticFeedback
+                                                                    .mediumImpact();
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width *
+                                                                  1.0,
+                                                              height: 50.0,
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        275.0,
+                                                                    height:
+                                                                        MediaQuery.sizeOf(context).height *
+                                                                            1.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Align(
+                                                                            alignment:
+                                                                                const AlignmentDirectional(-1.0, 0.0),
+                                                                            child:
+                                                                                Container(
+                                                                              width: 150.0,
+                                                                              height: MediaQuery.sizeOf(context).height * 1.0,
+                                                                              decoration: const BoxDecoration(),
+                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              child: Align(
+                                                                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Align(
+                                                                                      alignment: const AlignmentDirectional(-1.0, 0.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            raceItem,
+                                                                                            r'''$.place''',
+                                                                                          ).toString(),
+                                                                                          'Winterswijk',
+                                                                                        ),
+                                                                                        textAlign: TextAlign.start,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Poppins',
+                                                                                              color: FlutterFlowTheme.of(context).text2,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Align(
+                                                                                      alignment: const AlignmentDirectional(-1.0, 0.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            raceItem,
+                                                                                            r'''$.dateFull''',
+                                                                                          ).toString(),
+                                                                                          '11-11-2022',
+                                                                                        ),
+                                                                                        textAlign: TextAlign.start,
+                                                                                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                              fontFamily: 'Poppins',
+                                                                                              color: FlutterFlowTheme.of(context).text2,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Align(
+                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                              child: Container(
+                                                                                width: 75.0,
+                                                                                decoration: const BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        raceItem,
+                                                                                        r'''$.time''',
+                                                                                      ).toString(),
+                                                                                      '25.25',
+                                                                                    ),
+                                                                                    textAlign: TextAlign.start,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Poppins',
+                                                                                          color: FlutterFlowTheme.of(context).text2,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    flex: 1,
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              1.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          LinearPercentIndicator(
+                                                                        percent: functions.calculatePercentage(
+                                                                            getJsonField(
+                                                                              raceItem,
+                                                                              r'''$.points''',
+                                                                            ),
+                                                                            ApiGroup.raceListCall.max(
+                                                                              containerRaceListResponse.jsonBody,
+                                                                            )),
+                                                                        lineHeight:
+                                                                            50.0,
+                                                                        animation:
+                                                                            false,
+                                                                        animateFromLastPercent:
+                                                                            true,
+                                                                        progressColor:
+                                                                            const Color(0xFFBE9E44),
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).text3,
+                                                                        center:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            getJsonField(
+                                                                              raceItem,
+                                                                              r'''$.points''',
+                                                                            ).toString(),
+                                                                            '525',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .labelMedium
+                                                                              .override(
+                                                                                fontFamily: 'Poppins',
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                        ),
+                                                                        barRadius:
+                                                                            const Radius.circular(0.0),
+                                                                        padding:
+                                                                            EdgeInsets.zero,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ).animateOnPageLoad(
+                                                                  animationsMap[
+                                                                      'containerOnPageLoadAnimation1']!),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         KeepAliveWidgetWrapper(
                                           builder: (context) => ListView(
                                             padding: EdgeInsets.zero,
@@ -772,545 +1378,11 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                                                 ),
                                                               ],
                                                             ),
-                                                          ),
+                                                          ).animateOnPageLoad(
+                                                              animationsMap[
+                                                                  'containerOnPageLoadAnimation2']!),
                                                         );
                                                       }),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        KeepAliveWidgetWrapper(
-                                          builder: (context) => ListView(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 15.0, 15.0, 0.0),
-                                                child: Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          1.0,
-                                                  height: 25.0,
-                                                  decoration: const BoxDecoration(),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                        width: 275.0,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                1.0,
-                                                        decoration:
-                                                            const BoxDecoration(),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      16.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    const AlignmentDirectional(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child:
-                                                                    Container(
-                                                                  width: 150.0,
-                                                                  height: MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .height *
-                                                                      1.0,
-                                                                  decoration:
-                                                                      const BoxDecoration(),
-                                                                  alignment:
-                                                                      const AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Align(
-                                                                    alignment:
-                                                                        const AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      'Plaats',
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Poppins',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).text3,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Align(
-                                                                  alignment:
-                                                                      const AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: 75.0,
-                                                                    decoration:
-                                                                        const BoxDecoration(),
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          const AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        'Tijd',
-                                                                        textAlign:
-                                                                            TextAlign.start,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Poppins',
-                                                                              color: FlutterFlowTheme.of(context).text3,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          'Score',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .text3,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 0.0),
-                                                child: Builder(
-                                                  builder: (context) {
-                                                    final race =
-                                                        ApiGroup.raceListCall
-                                                                .races(
-                                                                  containerRaceListResponse
-                                                                      .jsonBody,
-                                                                )
-                                                                ?.toList() ??
-                                                            [];
-                                                    return ListView.builder(
-                                                      padding: EdgeInsets.zero,
-                                                      primary: false,
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.vertical,
-                                                      itemCount: race.length,
-                                                      itemBuilder:
-                                                          (context, raceIndex) {
-                                                        final raceItem =
-                                                            race[raceIndex];
-                                                        return Builder(
-                                                          builder: (context) =>
-                                                              InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              HapticFeedback
-                                                                  .selectionClick();
-                                                              setState(() {
-                                                                _model.loading =
-                                                                    true;
-                                                              });
-                                                              _model.clubIdResult =
-                                                                  await ApiGroup
-                                                                      .swimTimeToClubIdCall
-                                                                      .call(
-                                                                swimrankingsIdentifier:
-                                                                    FFAppState()
-                                                                        .activeUserId,
-                                                                contestId:
-                                                                    getJsonField(
-                                                                  raceItem,
-                                                                  r'''$.meetId''',
-                                                                ).toString(),
-                                                                genderId:
-                                                                    getJsonField(
-                                                                  raceItem,
-                                                                  r'''$.genderId''',
-                                                                ).toString(),
-                                                                styleId: widget
-                                                                    .style
-                                                                    ?.toString(),
-                                                              );
-                                                              setState(() {});
-                                                              if ((_model
-                                                                      .clubIdResult
-                                                                      ?.succeeded ??
-                                                                  true)) {
-                                                                context
-                                                                    .pushNamed(
-                                                                  'contestDetail',
-                                                                  queryParameters:
-                                                                      {
-                                                                    'clubId':
-                                                                        serializeParam(
-                                                                      ApiGroup
-                                                                          .swimTimeToClubIdCall
-                                                                          .clubId(
-                                                                            (_model.clubIdResult?.jsonBody ??
-                                                                                ''),
-                                                                          )
-                                                                          .toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                    'contestId':
-                                                                        serializeParam(
-                                                                      getJsonField(
-                                                                        raceItem,
-                                                                        r'''$.meetId''',
-                                                                      ).toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                    'raceName':
-                                                                        serializeParam(
-                                                                      ApiGroup
-                                                                          .swimTimeToClubIdCall
-                                                                          .raceName(
-                                                                            (_model.clubIdResult?.jsonBody ??
-                                                                                ''),
-                                                                          )
-                                                                          .toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              } else {
-                                                                await showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return AlertDialog(
-                                                                      title: const Text(
-                                                                          'Error'),
-                                                                      content: const Text(
-                                                                          'Kan geen verdere gegevens inzien!'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                          child:
-                                                                              const Text('Ok'),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                );
-                                                              }
-
-                                                              setState(() {
-                                                                _model.loading =
-                                                                    false;
-                                                              });
-
-                                                              setState(() {});
-                                                            },
-                                                            onLongPress:
-                                                                () async {
-                                                              if (getJsonField(
-                                                                    raceItem,
-                                                                    r'''$.splits''',
-                                                                  ) !=
-                                                                  null) {
-                                                                await showAlignedDialog(
-                                                                  context:
-                                                                      context,
-                                                                  isGlobal:
-                                                                      true,
-                                                                  avoidOverflow:
-                                                                      false,
-                                                                  targetAnchor: const AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0)
-                                                                      .resolve(
-                                                                          Directionality.of(
-                                                                              context)),
-                                                                  followerAnchor: const AlignmentDirectional(
-                                                                          0.0,
-                                                                          0.0)
-                                                                      .resolve(
-                                                                          Directionality.of(
-                                                                              context)),
-                                                                  builder:
-                                                                      (dialogContext) {
-                                                                    return Material(
-                                                                      color: Colors
-                                                                          .transparent,
-                                                                      child:
-                                                                          GestureDetector(
-                                                                        onTap: () => _model.unfocusNode.canRequestFocus
-                                                                            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                            : FocusScope.of(context).unfocus(),
-                                                                        child:
-                                                                            SplitTimesDisplayWidget(
-                                                                          splits:
-                                                                              getJsonField(
-                                                                            raceItem,
-                                                                            r'''$.splits''',
-                                                                            true,
-                                                                          )!,
-                                                                          title:
-                                                                              widget.title!,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ).then((value) =>
-                                                                    setState(
-                                                                        () {}));
-                                                              } else {
-                                                                HapticFeedback
-                                                                    .mediumImpact();
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  1.0,
-                                                              height: 50.0,
-                                                              decoration:
-                                                                  const BoxDecoration(),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Container(
-                                                                    width:
-                                                                        275.0,
-                                                                    height:
-                                                                        MediaQuery.sizeOf(context).height *
-                                                                            1.0,
-                                                                    decoration:
-                                                                        const BoxDecoration(),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Align(
-                                                                            alignment:
-                                                                                const AlignmentDirectional(-1.0, 0.0),
-                                                                            child:
-                                                                                Container(
-                                                                              width: 150.0,
-                                                                              height: MediaQuery.sizeOf(context).height * 1.0,
-                                                                              decoration: const BoxDecoration(),
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                              child: Align(
-                                                                                alignment: const AlignmentDirectional(-1.0, 0.0),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Align(
-                                                                                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                                                                                      child: Text(
-                                                                                        valueOrDefault<String>(
-                                                                                          getJsonField(
-                                                                                            raceItem,
-                                                                                            r'''$.place''',
-                                                                                          ).toString(),
-                                                                                          'Winterswijk',
-                                                                                        ),
-                                                                                        textAlign: TextAlign.start,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Poppins',
-                                                                                              color: FlutterFlowTheme.of(context).text2,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Align(
-                                                                                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                                                                                      child: Text(
-                                                                                        valueOrDefault<String>(
-                                                                                          getJsonField(
-                                                                                            raceItem,
-                                                                                            r'''$.date''',
-                                                                                          ).toString(),
-                                                                                          '11-11-2022',
-                                                                                        ),
-                                                                                        textAlign: TextAlign.start,
-                                                                                        style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                              fontFamily: 'Poppins',
-                                                                                              color: FlutterFlowTheme.of(context).text2,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Align(
-                                                                              alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                              child: Container(
-                                                                                width: 75.0,
-                                                                                decoration: const BoxDecoration(),
-                                                                                child: Align(
-                                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      getJsonField(
-                                                                                        raceItem,
-                                                                                        r'''$.time''',
-                                                                                      ).toString(),
-                                                                                      '25.25',
-                                                                                    ),
-                                                                                    textAlign: TextAlign.start,
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Poppins',
-                                                                                          color: FlutterFlowTheme.of(context).text2,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    flex: 1,
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          const AlignmentDirectional(
-                                                                              1.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          LinearPercentIndicator(
-                                                                        percent: functions.calculatePercentage(
-                                                                            getJsonField(
-                                                                              raceItem,
-                                                                              r'''$.points''',
-                                                                            ),
-                                                                            ApiGroup.raceListCall.max(
-                                                                              containerRaceListResponse.jsonBody,
-                                                                            )),
-                                                                        lineHeight:
-                                                                            50.0,
-                                                                        animation:
-                                                                            false,
-                                                                        animateFromLastPercent:
-                                                                            true,
-                                                                        progressColor:
-                                                                            const Color(0xFFBE9E44),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).text3,
-                                                                        center:
-                                                                            Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            getJsonField(
-                                                                              raceItem,
-                                                                              r'''$.points''',
-                                                                            ).toString(),
-                                                                            '525',
-                                                                          ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .labelMedium
-                                                                              .override(
-                                                                                fontFamily: 'Poppins',
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
-                                                                        ),
-                                                                        barRadius:
-                                                                            const Radius.circular(0.0),
-                                                                        padding:
-                                                                            EdgeInsets.zero,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
                                                     );
                                                   },
                                                 ),
@@ -1322,7 +1394,8 @@ class _RaceListWidgetState extends State<RaceListWidget>
                                     ),
                                   ),
                                 ],
-                              ),
+                              ).animateOnPageLoad(
+                                  animationsMap['tabBarOnPageLoadAnimation']!),
                             ),
                           ],
                         ),

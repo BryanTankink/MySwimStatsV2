@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'advice_details_model.dart';
 export 'advice_details_model.dart';
@@ -23,10 +26,87 @@ class AdviceDetailsWidget extends StatefulWidget {
   _AdviceDetailsWidgetState createState() => _AdviceDetailsWidgetState();
 }
 
-class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
+class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
+    with TickerProviderStateMixin {
   late AdviceDetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'columnOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 150.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 300.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -115,12 +195,12 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -485,7 +565,8 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                 color: FlutterFlowTheme.of(context).accent4,
                               ),
                             ],
-                          ),
+                          ).animateOnPageLoad(
+                              animationsMap['columnOnPageLoadAnimation1']!),
                         ),
                       ),
                       Align(
@@ -497,7 +578,8 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context).text3,
                                   ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['textOnPageLoadAnimation']!),
                       ),
                       Builder(
                         builder: (context) {
@@ -929,10 +1011,12 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget> {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'containerOnPageLoadAnimation']!),
                               );
                             }),
-                          );
+                          ).animateOnPageLoad(
+                              animationsMap['columnOnPageLoadAnimation2']!);
                         },
                       ),
                       Divider(

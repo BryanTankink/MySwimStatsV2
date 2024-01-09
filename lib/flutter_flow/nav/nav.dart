@@ -230,12 +230,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/compareAthletes',
           builder: (context, params) => CompareAthletesWidget(
             personA: params.getParam('personA', ParamType.JSON),
+            personB: params.getParam('personB', ParamType.JSON),
           ),
         ),
         FFRoute(
           name: 'compareAthletesObtain',
           path: '/compareAthletesObtain',
           builder: (context, params) => const CompareAthletesObtainWidget(),
+        ),
+        FFRoute(
+          name: 'compareAthleteFavorites',
+          path: '/compareAthleteFavorites',
+          builder: (context, params) => CompareAthleteFavoritesWidget(
+            otherAthlete: params.getParam('otherAthlete', ParamType.JSON),
+            isComparer: params.getParam('isComparer', ParamType.bool),
+            doubleBack: params.getParam('doubleBack', ParamType.bool),
+          ),
+        ),
+        FFRoute(
+          name: 'about',
+          path: '/about',
+          builder: (context, params) => const AboutWidget(),
+        ),
+        FFRoute(
+          name: 'achievementUsers',
+          path: '/achievementUsers',
+          builder: (context, params) => const AchievementUsersWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

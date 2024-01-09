@@ -1,14 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/split_times_display/split_times_display_widget.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'rankings_model.dart';
@@ -36,10 +38,90 @@ class RankingsWidget extends StatefulWidget {
   _RankingsWidgetState createState() => _RankingsWidgetState();
 }
 
-class _RankingsWidgetState extends State<RankingsWidget> {
+class _RankingsWidgetState extends State<RankingsWidget>
+    with TickerProviderStateMixin {
   late RankingsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'textOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'dividerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'listViewOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 450.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 450.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 450.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -74,45 +156,47 @@ class _RankingsWidgetState extends State<RankingsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: const Icon(
-              Icons.arrow_left,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              HapticFeedback.selectionClick();
-              context.pop();
-            },
-          ),
-          title: Text(
-            'Ranglijst',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 22.0,
+        appBar: !_model.isLoading
+            ? AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primary,
+                automaticallyImplyLeading: false,
+                leading: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 60.0,
+                  icon: const Icon(
+                    Icons.arrow_left,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    HapticFeedback.selectionClick();
+                    context.pop();
+                  },
                 ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 2.0,
-        ),
+                title: Text(
+                  'Ranglijst',
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                        fontSize: 22.0,
+                      ),
+                ),
+                actions: const [],
+                centerTitle: true,
+                elevation: 2.0,
+              )
+            : null,
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -179,103 +263,142 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                         color:
                                             FlutterFlowTheme.of(context).text3,
                                       ),
+                                ).animateOnPageLoad(
+                                    animationsMap['textOnPageLoadAnimation']!),
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Align(
+                                  alignment: const AlignmentDirectional(0.0, -1.0),
+                                  child: Text(
+                                    'Jou rang',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .text3,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, -1.0),
-                              child: Text(
-                                'Jou rang',
-                                style: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context).text3,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 4.0, 0.0, 4.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: 50.0,
-                                decoration: const BoxDecoration(),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0x40BE9E44),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 8.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 8.0, 0.0),
-                                            child: Container(
-                                              width: 35.0,
-                                              height: 35.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 4.0, 0.0, 4.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    decoration: const BoxDecoration(),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0x40BE9E44),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 8.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: Container(
+                                                  width: 35.0,
+                                                  height: 35.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .buttonYes,
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: AutoSizeText(
-                                                  valueOrDefault<String>(
-                                                    widget.myRank?.toString(),
-                                                    '1',
-                                                  ).maybeHandleOverflow(
-                                                      maxChars: 22),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .text3,
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                  minFontSize: 12.0,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: AutoSizeText(
+                                                      valueOrDefault<String>(
+                                                        widget.myRank
+                                                            ?.toString(),
+                                                        '1',
+                                                      ).maybeHandleOverflow(
+                                                          maxChars: 22),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .text3,
+                                                                fontSize: 16.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                      minFontSize: 12.0,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(-1.0, 0.0),
-                                            child: Container(
-                                              width: 185.0,
-                                              decoration: const BoxDecoration(),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    getJsonField(
-                                                      FFAppState().user,
-                                                      r'''$.active.fullName''',
-                                                    ).toString(),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    -1.0, 0.0),
+                                                child: Container(
+                                                  width: 185.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        getJsonField(
+                                                          FFAppState().user,
+                                                          r'''$.active.fullName''',
+                                                        ).toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .text2,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 75.0,
+                                                height: 100.0,
+                                                decoration: const BoxDecoration(),
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    widget.myTime!,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -286,47 +409,28 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                               .text2,
                                                         ),
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 75.0,
-                                            height: 100.0,
-                                            decoration: const BoxDecoration(),
-                                            child: Align(
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Text(
-                                                widget.myTime!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .text2,
-                                                        ),
+                                              Container(
+                                                width: 25.0,
+                                                height: 100.0,
+                                                decoration: const BoxDecoration(),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          Container(
-                                            width: 25.0,
-                                            height: 100.0,
-                                            decoration: const BoxDecoration(),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                              ],
+                            ).animateOnPageLoad(
+                                animationsMap['columnOnPageLoadAnimation']!),
                             Divider(
                               thickness: 1.0,
                               color: FlutterFlowTheme.of(context).accent4,
-                            ),
+                            ).animateOnPageLoad(
+                                animationsMap['dividerOnPageLoadAnimation']!),
                             Expanded(
                               child: Builder(
                                 builder: (context) {
@@ -412,25 +516,20 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                     r'''$.splits''',
                                                   ) !=
                                                   null) {
-                                                await showAlignedDialog(
+                                                await showDialog(
                                                   context: context,
-                                                  isGlobal: true,
-                                                  avoidOverflow: false,
-                                                  targetAnchor:
-                                                      const AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  followerAnchor:
-                                                      const AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
                                                   builder: (dialogContext) {
-                                                    return Material(
-                                                      color: Colors.transparent,
+                                                    return Dialog(
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
                                                       child: GestureDetector(
                                                         onTap: () => _model
                                                                 .unfocusNode
@@ -653,11 +752,13 @@ class _RankingsWidgetState extends State<RankingsWidget> {
                                                 ],
                                               ),
                                             ),
-                                          ),
+                                          ).animateOnPageLoad(animationsMap[
+                                              'containerOnPageLoadAnimation']!),
                                         ),
                                       );
                                     },
-                                  );
+                                  ).animateOnPageLoad(animationsMap[
+                                      'listViewOnPageLoadAnimation']!);
                                 },
                               ),
                             ),

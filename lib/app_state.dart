@@ -107,7 +107,7 @@ class FFAppState extends ChangeNotifier {
     updateFn(_activePageInfo);
   }
 
-  bool _isPremiumAllowed = false;
+  bool _isPremiumAllowed = true;
   bool get isPremiumAllowed => _isPremiumAllowed;
   set isPremiumAllowed(bool value) {
     _isPremiumAllowed = value;

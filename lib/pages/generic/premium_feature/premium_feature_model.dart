@@ -8,8 +8,6 @@ class PremiumFeatureModel extends FlutterFlowModel<PremiumFeatureWidget> {
 
   // Model for OperationButton component.
   late OperationButtonModel operationButtonModel;
-  // Stores action output result for [RevenueCat - Purchase] action in OperationButton widget.
-  bool? purchaseSuccess;
 
   /// Initialization and disposal methods.
 

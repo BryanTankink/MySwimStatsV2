@@ -1,11 +1,9 @@
 import '/backend/schema/enums/enums.dart';
 import '/components/achievement_category_widget.dart';
+import '/components/premium_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/menu_item/menu_item_widget.dart';
-import '/pages/generic/operation_button/operation_button_widget.dart';
-import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -73,213 +71,40 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/Color_logo_-_no_background.png',
-                    width: 200.0,
-                    height: 50.0,
-                    fit: BoxFit.contain,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      'assets/images/Color_logo_-_no_background.png',
+                      width: 200.0,
+                      height: 50.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                child: Text(
-                  'Hallo, ${getJsonField(
-                    FFAppState().user,
-                    r'''$.me.fullName''',
-                  ).toString()}',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.of(context).text3,
-                      ),
-                ),
-              ),
-              if (FFAppState().isPremiumAllowed)
-                Container(
-                  decoration: const BoxDecoration(),
-                  child: Visibility(
-                    visible: !FFAppState().premium,
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                      child: wrapWithModel(
-                        model: _model.operationButtonModel,
-                        updateCallback: () => setState(() {}),
-                        child: OperationButtonWidget(
-                          text: 'Unlock premium',
-                          onClick: () async {
-                            _model.purchaseState =
-                                await revenue_cat.purchasePackage(revenue_cat
-                                    .offerings!.current!.monthly!.identifier);
-                            if (_model.purchaseState!) {
-                              await action_blocks.getUserAuth(context);
-
-                              context.goNamed('Dashboard');
-                            }
-
-                            setState(() {});
-                          },
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  child: Text(
+                    'Hallo, ${getJsonField(
+                      FFAppState().user,
+                      r'''$.me.fullName''',
+                    ).toString()}',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).text3,
                         ),
-                      ),
-                    ),
                   ),
                 ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-
-                  context.pushNamed('AchievementCategories');
-                },
-                child: wrapWithModel(
-                  model: _model.achievementCategoryModel,
+                wrapWithModel(
+                  model: _model.premiumButtonModel,
                   updateCallback: () => setState(() {}),
-                  child: AchievementCategoryWidget(
-                    categoryHeader: 'Achievements',
-                    level: getJsonField(
-                      FFAppState().user,
-                      r'''$.swimLevel.level''',
-                    ),
-                    categoryLevelName: getJsonField(
-                      FFAppState().user,
-                      r'''$.swimLevel.name''',
-                    ).toString(),
-                    currentScore: getJsonField(
-                      FFAppState().user,
-                      r'''$.achievementsObtained''',
-                    ),
-                    maxScore: getJsonField(
-                      FFAppState().user,
-                      r'''$.maxAchievements''',
-                    ),
-                    badgePath: getJsonField(
-                      FFAppState().user,
-                      r'''$.swimLevel.badge''',
-                    ).toString(),
-                  ),
+                  child: const PremiumButtonWidget(),
                 ),
-              ),
-              Divider(
-                height: 32.0,
-                thickness: 1.0,
-                color: FlutterFlowTheme.of(context).accent4,
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-
-                  context.pushNamed('Dashboard');
-                },
-                child: wrapWithModel(
-                  model: _model.menuItemModel1,
-                  updateCallback: () => setState(() {}),
-                  child: MenuItemWidget(
-                    title: 'Dashboard',
-                    icon: Icon(
-                      Icons.home_outlined,
-                      color: FlutterFlowTheme.of(context).text,
-                      size: 24.0,
-                    ),
-                    isOnPage: FFAppState().activePageInfo.activePage ==
-                        PageId.Dashboard,
-                  ),
-                ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-
-                  context.pushNamed('personalRecords');
-                },
-                child: wrapWithModel(
-                  model: _model.menuItemModel2,
-                  updateCallback: () => setState(() {}),
-                  child: MenuItemWidget(
-                    title: 'Persoonlijke records',
-                    icon: Icon(
-                      Icons.fiber_smart_record_outlined,
-                      color: FlutterFlowTheme.of(context).text,
-                      size: 24.0,
-                    ),
-                    isOnPage: FFAppState().activePageInfo.activePage ==
-                        PageId.PersonalRecords,
-                  ),
-                ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-
-                  context.pushNamed('contests');
-                },
-                child: wrapWithModel(
-                  model: _model.menuItemModel3,
-                  updateCallback: () => setState(() {}),
-                  child: MenuItemWidget(
-                    title: 'Wedstrijden',
-                    icon: Icon(
-                      Icons.rocket_launch_outlined,
-                      color: FlutterFlowTheme.of(context).text,
-                      size: 24.0,
-                    ),
-                    isOnPage:
-                        FFAppState().activePageInfo.activePage == PageId.Races,
-                  ),
-                ),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  HapticFeedback.selectionClick();
-
-                  context.pushNamed('profile');
-                },
-                child: wrapWithModel(
-                  model: _model.menuItemModel4,
-                  updateCallback: () => setState(() {}),
-                  child: MenuItemWidget(
-                    title: 'Profiel',
-                    icon: Icon(
-                      Icons.person_outline,
-                      color: FlutterFlowTheme.of(context).text,
-                      size: 24.0,
-                    ),
-                    isOnPage: FFAppState().activePageInfo.activePage ==
-                        PageId.Profile,
-                  ),
-                ),
-              ),
-              Divider(
-                height: 32.0,
-                thickness: 1.0,
-                color: FlutterFlowTheme.of(context).accent4,
-              ),
-              if (FFAppState().premium)
                 InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -288,15 +113,203 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   onTap: () async {
                     HapticFeedback.selectionClick();
 
-                    context.pushNamed('advice');
+                    context.pushNamed('AchievementCategories');
                   },
                   child: wrapWithModel(
-                    model: _model.menuItemModel5,
+                    model: _model.achievementCategoryModel,
+                    updateCallback: () => setState(() {}),
+                    child: AchievementCategoryWidget(
+                      categoryHeader: 'Achievements',
+                      level: getJsonField(
+                        FFAppState().user,
+                        r'''$.swimLevel.level''',
+                      ),
+                      categoryLevelName: getJsonField(
+                        FFAppState().user,
+                        r'''$.swimLevel.name''',
+                      ).toString(),
+                      currentScore: getJsonField(
+                        FFAppState().user,
+                        r'''$.achievementsObtained''',
+                      ),
+                      maxScore: getJsonField(
+                        FFAppState().user,
+                        r'''$.maxAchievements''',
+                      ),
+                      badgePath: getJsonField(
+                        FFAppState().user,
+                        r'''$.swimLevel.badge''',
+                      ).toString(),
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 32.0,
+                  thickness: 1.0,
+                  color: FlutterFlowTheme.of(context).accent4,
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.goNamed('Dashboard');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel1,
                     updateCallback: () => setState(() {}),
                     child: MenuItemWidget(
-                      title: 'Aanbevelingen',
+                      title: 'Dashboard',
                       icon: Icon(
-                        Icons.eco_outlined,
+                        Icons.home_outlined,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: FFAppState().activePageInfo.activePage ==
+                          PageId.Dashboard,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.goNamed('personalRecords');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel2,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Persoonlijke records',
+                      icon: Icon(
+                        Icons.fiber_smart_record_outlined,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: FFAppState().activePageInfo.activePage ==
+                          PageId.PersonalRecords,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.goNamed('contests');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel3,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Wedstrijden',
+                      icon: Icon(
+                        Icons.rocket_launch_outlined,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: FFAppState().activePageInfo.activePage ==
+                          PageId.Races,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.goNamed('profile');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel4,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Profiel',
+                      icon: Icon(
+                        Icons.person_outline,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: FFAppState().activePageInfo.activePage ==
+                          PageId.Profile,
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 32.0,
+                  thickness: 1.0,
+                  color: FlutterFlowTheme.of(context).accent4,
+                ),
+                if (FFAppState().premium)
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      HapticFeedback.selectionClick();
+
+                      context.goNamed('advice');
+                    },
+                    child: wrapWithModel(
+                      model: _model.menuItemModel5,
+                      updateCallback: () => setState(() {}),
+                      child: MenuItemWidget(
+                        title: 'Aanbevelingen',
+                        icon: Icon(
+                          Icons.eco_outlined,
+                          color: FlutterFlowTheme.of(context).text,
+                          size: 24.0,
+                        ),
+                        isOnPage: false,
+                      ),
+                    ),
+                  ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.pushNamed(
+                      'compareAthleteFavorites',
+                      queryParameters: {
+                        'otherAthlete': serializeParam(
+                          getJsonField(
+                            FFAppState().user,
+                            r'''$.active''',
+                          ),
+                          ParamType.JSON,
+                        ),
+                        'isComparer': serializeParam(
+                          true,
+                          ParamType.bool,
+                        ),
+                      }.withoutNulls,
+                    );
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel6,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Vergelijken',
+                      icon: Icon(
+                        Icons.compare_arrows,
                         color: FlutterFlowTheme.of(context).text,
                         size: 24.0,
                       ),
@@ -304,7 +317,32 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                     ),
                   ),
                 ),
-            ],
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    HapticFeedback.selectionClick();
+
+                    context.pushNamed('about');
+                  },
+                  child: wrapWithModel(
+                    model: _model.menuItemModel7,
+                    updateCallback: () => setState(() {}),
+                    child: MenuItemWidget(
+                      title: 'Over de app',
+                      icon: Icon(
+                        Icons.all_out_rounded,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
+                      ),
+                      isOnPage: false,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

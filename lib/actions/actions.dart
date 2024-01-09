@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 Future<bool> getUserAuth(
   BuildContext context, {
   bool? resetActiveToMe,
+  bool? withoutRebuild,
 }) async {
   ApiCallResponse? apiResultv4f;
   bool? isPremiumOtp;
@@ -41,9 +42,14 @@ Future<bool> getUserAuth(
         (apiResultv4f.jsonBody ?? ''),
         r'''$.data.active.athleteId''',
       ).toString().toString();
-      FFAppState().update(() {
-        FFAppState().premium = isPremiumOtp!;
-      });
+      if ((withoutRebuild != null) && !withoutRebuild) {
+        FFAppState().update(() {
+          FFAppState().premium = isPremiumOtp!;
+        });
+      } else {
+        FFAppState().premium = isPremiumOtp;
+      }
+
       return true;
     } else {
       context.goNamed(
@@ -77,24 +83,36 @@ Future<bool> getUserAuth(
 
 Future<bool> isPremium(BuildContext context) async {
   if (isWeb) {
-    return true;
-  }
-
-  final isEntitled =
-      await revenue_cat.isEntitled(FFAppConstants.premiumEntitelment) ?? false;
-  if (!isEntitled) {
-    await revenue_cat.loadOfferings();
-  }
-
-  if (isEntitled) {
-    return true;
-  }
-
-  return valueOrDefault<bool>(
-    getJsonField(
+    FFAppState().update(() {
+      FFAppState().premium = true;
+    });
+  } else {
+    if (getJsonField(
       FFAppState().user,
-      r'''$.SpecialPremium''',
-    ),
-    false,
-  );
+      r'''$.specialPremium''',
+    )) {
+      FFAppState().update(() {
+        FFAppState().premium = true;
+      });
+    } else {
+      final isEntitled =
+          await revenue_cat.isEntitled(FFAppConstants.premiumEntitelment) ??
+              false;
+      if (!isEntitled) {
+        await revenue_cat.loadOfferings();
+      }
+
+      if (isEntitled) {
+        FFAppState().update(() {
+          FFAppState().premium = true;
+        });
+      } else {
+        FFAppState().update(() {
+          FFAppState().premium = false;
+        });
+      }
+    }
+  }
+
+  return FFAppState().premium;
 }

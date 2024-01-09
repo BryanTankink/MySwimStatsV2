@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -100,12 +101,12 @@ class _ListSwimrankingsAccountsWidgetState
           elevation: 2.0,
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.asset(
-                'assets/images/Topical_Micellair_Water_2.jpg',
-              ).image,
+              image: CachedNetworkImageProvider(
+                'https://myswimstats.nl/Content/Images/General/background.webp',
+              ),
             ),
           ),
           child: Container(
@@ -304,7 +305,14 @@ class _ListSwimrankingsAccountsWidgetState
                                   _model.userIsAuth2 =
                                       await action_blocks.getUserAuth(context);
                                   shouldSetState = true;
-                                  if (!_model.userIsAuth2!) {
+                                  if (_model.userIsAuth2!) {
+                                    if (widget.addState ==
+                                        UserAddState.AsFavorite) {
+                                      context.goNamed('profile');
+                                    } else {
+                                      context.goNamed('Dashboard');
+                                    }
+                                  } else {
                                     HapticFeedback.heavyImpact();
                                     await showDialog(
                                       context: context,
@@ -327,8 +335,6 @@ class _ListSwimrankingsAccountsWidgetState
                                     if (shouldSetState) setState(() {});
                                     return;
                                   }
-
-                                  context.pushNamed('Dashboard');
 
                                   if (shouldSetState) setState(() {});
                                 },

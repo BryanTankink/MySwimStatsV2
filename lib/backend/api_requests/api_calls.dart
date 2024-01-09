@@ -45,6 +45,8 @@ class ApiGroup {
   static GetAchievementsInCategoryCall getAchievementsInCategoryCall =
       GetAchievementsInCategoryCall();
   static PremiumStateCall premiumStateCall = PremiumStateCall();
+  static CompareCall compareCall = CompareCall();
+  static GetTopAthletesCall getTopAthletesCall = GetTopAthletesCall();
 }
 
 class DashboardCall {
@@ -149,6 +151,7 @@ class AddFavoritedUserCall {
     String? deviceIdentifier = '',
     String? swimrankingsIdentifier = '',
     String? fullName = '',
+    bool? isPremium,
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Add favorited user',
@@ -161,6 +164,7 @@ class AddFavoritedUserCall {
         'deviceIdentifier': deviceIdentifier,
         'swimrankingsIdentifier': swimrankingsIdentifier,
         'fullName': fullName,
+        'isPremium': isPremium,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -873,6 +877,84 @@ class PremiumStateCall {
         response,
         r'''$.data.premium''',
       );
+}
+
+class CompareCall {
+  Future<ApiCallResponse> call({
+    String? athleteA = '',
+    String? athleteB = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'compare',
+      apiUrl: '${ApiGroup.baseUrl}User/Compare',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'AthleteA': athleteA,
+        'AthleteB': athleteB,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic athleteA(dynamic response) => getJsonField(
+        response,
+        r'''$.data.athleteA''',
+      );
+  dynamic athleteB(dynamic response) => getJsonField(
+        response,
+        r'''$.data.athleteB''',
+      );
+  List? compareables(dynamic response) => getJsonField(
+        response,
+        r'''$.data.compareables''',
+        true,
+      ) as List?;
+}
+
+class GetTopAthletesCall {
+  Future<ApiCallResponse> call({
+    String? deviceIdentifier = '',
+    String? queryType = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetTopAthletes',
+      apiUrl: '${ApiGroup.baseUrl}Achievement/Top',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'deviceIdentifier': deviceIdentifier,
+        'queryType': queryType,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? myPlace(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data.myPlace''',
+      ));
+  int? totalUsers(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data.amountUsers''',
+      ));
+  List? topUsers(dynamic response) => getJsonField(
+        response,
+        r'''$.data.topUsers''',
+        true,
+      ) as List?;
 }
 
 /// End API Group Code

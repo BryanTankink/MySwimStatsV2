@@ -1,9 +1,12 @@
 import '/components/dashboard_performance_component_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'growth_year_details_model.dart';
 export 'growth_year_details_model.dart';
@@ -21,10 +24,54 @@ class GrowthYearDetailsWidget extends StatefulWidget {
       _GrowthYearDetailsWidgetState();
 }
 
-class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget> {
+class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
+    with TickerProviderStateMixin {
   late GrowthYearDetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'columnOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 150.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -97,12 +144,12 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -125,59 +172,77 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
-                      'Gemiddelde aantal fina punten',
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).text3,
-                          ),
-                    ),
-                    Text(
-                      getJsonField(
-                        widget.yearInfo,
-                        r'''$.points''',
-                      ).toString(),
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).labelLarge.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).text,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                      child: Text(
-                        'Onderstaand zijn de door jou gezwommen persoonlijke records in dit jaar.',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.of(context).text3,
-                              fontSize: 14.0,
-                            ),
-                      ),
-                    ),
-                    Expanded(
-                      child: wrapWithModel(
-                        model: _model.dashboardPerformanceComponentModel,
-                        updateCallback: () => setState(() {}),
-                        child: DashboardPerformanceComponentWidget(
-                          dashboardperformances: getJsonField(
-                            widget.yearInfo,
-                            r'''$.performances''',
-                          ),
-                          titleAddon: ' (in ${getJsonField(
-                            widget.yearInfo,
-                            r'''$.year''',
-                          ).toString()})',
-                          year: getJsonField(
-                            widget.yearInfo,
-                            r'''$.year''',
-                          ).toString(),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Gemiddelde aantal fina punten',
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelLarge.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text3,
+                                  ),
                         ),
-                      ),
+                        Text(
+                          getJsonField(
+                            widget.yearInfo,
+                            r'''$.points''',
+                          ).toString(),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelLarge.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ).animateOnPageLoad(
+                        animationsMap['columnOnPageLoadAnimation1']!),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Text(
+                              'Onderstaand zijn de door jou gezwommen persoonlijke records in dit jaar.',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text3,
+                                    fontSize: 14.0,
+                                  ),
+                            ),
+                          ),
+                          Expanded(
+                            child: wrapWithModel(
+                              model: _model.dashboardPerformanceComponentModel,
+                              updateCallback: () => setState(() {}),
+                              child: DashboardPerformanceComponentWidget(
+                                dashboardperformances: getJsonField(
+                                  widget.yearInfo,
+                                  r'''$.performances''',
+                                ),
+                                titleAddon: ' (in ${getJsonField(
+                                  widget.yearInfo,
+                                  r'''$.year''',
+                                ).toString()})',
+                                year: getJsonField(
+                                  widget.yearInfo,
+                                  r'''$.year''',
+                                ).toString(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ).animateOnPageLoad(
+                          animationsMap['columnOnPageLoadAnimation2']!),
                     ),
                   ],
                 ),

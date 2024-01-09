@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/contests/contest_swim_line/contest_swim_line_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'contest_club_details_model.dart';
 export 'contest_club_details_model.dart';
@@ -26,10 +29,126 @@ class ContestClubDetailsWidget extends StatefulWidget {
       _ContestClubDetailsWidgetState();
 }
 
-class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
+class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
+    with TickerProviderStateMixin {
   late ContestClubDetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'textOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 150.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 300.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 450.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 450.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 450.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 600.ms),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -99,12 +218,12 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -142,131 +261,153 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                 fontFamily: 'Poppins',
                                 color: FlutterFlowTheme.of(context).text3,
                               ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['textOnPageLoadAnimation']!),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                        child: Text(
-                          'Gemiddelde performance club',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).titleMedium,
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          valueOrDefault<String>(
-                            '${getJsonField(
-                              widget.contestData,
-                              r'''$.clubPerformance''',
-                            ).toString()}%',
-                            '100%',
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Text(
+                              'Gemiddelde performance club',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).titleMedium,
+                            ),
                           ),
-                          style: FlutterFlowTheme.of(context)
-                              .labelLarge
-                              .override(
-                                fontFamily: 'Poppins',
-                                color: functions.isGoodPercentage(getJsonField(
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                '${getJsonField(
                                   widget.contestData,
                                   r'''$.clubPerformance''',
-                                ).toString())!
-                                    ? FlutterFlowTheme.of(context)
-                                        .performanceGood
-                                    : FlutterFlowTheme.of(context)
+                                ).toString()}%',
+                                '100%',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color:
+                                        functions.isGoodPercentage(getJsonField(
+                                      widget.contestData,
+                                      r'''$.clubPerformance''',
+                                    ).toString())!
+                                            ? FlutterFlowTheme.of(context)
+                                                .performanceGood
+                                            : FlutterFlowTheme.of(context)
+                                                .performanceBad,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ).animateOnPageLoad(
+                          animationsMap['columnOnPageLoadAnimation1']!),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Text(
+                              'beste gezwommen door',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).titleMedium,
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              getJsonField(
+                                widget.contestData,
+                                r'''$.bestPerformer.name''',
+                              ).toString(),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .performanceGood,
+                                    fontSize: 16.0,
+                                  ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              '${getJsonField(
+                                widget.contestData,
+                                r'''$.bestPerformer.averagePerformance''',
+                              ).toString()}%',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .performanceGood,
+                                    fontSize: 16.0,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ).animateOnPageLoad(
+                          animationsMap['columnOnPageLoadAnimation2']!),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Text(
+                              'en het minst door',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).titleMedium,
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              getJsonField(
+                                widget.contestData,
+                                r'''$.worstPerformer.name''',
+                              ).toString(),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
                                         .performanceBad,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                        child: Text(
-                          'beste gezwommen door',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).titleMedium,
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          getJsonField(
-                            widget.contestData,
-                            r'''$.bestPerformer.name''',
-                          ).toString(),
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .performanceGood,
                                     fontSize: 16.0,
                                   ),
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          '${getJsonField(
-                            widget.contestData,
-                            r'''$.bestPerformer.averagePerformance''',
-                          ).toString()}%',
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelLarge.override(
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              '${getJsonField(
+                                widget.contestData,
+                                r'''$.worstPerformer.averagePerformance''',
+                              ).toString()}%',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
                                     fontFamily: 'Poppins',
                                     color: FlutterFlowTheme.of(context)
-                                        .performanceGood,
+                                        .performanceBad,
                                     fontSize: 16.0,
                                   ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                        child: Text(
-                          'en het minst door',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).titleMedium,
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          getJsonField(
-                            widget.contestData,
-                            r'''$.worstPerformer.name''',
-                          ).toString(),
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .labelLarge
-                              .override(
-                                fontFamily: 'Poppins',
-                                color:
-                                    FlutterFlowTheme.of(context).performanceBad,
-                                fontSize: 16.0,
-                              ),
-                        ),
-                      ),
-                      Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          '${getJsonField(
-                            widget.contestData,
-                            r'''$.worstPerformer.averagePerformance''',
-                          ).toString()}%',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .labelLarge
-                              .override(
-                                fontFamily: 'Poppins',
-                                color:
-                                    FlutterFlowTheme.of(context).performanceBad,
-                                fontSize: 16.0,
-                              ),
-                        ),
-                      ),
+                            ),
+                          ),
+                        ],
+                      ).animateOnPageLoad(
+                          animationsMap['columnOnPageLoadAnimation3']!),
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
@@ -546,9 +687,11 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget> {
                                       ],
                                     ),
                                   ),
-                                );
+                                ).animateOnPageLoad(animationsMap[
+                                    'containerOnPageLoadAnimation']!);
                               }),
-                            );
+                            ).animateOnPageLoad(
+                                animationsMap['columnOnPageLoadAnimation4']!);
                           },
                         ),
                       ),

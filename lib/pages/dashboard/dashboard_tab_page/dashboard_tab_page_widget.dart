@@ -120,17 +120,6 @@ class _DashboardTabPageWidgetState extends State<DashboardTabPageWidget> {
                   ),
                 ),
               ),
-              Opacity(
-                opacity: 0.0,
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 18.0,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

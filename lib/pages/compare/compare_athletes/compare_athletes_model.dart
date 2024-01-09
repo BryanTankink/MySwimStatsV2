@@ -4,10 +4,6 @@ import 'compare_athletes_widget.dart' show CompareAthletesWidget;
 import 'package:flutter/material.dart';
 
 class CompareAthletesModel extends FlutterFlowModel<CompareAthletesWidget> {
-  ///  Local state fields for this page.
-
-  dynamic personB;
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

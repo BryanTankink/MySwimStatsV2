@@ -27,7 +27,7 @@ class ActivePageInfoStruct extends BaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'activePage': _activePage?.toString(),
+        'activePage': _activePage?.serialize(),
       }.withoutNulls;
 
   @override

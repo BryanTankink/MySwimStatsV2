@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/split_times_display/split_times_display_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -109,17 +108,14 @@ class _DashboardPersonalRecordLineWidgetState
                 r'''$.splits''',
               ) !=
               null) {
-            await showAlignedDialog(
+            await showDialog(
               context: context,
-              isGlobal: true,
-              avoidOverflow: false,
-              targetAnchor: const AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              followerAnchor: const AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
               builder: (dialogContext) {
-                return Material(
-                  color: Colors.transparent,
+                return Dialog(
+                  insetPadding: EdgeInsets.zero,
+                  backgroundColor: Colors.transparent,
+                  alignment: const AlignmentDirectional(0.0, 0.0)
+                      .resolve(Directionality.of(context)),
                   child: SplitTimesDisplayWidget(
                     splits: getJsonField(
                       widget.stroke,
@@ -143,99 +139,107 @@ class _DashboardPersonalRecordLineWidgetState
         },
         child: Container(
           width: MediaQuery.sizeOf(context).width * 1.0,
-          height: 50.0,
+          height: 65.0,
           decoration: const BoxDecoration(),
-          child: Row(
+          child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                flex: 2,
-                child: Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      getJsonField(
-                        widget.stroke,
-                        r'''$.event''',
-                      ).toString(),
-                      '50m Vlinderslag',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).text2,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Align(
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            getJsonField(
+                              widget.stroke,
+                              r'''$.event''',
+                            ).toString(),
+                            '50m Vlinderslag',
+                          ),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text2,
+                                  ),
                         ),
-                  ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            getJsonField(
+                              widget.stroke,
+                              r'''$.course''',
+                            ).toString(),
+                            '25m',
+                          ),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text2,
+                                  ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            getJsonField(
+                              widget.stroke,
+                              r'''$.time''',
+                            ).toString(),
+                            '25.64',
+                          ),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text2,
+                                  ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Align(
+                        alignment: const AlignmentDirectional(1.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            getJsonField(
+                              widget.stroke,
+                              r'''$.points''',
+                            ).toString(),
+                            '645',
+                          ),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelMedium.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text2,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      getJsonField(
-                        widget.stroke,
-                        r'''$.course''',
-                      ).toString(),
-                      '25m',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).text2,
-                        ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      getJsonField(
-                        widget.stroke,
-                        r'''$.time''',
-                      ).toString(),
-                      '25.64',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).text2,
-                        ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Align(
-                  alignment: const AlignmentDirectional(1.0, 0.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      getJsonField(
-                        widget.stroke,
-                        r'''$.points''',
-                      ).toString(),
-                      '645',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).text2,
-                        ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                child: Icon(
-                  Icons.play_arrow,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 18.0,
-                ),
+              const Divider(
+                height: 10.0,
+                thickness: 1.0,
+                color: Color(0x80BE9E44),
               ),
             ],
           ),

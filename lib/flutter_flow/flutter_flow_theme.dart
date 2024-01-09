@@ -41,6 +41,7 @@ abstract class FlutterFlowTheme {
   late Color performanceGood;
   late Color performanceBad;
   late Color cards;
+  late Color weatherCloudy;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -139,6 +140,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color performanceGood = const Color(0xFFBCFFB7);
   late Color performanceBad = const Color(0xFFFF8F95);
   late Color cards = const Color(0x4DBE9E44);
+  late Color weatherCloudy = const Color(0xFF0F120D);
 }
 
 abstract class Typography {

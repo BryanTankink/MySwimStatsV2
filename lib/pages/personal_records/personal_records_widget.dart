@@ -2,15 +2,18 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/dashboard_performance_component_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'personal_records_model.dart';
@@ -23,10 +26,52 @@ class PersonalRecordsWidget extends StatefulWidget {
   _PersonalRecordsWidgetState createState() => _PersonalRecordsWidgetState();
 }
 
-class _PersonalRecordsWidgetState extends State<PersonalRecordsWidget> {
+class _PersonalRecordsWidgetState extends State<PersonalRecordsWidget>
+    with TickerProviderStateMixin {
   late PersonalRecordsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'swimrankingsListItemOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'dashboardPerformanceComponentOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: const Offset(0.0, 50.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 150.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -97,12 +142,12 @@ class _PersonalRecordsWidgetState extends State<PersonalRecordsWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -195,19 +240,20 @@ class _PersonalRecordsWidgetState extends State<PersonalRecordsWidget> {
                                         getJsonField(
                                           FFAppState().user,
                                           r'''$.active.fullName''',
-                                        ).toString(),
+                                        )?.toString(),
                                         'Onbekend',
                                       ),
                                       date: valueOrDefault<String>(
                                         getJsonField(
                                           FFAppState().user,
                                           r'''$.active.birthYear''',
-                                        ).toString(),
+                                        )?.toString(),
                                         '-',
                                       ),
                                     ),
                                   ),
-                                ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'swimrankingsListItemOnPageLoadAnimation']!),
                               ),
                               Expanded(
                                 child: Padding(
@@ -223,7 +269,8 @@ class _PersonalRecordsWidgetState extends State<PersonalRecordsWidget> {
                                         r'''$.data.performances''',
                                       ),
                                     ),
-                                  ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'dashboardPerformanceComponentOnPageLoadAnimation']!),
                                 ),
                               ),
                             ],

@@ -5,6 +5,7 @@ import '/pages/profile/profile_stroke_settings/profile_stroke_settings_widget.da
 import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'profile_premium_component_model.dart';
@@ -46,12 +47,12 @@ class _ProfilePremiumComponentWidgetState
     context.watch<FFAppState>();
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.asset(
-            'assets/images/Topical_Micellair_Water_2.jpg',
-          ).image,
+          image: CachedNetworkImageProvider(
+            'https://myswimstats.nl/Content/Images/General/background.webp',
+          ),
         ),
       ),
       child: Container(

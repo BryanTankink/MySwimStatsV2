@@ -39,3 +39,8 @@ export '/pages/compare/compare_athletes/compare_athletes_widget.dart'
     show CompareAthletesWidget;
 export '/pages/compare/compare_athletes_obtain/compare_athletes_obtain_widget.dart'
     show CompareAthletesObtainWidget;
+export '/pages/compare/compare_athlete_favorites/compare_athlete_favorites_widget.dart'
+    show CompareAthleteFavoritesWidget;
+export '/pages/generic/about/about_widget.dart' show AboutWidget;
+export '/pages/achievement_users/achievement_users_widget.dart'
+    show AchievementUsersWidget;

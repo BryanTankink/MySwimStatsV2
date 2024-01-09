@@ -249,7 +249,7 @@ class _AchievementCategoryWidgetState extends State<AchievementCategoryWidget>
                               percent: functions.calculatePercentage(
                                   widget.currentScore, widget.maxScore),
                               lineHeight: 30.0,
-                              animation: true,
+                              animation: false,
                               animateFromLastPercent: true,
                               progressColor: FlutterFlowTheme.of(context).text,
                               backgroundColor:

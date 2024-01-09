@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -64,12 +65,12 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
     context.watch<FFAppState>();
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.asset(
-            'assets/images/Topical_Micellair_Water_2.jpg',
-          ).image,
+          image: CachedNetworkImageProvider(
+            'https://myswimstats.nl/Content/Images/General/background.webp',
+          ),
         ),
       ),
       child: Container(

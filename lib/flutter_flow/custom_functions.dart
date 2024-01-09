@@ -96,3 +96,16 @@ String achievementCategoryIdToName(String? achievementId) {
   else
     return "Overig";
 }
+
+String getSubscriptionManagePage(
+  bool isAndroid,
+  bool isIos,
+) {
+  if (isAndroid) {
+    return "https://play.google.com/store/account/subscriptions";
+  } else if (isIos) {
+    return "https://apps.apple.com/account/subscriptions";
+  } else {
+    return "https://swimscore.nl";
+  }
+}

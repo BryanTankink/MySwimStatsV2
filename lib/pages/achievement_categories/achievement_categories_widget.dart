@@ -1,11 +1,14 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/achievement_category_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'achievement_categories_model.dart';
@@ -20,10 +23,39 @@ class AchievementCategoriesWidget extends StatefulWidget {
 }
 
 class _AchievementCategoriesWidgetState
-    extends State<AchievementCategoriesWidget> {
+    extends State<AchievementCategoriesWidget> with TickerProviderStateMixin {
   late AchievementCategoriesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'listViewOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'achievementCategoryOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 100.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 100.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -93,12 +125,12 @@ class _AchievementCategoriesWidgetState
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/Topical_Micellair_Water_2.jpg',
-                ).image,
+                image: CachedNetworkImageProvider(
+                  'https://myswimstats.nl/Content/Images/General/background.webp',
+                ),
               ),
             ),
             child: Container(
@@ -211,9 +243,11 @@ class _AchievementCategoriesWidgetState
                                   r'''$.categoryLevel.badge''',
                                 ).toString(),
                               ),
-                            );
+                            ).animateOnPageLoad(animationsMap[
+                                'achievementCategoryOnPageLoadAnimation']!);
                           },
-                        );
+                        ).animateOnPageLoad(
+                            animationsMap['listViewOnPageLoadAnimation']!);
                       },
                     );
                   },

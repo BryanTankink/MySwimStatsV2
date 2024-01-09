@@ -63,7 +63,7 @@ class _ContestSwimLineWidgetState extends State<ContestSwimLineWidget> {
                       getJsonField(
                         widget.stroke,
                         r'''$.event''',
-                      ).toString(),
+                      )?.toString(),
                       'Onbekend',
                     ),
                     textAlign: TextAlign.center,
@@ -83,7 +83,7 @@ class _ContestSwimLineWidgetState extends State<ContestSwimLineWidget> {
                       getJsonField(
                         widget.stroke,
                         r'''$.percentage''',
-                      ).toString(),
+                      )?.toString(),
                       '--m',
                     ),
                     textAlign: TextAlign.center,
@@ -108,7 +108,7 @@ class _ContestSwimLineWidgetState extends State<ContestSwimLineWidget> {
                       getJsonField(
                         widget.stroke,
                         r'''$.newSwimTime''',
-                      ).toString(),
+                      )?.toString(),
                       'XX.XX',
                     ),
                     textAlign: TextAlign.center,
@@ -128,7 +128,7 @@ class _ContestSwimLineWidgetState extends State<ContestSwimLineWidget> {
                       getJsonField(
                         widget.stroke,
                         r'''$.newPoints''',
-                      ).toString(),
+                      )?.toString(),
                       'XXX',
                     ),
                     textAlign: TextAlign.center,

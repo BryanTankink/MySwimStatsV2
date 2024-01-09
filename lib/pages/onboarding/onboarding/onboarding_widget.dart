@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -140,12 +141,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.asset(
-                'assets/images/Topical_Micellair_Water_2.jpg',
-              ).image,
+              image: CachedNetworkImageProvider(
+                'https://myswimstats.nl/Content/Images/General/background.webp',
+              ),
             ),
           ),
           child: Container(
