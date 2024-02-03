@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "968701667337",
+    "project_id": "my-swim-stats-v2-vh6xu2",
+    "storage_bucket": "my-swim-stats-v2-vh6xu2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968701667337:android:2742b226d996ab35f230d8",
+        "android_client_info": {
+          "package_name": "nl.MySwimStream.MySwimStats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWPPiEG0UWeQ6kZxdsm3R2tfqZHExvPyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/dashboard/personal_record_line_bottom_sheet/personal_record_line_bottom_sheet_widget.dart';
 import '/pages/generic/split_times_display/split_times_display_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class DashboardPersonalRecordLineWidget extends StatefulWidget {
   final String? year;
 
   @override
-  _DashboardPersonalRecordLineWidgetState createState() =>
+  State<DashboardPersonalRecordLineWidget> createState() =>
       _DashboardPersonalRecordLineWidgetState();
 }
 
@@ -59,59 +60,90 @@ class _DashboardPersonalRecordLineWidgetState
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          HapticFeedback.selectionClick();
+          logFirebaseEvent('DASHBOARD_PERSONAL_RECORD_LINE_Container');
+          if (FFAppState().premium) {
+            logFirebaseEvent('Container_bottom_sheet');
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: PersonalRecordLineBottomSheetWidget(
+                    stroke: widget.stroke!,
+                    titleAddon:
+                        widget.titleAddon != null && widget.titleAddon != ''
+                            ? widget.titleAddon!
+                            : '',
+                    year: widget.year != null && widget.year != ''
+                        ? widget.year!
+                        : '-1',
+                  ),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
+          } else {
+            logFirebaseEvent('Container_haptic_feedback');
+            HapticFeedback.selectionClick();
+            logFirebaseEvent('Container_navigate_to');
 
-          context.pushNamed(
-            'RaceList',
-            queryParameters: {
-              'style': serializeParam(
-                getJsonField(
-                  widget.stroke,
-                  r'''$.styleId''',
+            context.pushNamed(
+              'RaceList',
+              queryParameters: {
+                'style': serializeParam(
+                  getJsonField(
+                    widget.stroke,
+                    r'''$.styleId''',
+                  ),
+                  ParamType.int,
                 ),
-                ParamType.int,
-              ),
-              'course': serializeParam(
-                getJsonField(
-                  widget.stroke,
-                  r'''$.courseType''',
+                'course': serializeParam(
+                  getJsonField(
+                    widget.stroke,
+                    r'''$.courseType''',
+                  ),
+                  ParamType.int,
                 ),
-                ParamType.int,
-              ),
-              'title': serializeParam(
-                '${getJsonField(
-                  widget.stroke,
-                  r'''$.event''',
-                ).toString()} ${functions.convertCourseTypeToString(getJsonField(
-                  widget.stroke,
-                  r'''$.courseType''',
-                ))}${widget.titleAddon != null && widget.titleAddon != '' ? widget.titleAddon : ' '}',
-                ParamType.String,
-              ),
-              'timeId': serializeParam(
-                getJsonField(
-                  widget.stroke,
-                  r'''$.timeId''',
+                'title': serializeParam(
+                  '${getJsonField(
+                    widget.stroke,
+                    r'''$.event''',
+                  ).toString()} ${functions.convertCourseTypeToString(getJsonField(
+                    widget.stroke,
+                    r'''$.courseType''',
+                  ))}${widget.titleAddon != null && widget.titleAddon != '' ? widget.titleAddon : ' '}',
+                  ParamType.String,
                 ),
-                ParamType.int,
-              ),
-              'year': serializeParam(
-                widget.year,
-                ParamType.String,
-              ),
-            }.withoutNulls,
-          );
+                'timeId': serializeParam(
+                  getJsonField(
+                    widget.stroke,
+                    r'''$.timeId''',
+                  ),
+                  ParamType.int,
+                ),
+                'year': serializeParam(
+                  widget.year,
+                  ParamType.String,
+                ),
+              }.withoutNulls,
+            );
+          }
         },
         onLongPress: () async {
+          logFirebaseEvent('DASHBOARD_PERSONAL_RECORD_LINE_Container');
           if (getJsonField(
                 widget.stroke,
                 r'''$.splits''',
               ) !=
               null) {
+            logFirebaseEvent('Container_alert_dialog');
             await showDialog(
               context: context,
               builder: (dialogContext) {
                 return Dialog(
+                  elevation: 0,
                   insetPadding: EdgeInsets.zero,
                   backgroundColor: Colors.transparent,
                   alignment: const AlignmentDirectional(0.0, 0.0)
@@ -134,6 +166,7 @@ class _DashboardPersonalRecordLineWidgetState
               },
             ).then((value) => setState(() {}));
           } else {
+            logFirebaseEvent('Container_haptic_feedback');
             HapticFeedback.mediumImpact();
           }
         },
@@ -162,35 +195,39 @@ class _DashboardPersonalRecordLineWidgetState
                             '50m Vlinderslag',
                           ),
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context).text2,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Text(
-                          valueOrDefault<String>(
-                            getJsonField(
-                              widget.stroke,
-                              r'''$.course''',
-                            ).toString(),
-                            '25m',
+                    if (false)
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              getJsonField(
+                                widget.stroke,
+                                r'''$.course''',
+                              ).toString(),
+                              '25m',
+                            ),
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
                           ),
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context).text2,
-                                  ),
                         ),
                       ),
-                    ),
                     Expanded(
                       flex: 1,
                       child: Align(
@@ -204,11 +241,12 @@ class _DashboardPersonalRecordLineWidgetState
                             '25.64',
                           ),
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context).text2,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                         ),
                       ),
                     ),
@@ -225,12 +263,22 @@ class _DashboardPersonalRecordLineWidgetState
                             '645',
                           ),
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context).text2,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                      child: Icon(
+                        Icons.arrow_right,
+                        color: FlutterFlowTheme.of(context).text,
+                        size: 24.0,
                       ),
                     ),
                   ],

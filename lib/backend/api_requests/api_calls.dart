@@ -47,12 +47,17 @@ class ApiGroup {
   static PremiumStateCall premiumStateCall = PremiumStateCall();
   static CompareCall compareCall = CompareCall();
   static GetTopAthletesCall getTopAthletesCall = GetTopAthletesCall();
+  static GetBestSplitsCall getBestSplitsCall = GetBestSplitsCall();
+  static LimitsRacesEligeableCall limitsRacesEligeableCall =
+      LimitsRacesEligeableCall();
+  static LimitsRaceCall limitsRaceCall = LimitsRaceCall();
 }
 
 class DashboardCall {
   Future<ApiCallResponse> call({
     String? deviceIdentifier = '',
     int? athleteId = 0,
+    String? qid = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Dashboard',
@@ -64,6 +69,7 @@ class DashboardCall {
       params: {
         'deviceIdentifier': deviceIdentifier,
         'athleteId': athleteId,
+        'qid': qid,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -953,6 +959,109 @@ class GetTopAthletesCall {
   List? topUsers(dynamic response) => getJsonField(
         response,
         r'''$.data.topUsers''',
+        true,
+      ) as List?;
+}
+
+class GetBestSplitsCall {
+  Future<ApiCallResponse> call({
+    String? athleteId = '',
+    String? style = '',
+    String? course = '',
+    String? minutes = '',
+    String? seconds = '',
+    String? milliseconds = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetBestSplits',
+      apiUrl: '${ApiGroup.baseUrl}Race/GetBestSplits',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'athleteId': athleteId,
+        'style': style,
+        'course': course,
+        'minutes': minutes,
+        'seconds': seconds,
+        'milliseconds': milliseconds,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? splits(dynamic response) => getJsonField(
+        response,
+        r'''$.data.splits''',
+        true,
+      ) as List?;
+}
+
+class LimitsRacesEligeableCall {
+  Future<ApiCallResponse> call({
+    String? deviceIdentifier = '',
+    String? athleteIdentifier = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Limits Races Eligeable',
+      apiUrl: '${ApiGroup.baseUrl}Limit/Races/Eligable',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'deviceIdentifier': deviceIdentifier,
+        'athleteIdentifier': athleteIdentifier,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? events(dynamic response) => getJsonField(
+        response,
+        r'''$.data.events''',
+        true,
+      ) as List?;
+}
+
+class LimitsRaceCall {
+  Future<ApiCallResponse> call({
+    String? deviceIdentifier = '',
+    String? athleteIdentifier = '',
+    String? eventId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Limits Race',
+      apiUrl: '${ApiGroup.baseUrl}Limit/Races/Info',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'deviceIdentifier': deviceIdentifier,
+        'athleteIdentifier': athleteIdentifier,
+        'eventId': eventId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? limits(dynamic response) => getJsonField(
+        response,
+        r'''$.data.limits''',
         true,
       ) as List?;
 }

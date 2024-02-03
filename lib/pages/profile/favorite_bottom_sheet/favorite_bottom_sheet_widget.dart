@@ -18,7 +18,7 @@ class FavoriteBottomSheetWidget extends StatefulWidget {
   final int? favoriteAthleteId;
 
   @override
-  _FavoriteBottomSheetWidgetState createState() =>
+  State<FavoriteBottomSheetWidget> createState() =>
       _FavoriteBottomSheetWidgetState();
 }
 
@@ -76,8 +76,11 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('FAVORITE_BOTTOM_SHEET_GEBRUIKEN_BTN_ON_T');
                   var shouldSetState = false;
+                  logFirebaseEvent('Button_haptic_feedback');
                   HapticFeedback.selectionClick();
+                  logFirebaseEvent('Button_backend_call');
                   _model.apiResultoov = await ApiGroup.setActiveUserCall.call(
                     deviceIdentifier: FFAppState().deviceIdentifier,
                     swimrankingsIdentifier:
@@ -85,21 +88,27 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                   );
                   shouldSetState = true;
                   if ((_model.apiResultoov?.succeeded ?? true)) {
+                    logFirebaseEvent('Button_action_block');
                     _model.userAuthOk =
                         await action_blocks.getUserAuth(context);
                     shouldSetState = true;
                     if (_model.userAuthOk!) {
+                      logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                       Navigator.pop(context);
+                      logFirebaseEvent('Button_navigate_to');
 
                       context.pushNamed('personalRecords');
 
                       if (shouldSetState) setState(() {});
                       return;
                     } else {
+                      logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                       Navigator.pop(context);
                     }
                   } else {
+                    logFirebaseEvent('Button_haptic_feedback');
                     HapticFeedback.heavyImpact();
+                    logFirebaseEvent('Button_alert_dialog');
                     await showDialog(
                       context: context,
                       builder: (alertDialogContext) {
@@ -117,6 +126,7 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                         );
                       },
                     );
+                    logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                     Navigator.pop(context);
                   }
 
@@ -146,7 +156,10 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('FAVORITE_BOTTOM_SHEET_VERWIJDEREN_BTN_ON');
+                  logFirebaseEvent('Button_haptic_feedback');
                   HapticFeedback.selectionClick();
+                  logFirebaseEvent('Button_backend_call');
                   _model.apiResulthws =
                       await ApiGroup.deleteFavoritedUserCall.call(
                     deviceIdentifier: FFAppState().deviceIdentifier,
@@ -154,9 +167,11 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
                         widget.favoriteAthleteId?.toString(),
                   );
                   if ((_model.apiResulthws?.succeeded ?? true)) {
+                    logFirebaseEvent('Button_action_block');
                     await action_blocks.getUserAuth(context);
                     setState(() {});
                   }
+                  logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                   Navigator.pop(context);
 
                   setState(() {});
@@ -182,7 +197,10 @@ class _FavoriteBottomSheetWidgetState extends State<FavoriteBottomSheetWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('FAVORITE_BOTTOM_SHEET_ANNULEREN_BTN_ON_T');
+                  logFirebaseEvent('Button_haptic_feedback');
                   HapticFeedback.selectionClick();
+                  logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                   Navigator.pop(context);
                 },
                 text: 'Annuleren',

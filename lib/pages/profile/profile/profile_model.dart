@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
+import '/pages/generic/bottom_navigator/bottom_navigator_widget.dart';
 import '/pages/profile/profile_default_component/profile_default_component_widget.dart';
 import '/pages/profile/profile_premium_component/profile_premium_component_widget.dart';
 import 'profile_widget.dart' show ProfileWidget;
@@ -18,6 +19,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late ProfilePremiumComponentModel profilePremiumComponentModel;
   // Model for profileDefaultComponent component.
   late ProfileDefaultComponentModel profileDefaultComponentModel;
+  // Model for bottomNavigator component.
+  late BottomNavigatorModel bottomNavigatorModel;
   // Model for baseHeader component.
   late BaseHeaderModel baseHeaderModel;
   // Model for appDrawer component.
@@ -31,6 +34,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
         createModel(context, () => ProfilePremiumComponentModel());
     profileDefaultComponentModel =
         createModel(context, () => ProfileDefaultComponentModel());
+    bottomNavigatorModel = createModel(context, () => BottomNavigatorModel());
     baseHeaderModel = createModel(context, () => BaseHeaderModel());
     appDrawerModel = createModel(context, () => AppDrawerModel());
   }
@@ -40,6 +44,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     unfocusNode.dispose();
     profilePremiumComponentModel.dispose();
     profileDefaultComponentModel.dispose();
+    bottomNavigatorModel.dispose();
     baseHeaderModel.dispose();
     appDrawerModel.dispose();
   }

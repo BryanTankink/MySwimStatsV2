@@ -16,7 +16,7 @@ class NoContentWidget extends StatefulWidget {
   final String? description;
 
   @override
-  _NoContentWidgetState createState() => _NoContentWidgetState();
+  State<NoContentWidget> createState() => _NoContentWidgetState();
 }
 
 class _NoContentWidgetState extends State<NoContentWidget> {
@@ -65,7 +65,7 @@ class _NoContentWidgetState extends State<NoContentWidget> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.asset(
-              'assets/images/logo_square_600x600.png',
+              'assets/images/logo_square.webp',
               width: 100.0,
               height: 100.0,
               fit: BoxFit.cover,

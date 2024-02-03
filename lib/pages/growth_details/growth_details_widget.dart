@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -19,7 +18,7 @@ class GrowthDetailsWidget extends StatefulWidget {
   final dynamic graphResult;
 
   @override
-  _GrowthDetailsWidgetState createState() => _GrowthDetailsWidgetState();
+  State<GrowthDetailsWidget> createState() => _GrowthDetailsWidgetState();
 }
 
 class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
@@ -108,6 +107,9 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => GrowthDetailsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'growthDetails'});
   }
 
   @override
@@ -151,7 +153,10 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('GROWTH_DETAILS_arrow_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -172,12 +177,12 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -205,7 +210,7 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          'Jou beste zwemjaar was',
+                          'Jouw beste zwemjaar was',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).labelLarge.override(
@@ -288,7 +293,11 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'GROWTH_DETAILS_Container_b1pl63v4_ON_TAP');
+                                  logFirebaseEvent('Container_haptic_feedback');
                                   HapticFeedback.selectionClick();
+                                  logFirebaseEvent('Container_navigate_to');
 
                                   context.pushNamed(
                                     'growthYearDetails',
@@ -366,8 +375,8 @@ class _GrowthDetailsWidgetState extends State<GrowthDetailsWidget>
                                       ),
                                       Divider(
                                         thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent4,
+                                        color:
+                                            FlutterFlowTheme.of(context).cards,
                                       ),
                                     ],
                                   ),

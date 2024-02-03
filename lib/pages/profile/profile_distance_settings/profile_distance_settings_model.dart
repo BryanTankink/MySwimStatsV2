@@ -58,6 +58,7 @@ class ProfileDistanceSettingsModel
       return;
     }
 
+    logFirebaseEvent('distancePropertyChangedComp_update_compo');
     distancePropertyChanged = true;
     return;
   }

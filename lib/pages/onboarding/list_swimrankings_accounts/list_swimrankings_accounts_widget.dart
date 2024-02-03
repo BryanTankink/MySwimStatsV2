@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,7 @@ class ListSwimrankingsAccountsWidget extends StatefulWidget {
     bool? isFavorite,
     required this.enteredName,
     required this.addState,
-  })  : isFavorite = isFavorite ?? false;
+  }) : isFavorite = isFavorite ?? false;
 
   final List<dynamic>? accounts;
   final bool isFavorite;
@@ -27,7 +26,7 @@ class ListSwimrankingsAccountsWidget extends StatefulWidget {
   final UserAddState? addState;
 
   @override
-  _ListSwimrankingsAccountsWidgetState createState() =>
+  State<ListSwimrankingsAccountsWidget> createState() =>
       _ListSwimrankingsAccountsWidgetState();
 }
 
@@ -41,6 +40,9 @@ class _ListSwimrankingsAccountsWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ListSwimrankingsAccountsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ListSwimrankingsAccounts'});
   }
 
   @override
@@ -84,7 +86,10 @@ class _ListSwimrankingsAccountsWidgetState
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('LIST_SWIMRANKINGS_ACCOUNTS_arrow_left_IC');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -101,12 +106,12 @@ class _ListSwimrankingsAccountsWidgetState
           elevation: 2.0,
         ),
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                'https://myswimstats.nl/Content/Images/General/background.webp',
-              ),
+              image: Image.asset(
+                'assets/images/background.webp',
+              ).image,
             ),
           ),
           child: Container(
@@ -149,7 +154,7 @@ class _ListSwimrankingsAccountsWidgetState
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 12.0),
                             child: Text(
-                              'Meerdere personen gevonden, kies de juiste persoon om door te gaan',
+                              'We hebben meerdere personen gevonden. Selecteer de juiste persoon om door te gaan',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context).titleMedium,
                             ),
@@ -178,13 +183,21 @@ class _ListSwimrankingsAccountsWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'LIST_SWIMRANKINGS_ACCOUNTS_Container_ck8');
                                   var shouldSetState = false;
+                                  logFirebaseEvent(
+                                      'SwimrankingsListItem_haptic_feedback');
                                   HapticFeedback.selectionClick();
+                                  logFirebaseEvent(
+                                      'SwimrankingsListItem_navigate_to');
 
                                   context.pushNamed('SwimRankingsLoading');
 
                                   if (widget.addState ==
                                       UserAddState.SetActive) {
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_backend_call');
                                     _model.userCreated = await ApiGroup
                                         .createUserByDeviceIdentifierCall
                                         .call(
@@ -202,7 +215,11 @@ class _ListSwimrankingsAccountsWidgetState
                                     shouldSetState = true;
                                     if (!(_model.userCreated?.succeeded ??
                                         true)) {
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_haptic_feedback');
                                       HapticFeedback.heavyImpact();
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_alert_dialog');
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
@@ -220,12 +237,16 @@ class _ListSwimrankingsAccountsWidgetState
                                           );
                                         },
                                       );
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_navigate_back');
                                       context.safePop();
                                       if (shouldSetState) setState(() {});
                                       return;
                                     }
                                   } else if (widget.addState ==
                                       UserAddState.AsFavorite) {
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_backend_call');
                                     _model.apiResultbp8 = await ApiGroup
                                         .addFavoritedUserCall
                                         .call(
@@ -243,7 +264,11 @@ class _ListSwimrankingsAccountsWidgetState
                                     shouldSetState = true;
                                     if (!(_model.apiResultbp8?.succeeded ??
                                         true)) {
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_haptic_feedback');
                                       HapticFeedback.heavyImpact();
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_alert_dialog');
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
@@ -261,11 +286,15 @@ class _ListSwimrankingsAccountsWidgetState
                                           );
                                         },
                                       );
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_navigate_back');
                                       context.safePop();
                                       if (shouldSetState) setState(() {});
                                       return;
                                     }
                                   } else {
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_backend_call');
                                     _model.apiResultard =
                                         await ApiGroup.setActiveUserCall.call(
                                       deviceIdentifier:
@@ -278,7 +307,11 @@ class _ListSwimrankingsAccountsWidgetState
                                     shouldSetState = true;
                                     if (!(_model.apiResultard?.succeeded ??
                                         true)) {
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_haptic_feedback');
                                       HapticFeedback.heavyImpact();
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_alert_dialog');
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
@@ -296,24 +329,38 @@ class _ListSwimrankingsAccountsWidgetState
                                           );
                                         },
                                       );
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_navigate_back');
                                       context.safePop();
                                       if (shouldSetState) setState(() {});
                                       return;
                                     }
                                   }
 
+                                  logFirebaseEvent(
+                                      'SwimrankingsListItem_action_block');
                                   _model.userIsAuth2 =
                                       await action_blocks.getUserAuth(context);
                                   shouldSetState = true;
                                   if (_model.userIsAuth2!) {
                                     if (widget.addState ==
                                         UserAddState.AsFavorite) {
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_navigate_to');
+
                                       context.goNamed('profile');
                                     } else {
+                                      logFirebaseEvent(
+                                          'SwimrankingsListItem_navigate_to');
+
                                       context.goNamed('Dashboard');
                                     }
                                   } else {
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_haptic_feedback');
                                     HapticFeedback.heavyImpact();
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_alert_dialog');
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -331,6 +378,8 @@ class _ListSwimrankingsAccountsWidgetState
                                         );
                                       },
                                     );
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_navigate_back');
                                     context.safePop();
                                     if (shouldSetState) setState(() {});
                                     return;

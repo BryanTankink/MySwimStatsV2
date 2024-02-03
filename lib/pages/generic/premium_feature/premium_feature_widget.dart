@@ -16,7 +16,7 @@ class PremiumFeatureWidget extends StatefulWidget {
   final String? featureDescription;
 
   @override
-  _PremiumFeatureWidgetState createState() => _PremiumFeatureWidgetState();
+  State<PremiumFeatureWidget> createState() => _PremiumFeatureWidgetState();
 }
 
 class _PremiumFeatureWidgetState extends State<PremiumFeatureWidget> {
@@ -81,6 +81,9 @@ class _PremiumFeatureWidgetState extends State<PremiumFeatureWidget> {
                 child: OperationButtonWidget(
                   text: 'Neem nu!',
                   onClick: () async {
+                    logFirebaseEvent(
+                        'PREMIUM_FEATURE_Container_ddo9matj_CALLB');
+                    logFirebaseEvent('OperationButton_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,

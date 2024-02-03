@@ -11,12 +11,12 @@ class GenericLoaderWidget extends StatefulWidget {
   const GenericLoaderWidget({
     super.key,
     String? loadingMessage,
-  })  : loadingMessage = loadingMessage ?? 'Bezig met laden...';
+  }) : loadingMessage = loadingMessage ?? 'Bezig met laden...';
 
   final String loadingMessage;
 
   @override
-  _GenericLoaderWidgetState createState() => _GenericLoaderWidgetState();
+  State<GenericLoaderWidget> createState() => _GenericLoaderWidgetState();
 }
 
 class _GenericLoaderWidgetState extends State<GenericLoaderWidget> {
@@ -28,6 +28,9 @@ class _GenericLoaderWidgetState extends State<GenericLoaderWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GenericLoaderModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'genericLoader'});
   }
 
   @override

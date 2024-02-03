@@ -16,7 +16,7 @@ class CompareSideWidget extends StatefulWidget {
   final bool? isBest;
 
   @override
-  _CompareSideWidgetState createState() => _CompareSideWidgetState();
+  State<CompareSideWidget> createState() => _CompareSideWidgetState();
 }
 
 class _CompareSideWidgetState extends State<CompareSideWidget> {

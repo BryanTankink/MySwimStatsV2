@@ -2,6 +2,7 @@ import '/components/achievement_category_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
+import '/pages/generic/bottom_navigator/bottom_navigator_widget.dart';
 import 'dashboard_widget.dart' show DashboardWidget;
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   final unfocusNode = FocusNode();
   // Model for AchievementCategory component.
   late AchievementCategoryModel achievementCategoryModel;
+  // Model for bottomNavigator component.
+  late BottomNavigatorModel bottomNavigatorModel;
   // Model for baseHeader component.
   late BaseHeaderModel baseHeaderModel;
   // Model for appDrawer component.
@@ -22,6 +25,7 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   void initState(BuildContext context) {
     achievementCategoryModel =
         createModel(context, () => AchievementCategoryModel());
+    bottomNavigatorModel = createModel(context, () => BottomNavigatorModel());
     baseHeaderModel = createModel(context, () => BaseHeaderModel());
     appDrawerModel = createModel(context, () => AppDrawerModel());
   }
@@ -30,6 +34,7 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   void dispose() {
     unfocusNode.dispose();
     achievementCategoryModel.dispose();
+    bottomNavigatorModel.dispose();
     baseHeaderModel.dispose();
     appDrawerModel.dispose();
   }

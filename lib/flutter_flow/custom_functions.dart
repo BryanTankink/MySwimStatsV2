@@ -109,3 +109,53 @@ String getSubscriptionManagePage(
     return "https://swimscore.nl";
   }
 }
+
+dynamic getDataByIndex(
+  List<dynamic> input,
+  int index,
+) {
+  return input[index];
+}
+
+List<int> calculateTimeSet(double seconds) {
+  List<int> results = [0, 0, 0];
+  results[0] = (seconds / 60.0).toInt();
+  results[1] = (seconds - results[0] * 60).toInt();
+  results[2] = ((seconds - results[0] * 60 - results[1]) * 100.0).toInt();
+  return results;
+}
+
+bool stringContains(
+  String input,
+  String contains,
+) {
+  if (contains == null || contains.isEmpty) {
+    return true;
+  }
+
+  final splitted = contains.toLowerCase().split(' ');
+  final inputLower = input.toLowerCase();
+  for (final spl in splitted) {
+    if (!inputLower.contains(spl)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool isLongCourseType(int courseType) {
+  return courseType == 1;
+}
+
+List<dynamic> filterRacesForCourse(
+  List<dynamic> races,
+  bool isLongCourse,
+) {
+  int longCourseState = 0;
+  if (isLongCourse) {
+    longCourseState = 1;
+  }
+  return races
+      .where((element) => element["courseType"] == longCourseState)
+      .toList();
+}

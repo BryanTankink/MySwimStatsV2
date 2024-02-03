@@ -14,7 +14,7 @@ class ProfileStrokeSettingsWidget extends StatefulWidget {
   const ProfileStrokeSettingsWidget({super.key});
 
   @override
-  _ProfileStrokeSettingsWidgetState createState() =>
+  State<ProfileStrokeSettingsWidget> createState() =>
       _ProfileStrokeSettingsWidgetState();
 }
 
@@ -35,7 +35,10 @@ class _ProfileStrokeSettingsWidgetState
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('PROFILE_STROKE_SETTINGS_profileStrokeSet');
+      logFirebaseEvent('profileStrokeSettings_action_block');
       _model.isPremium = await action_blocks.isPremium(context);
+      logFirebaseEvent('profileStrokeSettings_update_component_s');
       setState(() {});
     });
   }
@@ -83,6 +86,10 @@ class _ProfileStrokeSettingsWidgetState
                       r'''$.strokeButterfly''',
                     ),
                     onValueChanged: () async {
+                      logFirebaseEvent(
+                          'PROFILE_STROKE_SETTINGS_strokeButterfly_');
+                      logFirebaseEvent(
+                          'strokeButterfly_update_component_state');
                       setState(() {
                         _model.strokeSettingChanged = true;
                       });
@@ -102,6 +109,10 @@ class _ProfileStrokeSettingsWidgetState
                       r'''$.strokeBackstroke''',
                     ),
                     onValueChanged: () async {
+                      logFirebaseEvent(
+                          'PROFILE_STROKE_SETTINGS_strokeBackstroke');
+                      logFirebaseEvent(
+                          'strokeBackstroke_update_component_state');
                       setState(() {
                         _model.strokeSettingChanged = true;
                       });
@@ -121,6 +132,10 @@ class _ProfileStrokeSettingsWidgetState
                       r'''$.strokeBreaststroke''',
                     ),
                     onValueChanged: () async {
+                      logFirebaseEvent(
+                          'PROFILE_STROKE_SETTINGS_strokeBreaststro');
+                      logFirebaseEvent(
+                          'strokeBreaststroke_update_component_stat');
                       setState(() {
                         _model.strokeSettingChanged = true;
                       });
@@ -140,6 +155,10 @@ class _ProfileStrokeSettingsWidgetState
                       r'''$.strokeFreestyle''',
                     ),
                     onValueChanged: () async {
+                      logFirebaseEvent(
+                          'PROFILE_STROKE_SETTINGS_strokeFreestyle_');
+                      logFirebaseEvent(
+                          'strokeFreestyle_update_component_state');
                       setState(() {
                         _model.strokeSettingChanged = true;
                       });
@@ -159,6 +178,9 @@ class _ProfileStrokeSettingsWidgetState
                       r'''$.strokeMedley''',
                     ),
                     onValueChanged: () async {
+                      logFirebaseEvent(
+                          'PROFILE_STROKE_SETTINGS_strokeMedley_CAL');
+                      logFirebaseEvent('strokeMedley_update_component_state');
                       setState(() {
                         _model.strokeSettingChanged = true;
                       });
@@ -175,6 +197,9 @@ class _ProfileStrokeSettingsWidgetState
                     child: OperationButtonWidget(
                       text: 'Opslaan',
                       onClick: () async {
+                        logFirebaseEvent(
+                            'PROFILE_STROKE_SETTINGS_Container_7vvgp6');
+                        logFirebaseEvent('OperationButton_backend_call');
                         _model.apiResulte3q =
                             await ApiGroup.updateUserStrokePropertiesCall.call(
                           deviceIdentifier: FFAppState().deviceIdentifier,
@@ -210,10 +235,13 @@ class _ProfileStrokeSettingsWidgetState
                           ),
                         );
                         if ((_model.apiResulte3q?.succeeded ?? true)) {
+                          logFirebaseEvent(
+                              'OperationButton_update_component_state');
                           setState(() {
                             _model.strokeSettingChanged = false;
                           });
                         }
+                        logFirebaseEvent('OperationButton_action_block');
                         await action_blocks.getUserAuth(context);
 
                         setState(() {});

@@ -1,4 +1,5 @@
 import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/achievement_category_widget.dart';
 import '/components/premium_button_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,7 +15,7 @@ class AppDrawerWidget extends StatefulWidget {
   const AppDrawerWidget({super.key});
 
   @override
-  _AppDrawerWidgetState createState() => _AppDrawerWidgetState();
+  State<AppDrawerWidget> createState() => _AppDrawerWidgetState();
 }
 
 class _AppDrawerWidgetState extends State<AppDrawerWidget> {
@@ -50,7 +51,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: Image.asset(
-            'assets/images/Topical_Micellair_Water_2.jpg',
+            'assets/images/background.webp',
           ).image,
         ),
       ),
@@ -61,8 +62,8 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
           gradient: LinearGradient(
             colors: [
               FlutterFlowTheme.of(context).primary,
-              const Color(0xD9000000),
-              const Color(0xF2000000)
+              FlutterFlowTheme.of(context).transitionMiddle,
+              FlutterFlowTheme.of(context).primary
             ],
             stops: const [0.0, 0.25, 1.0],
             begin: const AlignmentDirectional(0.0, -1.0),
@@ -80,7 +81,7 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
-                      'assets/images/Color_logo_-_no_background.png',
+                      'assets/images/logo_wide.webp',
                       width: 200.0,
                       height: 50.0,
                       fit: BoxFit.contain,
@@ -111,7 +112,10 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_t0je5cr1_ON_TAP');
+                    logFirebaseEvent('AchievementCategory_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('AchievementCategory_navigate_to');
 
                     context.pushNamed('AchievementCategories');
                   },
@@ -154,9 +158,25 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_a7m5a4me_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_update_app_state');
+                    FFAppState().activePageInfo = ActivePageInfoStruct(
+                      activePage: PageId.Dashboard,
+                    );
+                    logFirebaseEvent('menuItem_navigate_to');
 
-                    context.goNamed('Dashboard');
+                    context.goNamed(
+                      'Dashboard',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
                   child: wrapWithModel(
                     model: _model.menuItemModel1,
@@ -179,9 +199,25 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_h8njhkpa_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_update_app_state');
+                    FFAppState().activePageInfo = ActivePageInfoStruct(
+                      activePage: PageId.PersonalRecords,
+                    );
+                    logFirebaseEvent('menuItem_navigate_to');
 
-                    context.goNamed('personalRecords');
+                    context.goNamed(
+                      'personalRecords',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
                   child: wrapWithModel(
                     model: _model.menuItemModel2,
@@ -204,9 +240,25 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_bgmxb1cm_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_update_app_state');
+                    FFAppState().activePageInfo = ActivePageInfoStruct(
+                      activePage: PageId.Races,
+                    );
+                    logFirebaseEvent('menuItem_navigate_to');
 
-                    context.goNamed('contests');
+                    context.goNamed(
+                      'contests',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
                   child: wrapWithModel(
                     model: _model.menuItemModel3,
@@ -229,9 +281,25 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_cii57p22_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_update_app_state');
+                    FFAppState().activePageInfo = ActivePageInfoStruct(
+                      activePage: PageId.Profile,
+                    );
+                    logFirebaseEvent('menuItem_navigate_to');
 
-                    context.goNamed('profile');
+                    context.goNamed(
+                      'profile',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
                   child: wrapWithModel(
                     model: _model.menuItemModel4,
@@ -260,9 +328,21 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      logFirebaseEvent('APP_DRAWER_Container_n58r52h0_ON_TAP');
+                      logFirebaseEvent('menuItem_haptic_feedback');
                       HapticFeedback.selectionClick();
+                      logFirebaseEvent('menuItem_navigate_to');
 
-                      context.goNamed('advice');
+                      context.pushNamed(
+                        'advice',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: const TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: wrapWithModel(
                       model: _model.menuItemModel5,
@@ -284,7 +364,10 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_1fqjl64c_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_navigate_to');
 
                     context.pushNamed(
                       'compareAthleteFavorites',
@@ -301,6 +384,13 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                           ParamType.bool,
                         ),
                       }.withoutNulls,
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
                     );
                   },
                   child: wrapWithModel(
@@ -323,9 +413,21 @@ class _AppDrawerWidgetState extends State<AppDrawerWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('APP_DRAWER_Container_93dvbwew_ON_TAP');
+                    logFirebaseEvent('menuItem_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('menuItem_navigate_to');
 
-                    context.pushNamed('about');
+                    context.pushNamed(
+                      'about',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
                   },
                   child: wrapWithModel(
                     model: _model.menuItemModel7,

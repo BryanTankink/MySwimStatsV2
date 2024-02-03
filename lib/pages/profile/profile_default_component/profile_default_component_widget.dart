@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'profile_default_component_model.dart';
@@ -11,7 +10,7 @@ class ProfileDefaultComponentWidget extends StatefulWidget {
   const ProfileDefaultComponentWidget({super.key});
 
   @override
-  _ProfileDefaultComponentWidgetState createState() =>
+  State<ProfileDefaultComponentWidget> createState() =>
       _ProfileDefaultComponentWidgetState();
 }
 
@@ -44,14 +43,14 @@ class _ProfileDefaultComponentWidgetState
 
     return Container(
       width: double.infinity,
-      height: double.infinity,
+      height: MediaQuery.sizeOf(context).height * 1.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
-          image: CachedNetworkImageProvider(
-            'https://myswimstats.nl/Content/Images/General/background.webp',
-          ),
+          image: Image.asset(
+            'assets/images/background.webp',
+          ).image,
         ),
       ),
       child: Container(

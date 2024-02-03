@@ -1,7 +1,7 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
+import 'dart:async';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/random_data_util.dart' as random_data;
@@ -16,7 +16,7 @@ class InitialLoadingWidget extends StatefulWidget {
   const InitialLoadingWidget({super.key});
 
   @override
-  _InitialLoadingWidgetState createState() => _InitialLoadingWidgetState();
+  State<InitialLoadingWidget> createState() => _InitialLoadingWidgetState();
 }
 
 class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
@@ -29,13 +29,32 @@ class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
     super.initState();
     _model = createModel(context, () => InitialLoadingModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'InitialLoading'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (!FFAppState().idGenerated) {
+      logFirebaseEvent('INITIAL_LOADING_InitialLoading_ON_INIT_S');
+      if (FFAppState().idGenerated) {
+        logFirebaseEvent('InitialLoading_action_block');
+        unawaited(
+          () async {
+            await action_blocks.checkNetworkConnectivity(context);
+          }(),
+        );
+      } else {
+        logFirebaseEvent('InitialLoading_action_block');
+        unawaited(
+          () async {
+            await action_blocks.checkNetworkConnectivity(context);
+          }(),
+        );
+        logFirebaseEvent('InitialLoading_custom_action');
         _model.deviceIdentifier = await actions.getDeviceIdentifier();
         if (_model.deviceIdentifier != null && _model.deviceIdentifier != '') {
+          logFirebaseEvent('InitialLoading_update_app_state');
           FFAppState().deviceIdentifier = _model.deviceIdentifier!;
         } else {
+          logFirebaseEvent('InitialLoading_update_app_state');
           FFAppState().deviceIdentifier = random_data.randomString(
             16,
             32,
@@ -45,24 +64,49 @@ class _InitialLoadingWidgetState extends State<InitialLoadingWidget> {
           );
         }
 
+        logFirebaseEvent('InitialLoading_update_app_state');
         setState(() {
           FFAppState().idGenerated = true;
         });
       }
-      _model.hasValidUser = await action_blocks.getUserAuth(
-        context,
-        resetActiveToMe: true,
-      );
-      _model.premiumStateResult = await ApiGroup.premiumStateCall.call();
-      await action_blocks.isPremium(context);
-      setState(() {
-        FFAppState().isPremiumAllowed =
-            ApiGroup.premiumStateCall.premiumAllowed(
-          (_model.premiumStateResult?.jsonBody ?? ''),
+
+      if (FFAppState().user != null) {
+        logFirebaseEvent('InitialLoading_action_block');
+        unawaited(
+          () async {
+            _model.hasValidUserAsync = await action_blocks.getUserAuth(
+              context,
+              resetActiveToMe: true,
+            );
+          }(),
         );
-      });
-      if (_model.hasValidUser!) {
-        context.goNamed('Dashboard');
+      } else {
+        logFirebaseEvent('InitialLoading_action_block');
+        _model.hasValidUser = await action_blocks.getUserAuth(
+          context,
+          resetActiveToMe: true,
+        );
+      }
+
+      logFirebaseEvent('InitialLoading_action_block');
+      unawaited(
+        () async {
+          await action_blocks.isPremium(context);
+        }(),
+      );
+      if ((FFAppState().user != null) || _model.hasValidUser!) {
+        logFirebaseEvent('InitialLoading_navigate_to');
+
+        context.goNamed(
+          'DashboardV2',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: const TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
       }
     });
   }

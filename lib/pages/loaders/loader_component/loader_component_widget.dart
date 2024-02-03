@@ -12,12 +12,12 @@ class LoaderComponentWidget extends StatefulWidget {
   const LoaderComponentWidget({
     super.key,
     String? message,
-  })  : message = message ?? 'Bezig met laden...';
+  }) : message = message ?? 'Bezig met laden...';
 
   final String message;
 
   @override
-  _LoaderComponentWidgetState createState() => _LoaderComponentWidgetState();
+  State<LoaderComponentWidget> createState() => _LoaderComponentWidgetState();
 }
 
 class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
@@ -104,7 +104,7 @@ class _LoaderComponentWidgetState extends State<LoaderComponentWidget>
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
-                            'assets/images/logo_square_600x600.png',
+                            'assets/images/logo_square.webp',
                             width: 100.0,
                             height: 100.0,
                             fit: BoxFit.fill,

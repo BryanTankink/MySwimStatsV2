@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +12,7 @@ class AboutWidget extends StatefulWidget {
   const AboutWidget({super.key});
 
   @override
-  _AboutWidgetState createState() => _AboutWidgetState();
+  State<AboutWidget> createState() => _AboutWidgetState();
 }
 
 class _AboutWidgetState extends State<AboutWidget> {
@@ -25,6 +24,8 @@ class _AboutWidgetState extends State<AboutWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AboutModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'about'});
   }
 
   @override
@@ -68,6 +69,8 @@ class _AboutWidgetState extends State<AboutWidget> {
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ABOUT_PAGE_arrow_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -88,12 +91,12 @@ class _AboutWidgetState extends State<AboutWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -111,62 +114,88 @@ class _AboutWidgetState extends State<AboutWidget> {
                   end: const AlignmentDirectional(0, 1.0),
                 ),
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Text(
-                      'MySwimStats',
-                      style: FlutterFlowTheme.of(context).titleLarge.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).text3,
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                    child: Text(
-                      'Deze app is gemaakt voor zwemmers die op een makkelijke en overzichtelijke manier zijn of haar gegevens in wilt zien.\n\nAls er vragen of opmerkingen zijn over de app kan er contact worden opgenomen  door een email te sturen naar: contact@swimscore.nl',
-                      style: FlutterFlowTheme.of(context).labelMedium.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).text3,
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.operationButtonModel1,
-                      updateCallback: () => setState(() {}),
-                      child: OperationButtonWidget(
-                        text: 'Bekijk de EULA',
-                        onClick: () async {
-                          await launchURL(
-                              'https://swimscore.nl/myswimstats/myswimstats-eula/');
-                        },
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: Text(
+                        'MySwimStats',
+                        style: FlutterFlowTheme.of(context).titleLarge.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).text3,
+                            ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.operationButtonModel2,
-                      updateCallback: () => setState(() {}),
-                      child: OperationButtonWidget(
-                        text: 'Privacyverklaring',
-                        onClick: () async {
-                          await launchURL(
-                              'https://swimscore.nl/myswimstats/privacyverklaring-voor-myswimstats/');
-                        },
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: Text(
+                        'Deze app is ontworpen voor zwemmers die hun gegevens gemakkelijk en overzichtelijk willen bekijken.\n\nBij vragen of opmerkingen over de app kun je contact met ons opnemen via e-mail: contact@swimscore.nl\n\nDeze app wordt ontwikkeld door twee enthousiastelingen uit de zwemwereld, namelijk Bryan Tankink en Michelle van Wijk. Naast het ontwikkelen van deze app verzorgen wij ook livestreams bij diverse Nederlandse Kampioenschappen\n\nDeveloper: Bryan Tankink\nDesigner: Michelle van Wijk',
+                        style:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).text3,
+                                ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.operationButtonModel1,
+                        updateCallback: () => setState(() {}),
+                        child: OperationButtonWidget(
+                          text: 'Bekijk de EULA',
+                          onClick: () async {
+                            logFirebaseEvent(
+                                'ABOUT_PAGE_Container_s7mczu27_CALLBACK');
+                            logFirebaseEvent('OperationButton_launch_u_r_l');
+                            await launchURL(
+                                'https://swimscore.nl/myswimstats/myswimstats-eula/');
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.operationButtonModel2,
+                        updateCallback: () => setState(() {}),
+                        child: OperationButtonWidget(
+                          text: 'Privacyverklaring',
+                          onClick: () async {
+                            logFirebaseEvent(
+                                'ABOUT_PAGE_Container_oaya2id8_CALLBACK');
+                            logFirebaseEvent('OperationButton_launch_u_r_l');
+                            await launchURL(
+                                'https://swimscore.nl/myswimstats/privacyverklaring-voor-myswimstats/');
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.operationButtonModel3,
+                        updateCallback: () => setState(() {}),
+                        child: OperationButtonWidget(
+                          text: 'Website',
+                          onClick: () async {
+                            logFirebaseEvent(
+                                'ABOUT_PAGE_Container_71hsg6es_CALLBACK');
+                            logFirebaseEvent('OperationButton_launch_u_r_l');
+                            await launchURL('https://swimscore.nl/');
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

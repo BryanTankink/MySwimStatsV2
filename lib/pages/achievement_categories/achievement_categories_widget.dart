@@ -18,7 +18,7 @@ class AchievementCategoriesWidget extends StatefulWidget {
   const AchievementCategoriesWidget({super.key});
 
   @override
-  _AchievementCategoriesWidgetState createState() =>
+  State<AchievementCategoriesWidget> createState() =>
       _AchievementCategoriesWidgetState();
 }
 
@@ -61,6 +61,9 @@ class _AchievementCategoriesWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AchievementCategoriesModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AchievementCategories'});
   }
 
   @override
@@ -104,7 +107,10 @@ class _AchievementCategoriesWidgetState
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ACHIEVEMENT_CATEGORIES_arrow_left_ICN_ON');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -191,7 +197,13 @@ class _AchievementCategoriesWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'ACHIEVEMENT_CATEGORIES_Container_38nep3l');
+                                logFirebaseEvent(
+                                    'AchievementCategory_haptic_feedback');
                                 HapticFeedback.selectionClick();
+                                logFirebaseEvent(
+                                    'AchievementCategory_navigate_to');
 
                                 context.pushNamed(
                                   'AchievementCategoryDetails',

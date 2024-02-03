@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -28,7 +27,7 @@ class LinkSwimrankingsWidget extends StatefulWidget {
   final UserAddState? addState;
 
   @override
-  _LinkSwimrankingsWidgetState createState() => _LinkSwimrankingsWidgetState();
+  State<LinkSwimrankingsWidget> createState() => _LinkSwimrankingsWidgetState();
 }
 
 class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
@@ -65,6 +64,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
     super.initState();
     _model = createModel(context, () => LinkSwimrankingsModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'LinkSwimrankings'});
     _model.nameFieldController ??= TextEditingController();
     _model.nameFieldFocusNode ??= FocusNode();
   }
@@ -111,7 +112,10 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                     size: 30.0,
                   ),
                   onPressed: () async {
+                    logFirebaseEvent('LINK_SWIMRANKINGS_arrow_left_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('IconButton_navigate_back');
                     context.pop();
                   },
                 ),
@@ -129,12 +133,12 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
               )
             : null,
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                'https://myswimstats.nl/Content/Images/General/background.webp',
-              ),
+              image: Image.asset(
+                'assets/images/background.webp',
+              ).image,
             ),
           ),
           child: Container(
@@ -169,7 +173,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.asset(
-                              'assets/images/logo_square_600x600.png',
+                              'assets/images/logo_square.png',
                               width: 100.0,
                               height: 100.0,
                               fit: BoxFit.fill,
@@ -268,7 +272,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       10.0, 32.0, 10.0, 0.0),
                                   child: Text(
-                                    'Let op:\nDe naam die jij in voert moet bekend zijn bij SwimRankings. Als jij niet vindbaar bent met deze naam op SwimRankings zullen wij helaas geen mooie overzichten voor jou kunnen maken!',
+                                    'Let op:\nDe naam die je invoert, moet bekend zijn bij SwimRankings. Als je niet te vinden bent onder deze naam op SwimRankings, kunnen we helaas geen overzichtelijke gegevens voor je genereren.',
                                     style: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .override(
@@ -301,9 +305,14 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                           key: const ValueKey('OperationButton_ku9o'),
                           text: 'Controleren',
                           onClick: () async {
+                            logFirebaseEvent(
+                                'LINK_SWIMRANKINGS_Container_4j03ekir_CAL');
                             var shouldSetState = false;
                             if (!(_model.nameFieldController.text != '')) {
+                              logFirebaseEvent(
+                                  'OperationButton_haptic_feedback');
                               HapticFeedback.mediumImpact();
+                              logFirebaseEvent('OperationButton_alert_dialog');
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
@@ -323,6 +332,7 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                               if (shouldSetState) setState(() {});
                               return;
                             }
+                            logFirebaseEvent('OperationButton_backend_call');
                             _model.nameVerifyResultCopy =
                                 await VerifyFullNameCall.call(
                               fullName: _model.nameFieldController.text,
@@ -346,7 +356,11 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                             ''),
                                       )! <
                                       25) {
+                                    logFirebaseEvent(
+                                        'OperationButton_haptic_feedback');
                                     HapticFeedback.lightImpact();
+                                    logFirebaseEvent(
+                                        'OperationButton_navigate_to');
 
                                     context.pushNamed(
                                       'ListSwimrankingsAccounts',
@@ -378,7 +392,11 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     if (shouldSetState) setState(() {});
                                     return;
                                   } else {
+                                    logFirebaseEvent(
+                                        'OperationButton_haptic_feedback');
                                     HapticFeedback.heavyImpact();
+                                    logFirebaseEvent(
+                                        'OperationButton_alert_dialog');
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -400,9 +418,13 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     return;
                                   }
                                 } else {
+                                  logFirebaseEvent(
+                                      'OperationButton_haptic_feedback');
                                   HapticFeedback.lightImpact();
                                   if (widget.addState ==
                                       UserAddState.SetActive) {
+                                    logFirebaseEvent(
+                                        'OperationButton_backend_call');
                                     await ApiGroup
                                         .createUserByDeviceIdentifierCall
                                         .call(
@@ -422,6 +444,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     );
                                   } else if (widget.addState ==
                                       UserAddState.AsFavorite) {
+                                    logFirebaseEvent(
+                                        'OperationButton_backend_call');
                                     _model.apiResultbp8 = await ApiGroup
                                         .addFavoritedUserCall
                                         .call(
@@ -441,6 +465,8 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     );
                                     shouldSetState = true;
                                   } else {
+                                    logFirebaseEvent(
+                                        'OperationButton_backend_call');
                                     _model.apiResultd62 =
                                         await ApiGroup.setActiveUserCall.call(
                                       deviceIdentifier:
@@ -455,16 +481,37 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                     shouldSetState = true;
                                   }
 
+                                  logFirebaseEvent(
+                                      'OperationButton_action_block');
                                   _model.hasValidUserAuthCopy =
                                       await action_blocks.getUserAuth(context);
                                   shouldSetState = true;
                                   if (_model.hasValidUserAuthCopy!) {
-                                    context.goNamed('Dashboard');
+                                    if ((widget.addState ==
+                                            UserAddState.AsFavorite) ||
+                                        (widget.addState ==
+                                            UserAddState.SetActive) ||
+                                        (widget.addState ==
+                                            UserAddState.AsViewOnly)) {
+                                      logFirebaseEvent(
+                                          'OperationButton_navigate_to');
+
+                                      context.goNamed('personalRecords');
+                                    } else {
+                                      logFirebaseEvent(
+                                          'OperationButton_navigate_to');
+
+                                      context.goNamed('Dashboard');
+                                    }
 
                                     if (shouldSetState) setState(() {});
                                     return;
                                   } else {
+                                    logFirebaseEvent(
+                                        'OperationButton_haptic_feedback');
                                     HapticFeedback.heavyImpact();
+                                    logFirebaseEvent(
+                                        'OperationButton_alert_dialog');
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -487,7 +534,11 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                   }
                                 }
                               } else {
+                                logFirebaseEvent(
+                                    'OperationButton_haptic_feedback');
                                 HapticFeedback.heavyImpact();
+                                logFirebaseEvent(
+                                    'OperationButton_alert_dialog');
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
@@ -509,7 +560,10 @@ class _LinkSwimrankingsWidgetState extends State<LinkSwimrankingsWidget>
                                 return;
                               }
                             } else {
+                              logFirebaseEvent(
+                                  'OperationButton_haptic_feedback');
                               HapticFeedback.heavyImpact();
+                              logFirebaseEvent('OperationButton_alert_dialog');
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {

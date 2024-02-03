@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/app_drawer/app_drawer_widget.dart';
 import '/pages/generic/base_header/base_header_widget.dart';
+import '/pages/generic/bottom_navigator/bottom_navigator_widget.dart';
 import '/pages/profile/profile_default_component/profile_default_component_widget.dart';
 import '/pages/profile/profile_premium_component/profile_premium_component_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,14 @@ class ProfileWidget extends StatefulWidget {
   const ProfileWidget({
     super.key,
     this.distanceValueChanged,
-  });
+    int? page,
+  }) : page = page ?? 0;
 
   final bool? distanceValueChanged;
+  final int page;
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
@@ -34,11 +37,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'profile'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      FFAppState().updateActivePageInfoStruct(
-        (e) => e..activePage = PageId.Profile,
-      );
+      logFirebaseEvent('PROFILE_PAGE_profile_ON_INIT_STATE');
+      logFirebaseEvent('profile_update_app_state');
+      setState(() {
+        FFAppState().updateActivePageInfoStruct(
+          (e) => e..activePage = PageId.Profile,
+        );
+      });
     });
   }
 
@@ -85,6 +93,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             updateCallback: () => setState(() {}),
             child: BaseHeaderWidget(
               drawerClick: () async {
+                logFirebaseEvent('PROFILE_PAGE_Container_rp4b8evh_CALLBACK');
+                logFirebaseEvent('baseHeader_drawer');
                 scaffoldKey.currentState!.openDrawer();
               },
             ),
@@ -95,22 +105,36 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Builder(
-            builder: (context) {
-              if (FFAppState().premium) {
-                return wrapWithModel(
-                  model: _model.profilePremiumComponentModel,
-                  updateCallback: () => setState(() {}),
-                  child: const ProfilePremiumComponentWidget(),
-                );
-              } else {
-                return wrapWithModel(
-                  model: _model.profileDefaultComponentModel,
-                  updateCallback: () => setState(() {}),
-                  child: const ProfileDefaultComponentWidget(),
-                );
-              }
-            },
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    if (FFAppState().premium) {
+                      return wrapWithModel(
+                        model: _model.profilePremiumComponentModel,
+                        updateCallback: () => setState(() {}),
+                        child: ProfilePremiumComponentWidget(
+                          pageNumber: widget.page,
+                        ),
+                      );
+                    } else {
+                      return wrapWithModel(
+                        model: _model.profileDefaultComponentModel,
+                        updateCallback: () => setState(() {}),
+                        child: const ProfileDefaultComponentWidget(),
+                      );
+                    }
+                  },
+                ),
+              ),
+              wrapWithModel(
+                model: _model.bottomNavigatorModel,
+                updateCallback: () => setState(() {}),
+                child: const BottomNavigatorWidget(),
+              ),
+            ],
           ),
         ),
       ),

@@ -15,7 +15,7 @@ class PremiumRequiredWidget extends StatefulWidget {
   final String? description;
 
   @override
-  _PremiumRequiredWidgetState createState() => _PremiumRequiredWidgetState();
+  State<PremiumRequiredWidget> createState() => _PremiumRequiredWidgetState();
 }
 
 class _PremiumRequiredWidgetState extends State<PremiumRequiredWidget> {

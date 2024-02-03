@@ -2,16 +2,19 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:my_swim_stats_v2/index.dart';
 import 'package:my_swim_stats_v2/main.dart';
 import 'package:my_swim_stats_v2/flutter_flow/flutter_flow_util.dart';
 
 import 'package:provider/provider.dart';
+import 'package:my_swim_stats_v2/backend/firebase/firebase_config.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('Test Onboarding', (WidgetTester tester) async {
     _overrideOnError();
+    await initFirebase();
 
     FFAppState.reset();
     final appState = FFAppState();

@@ -17,7 +17,7 @@ class SwimrankingsListItemWidget extends StatefulWidget {
   final String date;
 
   @override
-  _SwimrankingsListItemWidgetState createState() =>
+  State<SwimrankingsListItemWidget> createState() =>
       _SwimrankingsListItemWidgetState();
 }
 

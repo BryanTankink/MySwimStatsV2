@@ -7,7 +7,6 @@ import '/pages/generic/split_times_display/split_times_display_widget.dart';
 import '/pages/loaders/loader_component/loader_component_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -35,7 +34,7 @@ class RankingsWidget extends StatefulWidget {
   final String? myTime;
 
   @override
-  _RankingsWidgetState createState() => _RankingsWidgetState();
+  State<RankingsWidget> createState() => _RankingsWidgetState();
 }
 
 class _RankingsWidgetState extends State<RankingsWidget>
@@ -127,6 +126,8 @@ class _RankingsWidgetState extends State<RankingsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => RankingsModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'rankings'});
   }
 
   @override
@@ -171,7 +172,10 @@ class _RankingsWidgetState extends State<RankingsWidget>
                     size: 30.0,
                   ),
                   onPressed: () async {
+                    logFirebaseEvent('RANKINGS_PAGE_arrow_left_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('IconButton_navigate_back');
                     context.pop();
                   },
                 ),
@@ -191,12 +195,12 @@ class _RankingsWidgetState extends State<RankingsWidget>
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -273,7 +277,7 @@ class _RankingsWidgetState extends State<RankingsWidget>
                                 Align(
                                   alignment: const AlignmentDirectional(0.0, -1.0),
                                   child: Text(
-                                    'Jou rang',
+                                    'Jouw rang',
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -382,7 +386,7 @@ class _RankingsWidgetState extends State<RankingsWidget>
                                                                       'Poppins',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .text2,
+                                                                      .primaryText,
                                                                 ),
                                                       ),
                                                     ],
@@ -406,7 +410,7 @@ class _RankingsWidgetState extends State<RankingsWidget>
                                                           fontFamily: 'Poppins',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .text2,
+                                                              .primaryText,
                                                         ),
                                                   ),
                                                 ),
@@ -446,230 +450,317 @@ class _RankingsWidgetState extends State<RankingsWidget>
                                     itemCount: ranking.length,
                                     itemBuilder: (context, rankingIndex) {
                                       final rankingItem = ranking[rankingIndex];
-                                      return Builder(
-                                        builder: (context) => Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.0, 0.0, 4.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              HapticFeedback.selectionClick();
-                                              setState(() {
-                                                _model.isLoading = true;
-                                              });
-                                              _model.apiResult5z2 =
-                                                  await ApiGroup
-                                                      .setActiveUserCall
-                                                      .call(
-                                                deviceIdentifier: FFAppState()
-                                                    .deviceIdentifier,
-                                                swimrankingsIdentifier:
-                                                    getJsonField(
-                                                  rankingItem,
-                                                  r'''$.athleteId''',
-                                                ).toString(),
-                                              );
-                                              if ((_model.apiResult5z2
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                await action_blocks
-                                                    .getUserAuth(context);
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Builder(
+                                            builder: (context) => Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 4.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'RANKINGS_PAGE_Container_v54f8426_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'Container_haptic_feedback');
+                                                  HapticFeedback
+                                                      .selectionClick();
+                                                  logFirebaseEvent(
+                                                      'Container_update_page_state');
+                                                  setState(() {
+                                                    _model.isLoading = true;
+                                                  });
+                                                  logFirebaseEvent(
+                                                      'Container_backend_call');
+                                                  _model.apiResult5z2 =
+                                                      await ApiGroup
+                                                          .setActiveUserCall
+                                                          .call(
+                                                    deviceIdentifier:
+                                                        FFAppState()
+                                                            .deviceIdentifier,
+                                                    swimrankingsIdentifier:
+                                                        getJsonField(
+                                                      rankingItem,
+                                                      r'''$.athleteId''',
+                                                    ).toString(),
+                                                  );
+                                                  if ((_model.apiResult5z2
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    logFirebaseEvent(
+                                                        'Container_action_block');
+                                                    await action_blocks
+                                                        .getUserAuth(context);
+                                                    logFirebaseEvent(
+                                                        'Container_navigate_to');
 
-                                                context.pushNamed(
-                                                    'personalRecords');
-                                              } else {
-                                                HapticFeedback.heavyImpact();
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: const Text('Error'),
-                                                      content: const Text(
-                                                          'Kon momenteel de gekozen zwemmer niet inzien! probeer het later opnieuw!'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext),
-                                                          child: const Text('Ok'),
-                                                        ),
-                                                      ],
+                                                    context.pushNamed(
+                                                        'personalRecords');
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Container_haptic_feedback');
+                                                    HapticFeedback
+                                                        .heavyImpact();
+                                                    logFirebaseEvent(
+                                                        'Container_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text('Error'),
+                                                          content: const Text(
+                                                              'Kon momenteel de gekozen zwemmer niet inzien! probeer het later opnieuw!'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
                                                     );
-                                                  },
-                                                );
-                                              }
+                                                  }
 
-                                              setState(() {
-                                                _model.isLoading = false;
-                                              });
+                                                  logFirebaseEvent(
+                                                      'Container_update_page_state');
+                                                  setState(() {
+                                                    _model.isLoading = false;
+                                                  });
 
-                                              setState(() {});
-                                            },
-                                            onLongPress: () async {
-                                              if (getJsonField(
-                                                    rankingItem,
-                                                    r'''$.splits''',
-                                                  ) !=
-                                                  null) {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          const AlignmentDirectional(
+                                                  setState(() {});
+                                                },
+                                                onLongPress: () async {
+                                                  logFirebaseEvent(
+                                                      'RANKINGS_Container_v54f8426_ON_LONG_PRES');
+                                                  if (getJsonField(
+                                                        rankingItem,
+                                                        r'''$.splits''',
+                                                      ) !=
+                                                      null) {
+                                                    logFirebaseEvent(
+                                                        'Container_alert_dialog');
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (dialogContext) {
+                                                        return Dialog(
+                                                          elevation: 0,
+                                                          insetPadding:
+                                                              EdgeInsets.zero,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          alignment: const AlignmentDirectional(
                                                                   0.0, 0.0)
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                      child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child:
-                                                            SplitTimesDisplayWidget(
-                                                          splits: getJsonField(
-                                                            rankingItem,
-                                                            r'''$.splits''',
-                                                            true,
-                                                          )!,
-                                                          title: widget.title!,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then(
-                                                    (value) => setState(() {}));
-                                              } else {
-                                                HapticFeedback.heavyImpact();
-                                              }
-                                            },
-                                            child: Container(
-                                              width: 100.0,
-                                              height: 50.0,
-                                              decoration: const BoxDecoration(),
-                                              child: Stack(
-                                                children: [
-                                                  if (getJsonField(
-                                                        rankingItem,
-                                                        r'''$.athleteId''',
-                                                      ) ==
-                                                      getJsonField(
-                                                        FFAppState().user,
-                                                        r'''$.active.athleteId''',
-                                                      ))
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height: double.infinity,
-                                                      decoration: const BoxDecoration(
-                                                        color:
-                                                            Color(0x40BE9E44),
-                                                      ),
-                                                    ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          child: Container(
-                                                            width: 35.0,
-                                                            height: 35.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .buttonYes,
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Align(
-                                                              alignment:
-                                                                  const AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child:
-                                                                  AutoSizeText(
-                                                                getJsonField(
-                                                                  rankingItem,
-                                                                  r'''$.place''',
-                                                                )
-                                                                    .toString()
-                                                                    .maybeHandleOverflow(
-                                                                        maxChars:
-                                                                            22),
-                                                                style: FlutterFlowTheme.of(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .text3,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                                minFontSize:
-                                                                    12.0,
-                                                              ),
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child:
+                                                                SplitTimesDisplayWidget(
+                                                              splits:
+                                                                  getJsonField(
+                                                                rankingItem,
+                                                                r'''$.splits''',
+                                                                true,
+                                                              )!,
+                                                              title:
+                                                                  widget.title!,
                                                             ),
                                                           ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        setState(() {}));
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Container_haptic_feedback');
+                                                    HapticFeedback
+                                                        .heavyImpact();
+                                                  }
+                                                },
+                                                child: Container(
+                                                  height: 50.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: Stack(
+                                                    children: [
+                                                      if (getJsonField(
+                                                            rankingItem,
+                                                            r'''$.athleteId''',
+                                                          ) ==
+                                                          getJsonField(
+                                                            FFAppState().user,
+                                                            r'''$.active.athleteId''',
+                                                          ))
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              double.infinity,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Color(
+                                                                0x40BE9E44),
+                                                          ),
                                                         ),
-                                                        Align(
-                                                          alignment:
-                                                              const AlignmentDirectional(
-                                                                  -1.0, 0.0),
-                                                          child: Container(
-                                                            width: 185.0,
-                                                            decoration:
-                                                                const BoxDecoration(),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: Container(
+                                                                width: 35.0,
+                                                                height: 35.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .buttonYes,
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                ),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      AutoSizeText(
+                                                                    getJsonField(
+                                                                      rankingItem,
+                                                                      r'''$.place''',
+                                                                    ).toString().maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            22),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).text3,
+                                                                          fontSize:
+                                                                              16.0,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                    minFontSize:
+                                                                        12.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  const AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Container(
+                                                                width: 185.0,
+                                                                decoration:
+                                                                    const BoxDecoration(),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        rankingItem,
+                                                                        r'''$.fullName''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                          ),
+                                                                    ),
+                                                                    Align(
+                                                                      alignment:
+                                                                          const AlignmentDirectional(
+                                                                              -1.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        getJsonField(
+                                                                          rankingItem,
+                                                                          r'''$.date''',
+                                                                        ).toString(),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodySmall
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 75.0,
+                                                              height: 100.0,
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Text(
                                                                   getJsonField(
                                                                     rankingItem,
-                                                                    r'''$.fullName''',
+                                                                    r'''$.time''',
                                                                   ).toString(),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -678,83 +769,42 @@ class _RankingsWidgetState extends State<RankingsWidget>
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .text2,
+                                                                            .primaryText,
                                                                       ),
                                                                 ),
-                                                                Align(
-                                                                  alignment:
-                                                                      const AlignmentDirectional(
-                                                                          -1.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    getJsonField(
-                                                                      rankingItem,
-                                                                      r'''$.date''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).text2,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 75.0,
-                                                          height: 100.0,
-                                                          decoration:
-                                                              const BoxDecoration(),
-                                                          child: Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    0.0, 0.0),
-                                                            child: Text(
-                                                              getJsonField(
-                                                                rankingItem,
-                                                                r'''$.time''',
-                                                              ).toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .text2,
-                                                                  ),
+                                                            Container(
+                                                              width: 25.0,
+                                                              height: 100.0,
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .chevron_right,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 24.0,
+                                                              ),
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
-                                                        Container(
-                                                          width: 25.0,
-                                                          height: 100.0,
-                                                          decoration:
-                                                              const BoxDecoration(),
-                                                          child: Icon(
-                                                            Icons.chevron_right,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .text2,
-                                                            size: 24.0,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'containerOnPageLoadAnimation']!),
                                             ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'containerOnPageLoadAnimation']!),
-                                        ),
+                                          ),
+                                          Divider(
+                                            height: 5.0,
+                                            thickness: 1.0,
+                                            color: FlutterFlowTheme.of(context)
+                                                .cards,
+                                          ),
+                                        ],
                                       );
                                     },
                                   ).animateOnPageLoad(animationsMap[

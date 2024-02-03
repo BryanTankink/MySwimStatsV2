@@ -11,6 +11,8 @@ class AboutModel extends FlutterFlowModel<AboutWidget> {
   late OperationButtonModel operationButtonModel1;
   // Model for OperationButton component.
   late OperationButtonModel operationButtonModel2;
+  // Model for OperationButton component.
+  late OperationButtonModel operationButtonModel3;
 
   /// Initialization and disposal methods.
 
@@ -18,6 +20,7 @@ class AboutModel extends FlutterFlowModel<AboutWidget> {
   void initState(BuildContext context) {
     operationButtonModel1 = createModel(context, () => OperationButtonModel());
     operationButtonModel2 = createModel(context, () => OperationButtonModel());
+    operationButtonModel3 = createModel(context, () => OperationButtonModel());
   }
 
   @override
@@ -25,6 +28,7 @@ class AboutModel extends FlutterFlowModel<AboutWidget> {
     unfocusNode.dispose();
     operationButtonModel1.dispose();
     operationButtonModel2.dispose();
+    operationButtonModel3.dispose();
   }
 
   /// Action blocks are added here.

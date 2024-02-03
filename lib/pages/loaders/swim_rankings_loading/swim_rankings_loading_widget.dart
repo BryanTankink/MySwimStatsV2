@@ -11,7 +11,7 @@ class SwimRankingsLoadingWidget extends StatefulWidget {
   const SwimRankingsLoadingWidget({super.key});
 
   @override
-  _SwimRankingsLoadingWidgetState createState() =>
+  State<SwimRankingsLoadingWidget> createState() =>
       _SwimRankingsLoadingWidgetState();
 }
 
@@ -24,6 +24,9 @@ class _SwimRankingsLoadingWidgetState extends State<SwimRankingsLoadingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SwimRankingsLoadingModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'SwimRankingsLoading'});
   }
 
   @override
@@ -58,7 +61,7 @@ class _SwimRankingsLoadingWidgetState extends State<SwimRankingsLoadingWidget> {
           updateCallback: () => setState(() {}),
           child: const LoaderComponentWidget(
             message:
-                'Wij zijn jou aan het valideren bij Swimrankings.\n\nEven geduld A.U.B.',
+                'We zijn bezig met het valideren van je gegevens bij Swimrankings. \n\nGelieve even geduld te hebben',
           ),
         ),
       ),

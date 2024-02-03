@@ -31,7 +31,7 @@ class AchievementCategoryWidget extends StatefulWidget {
   final String? badgePath;
 
   @override
-  _AchievementCategoryWidgetState createState() =>
+  State<AchievementCategoryWidget> createState() =>
       _AchievementCategoryWidgetState();
 }
 
@@ -109,7 +109,11 @@ class _AchievementCategoryWidgetState extends State<AchievementCategoryWidget>
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        logFirebaseEvent(
+                            'ACHIEVEMENT_CATEGORY_Image_fx0pg41v_ON_T');
+                        logFirebaseEvent('Image_haptic_feedback');
                         HapticFeedback.selectionClick();
+                        logFirebaseEvent('Image_expand_image');
                         await Navigator.push(
                           context,
                           PageTransition(
@@ -123,7 +127,7 @@ class _AchievementCategoryWidgetState extends State<AchievementCategoryWidget>
                                 fit: BoxFit.contain,
                                 errorWidget: (context, error, stackTrace) =>
                                     Image.asset(
-                                  'assets/images/error_image.png',
+                                  'assets/images/error_image.webp',
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -149,7 +153,7 @@ class _AchievementCategoryWidgetState extends State<AchievementCategoryWidget>
                             fit: BoxFit.contain,
                             errorWidget: (context, error, stackTrace) =>
                                 Image.asset(
-                              'assets/images/error_image.png',
+                              'assets/images/error_image.webp',
                               width: 300.0,
                               height: 200.0,
                               fit: BoxFit.contain,
@@ -260,6 +264,8 @@ class _AchievementCategoryWidgetState extends State<AchievementCategoryWidget>
                                     .headlineSmall
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold,
                                     ),

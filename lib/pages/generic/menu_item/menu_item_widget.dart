@@ -18,7 +18,7 @@ class MenuItemWidget extends StatefulWidget {
   final bool? isOnPage;
 
   @override
-  _MenuItemWidgetState createState() => _MenuItemWidgetState();
+  State<MenuItemWidget> createState() => _MenuItemWidgetState();
 }
 
 class _MenuItemWidgetState extends State<MenuItemWidget> {
@@ -62,9 +62,12 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
             widget.title!,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Poppins',
-                  color: widget.isOnPage!
-                      ? FlutterFlowTheme.of(context).text
-                      : FlutterFlowTheme.of(context).text2,
+                  color: valueOrDefault<Color>(
+                    widget.isOnPage!
+                        ? FlutterFlowTheme.of(context).text
+                        : FlutterFlowTheme.of(context).text3,
+                    FlutterFlowTheme.of(context).text3,
+                  ),
                   fontSize: 14.0,
                 ),
           ),
@@ -75,9 +78,12 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                 child: Icon(
                   Icons.play_arrow,
-                  color: widget.isOnPage!
-                      ? FlutterFlowTheme.of(context).text
-                      : FlutterFlowTheme.of(context).text2,
+                  color: valueOrDefault<Color>(
+                    widget.isOnPage!
+                        ? FlutterFlowTheme.of(context).text
+                        : FlutterFlowTheme.of(context).primaryText,
+                    FlutterFlowTheme.of(context).primaryText,
+                  ),
                   size: 18.0,
                 ),
               ),

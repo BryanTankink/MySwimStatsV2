@@ -16,7 +16,7 @@ class RevenueCatSubsriptionPaywallWidget extends StatefulWidget {
   const RevenueCatSubsriptionPaywallWidget({super.key});
 
   @override
-  _RevenueCatSubsriptionPaywallWidgetState createState() =>
+  State<RevenueCatSubsriptionPaywallWidget> createState() =>
       _RevenueCatSubsriptionPaywallWidgetState();
 }
 
@@ -51,13 +51,13 @@ class _RevenueCatSubsriptionPaywallWidgetState
       borderRadius: BorderRadius.circular(0.0),
       child: Container(
         width: double.infinity,
-        height: 625.0,
+        height: 655.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primary,
           image: DecorationImage(
             fit: BoxFit.fill,
             image: Image.asset(
-              'assets/images/Topical_Micellair_Water_2.jpg',
+              'assets/images/background.webp',
             ).image,
           ),
           boxShadow: const [
@@ -91,7 +91,7 @@ class _RevenueCatSubsriptionPaywallWidgetState
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 350.0,
+                  height: 400.0,
                   child: CarouselSlider(
                     items: [
                       wrapWithModel(
@@ -102,7 +102,7 @@ class _RevenueCatSubsriptionPaywallWidgetState
                               'https://myswimstats.nl/Content/Images/Features/feature_yearly.webp',
                           title: 'Jaarlijkse progressie',
                           description:
-                              'Krijg snel en makkelijk een overzicht van hoe jij in de loop van de jaren bent verbeterd!',
+                              'Ontvang snel en eenvoudig een overzicht van je verbeteringen door de jaren heen!',
                         ),
                       ),
                       wrapWithModel(
@@ -113,7 +113,7 @@ class _RevenueCatSubsriptionPaywallWidgetState
                               'https://myswimstats.nl/Content/Images/Features/feature_advice.webp',
                           title: 'Adviezen',
                           description:
-                              'Krijg adviezen over welke afstanden jij het beste kan zwemmen inclusief redenen waarom!',
+                              'Ontvang advies over de meest geschikte afstanden om te zwemmen, inclusief de redenen waarom!',
                         ),
                       ),
                       wrapWithModel(
@@ -124,7 +124,18 @@ class _RevenueCatSubsriptionPaywallWidgetState
                               'https://myswimstats.nl/Content/Images/Features/feature_favorites.webp',
                           title: 'Favorieten',
                           description:
-                              'Voeg oneindig veel favorieten toe om zo makkelijker vergelijkingen te maken!',
+                              'Voeg eindeloos veel favorieten toe om gemakkelijker vergelijkingen te kunnen maken!',
+                        ),
+                      ),
+                      wrapWithModel(
+                        model: _model.premiumFeaturePageModel4,
+                        updateCallback: () => setState(() {}),
+                        child: const PremiumFeaturePageWidget(
+                          imagePath:
+                              'https://myswimstats.nl/Content/Images/Features/feature_recommendedSplits.webp',
+                          title: 'Splittijden adviezen',
+                          description:
+                              'Ontvang advies op basis van jouw tussentijden, gebaseerd op de prestaties van de topzwemmers van Nederland!',
                         ),
                       ),
                     ],
@@ -171,7 +182,7 @@ class _RevenueCatSubsriptionPaywallWidgetState
                         const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 10.0, 10.0),
                     child: SelectionArea(
                         child: Text(
-                      'Met het premium abbonoment krijg jij toegang tot de bovenstaande features + zorg jij ervoor dat de app doorontwikkeld kan blijven worden!',
+                      'Met het premium abonnement krijg je toegang tot de hierboven genoemde functies en draag je bij aan de doorontwikkeling van de app!',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodySmall.override(
                             fontFamily: 'Poppins',
@@ -183,234 +194,263 @@ class _RevenueCatSubsriptionPaywallWidgetState
                 Builder(
                   builder: (context) {
                     if (!isWeb) {
-                      return Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                        child: Container(
-                          width: 100.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).text,
-                            boxShadow: const [
-                              BoxShadow(
-                                blurRadius: 4.0,
-                                color: Color(0x33000000),
-                                offset: Offset(0.0, 2.0),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(
-                              width: 2.0,
+                      return Visibility(
+                        visible: revenue_cat
+                            .offerings!.current!.availablePackages.isNotEmpty,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 12.0, 0.0, 0.0),
+                          child: Container(
+                            width: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).text,
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 4.0,
+                                  color: Color(0x33000000),
+                                  offset: Offset(0.0, 2.0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                width: 2.0,
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AutoSizeText(
-                                        revenue_cat
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AutoSizeText(
+                                          revenue_cat
+                                                          .offerings!
+                                                          .current!
+                                                          .monthly!
+                                                          .storeProduct
+                                                          .title !=
+                                                      ''
+                                              ? revenue_cat.offerings!.current!
+                                                  .monthly!.storeProduct.title
+                                              : 'MySwimStats Premium',
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleMedium
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .text3,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                        if (revenue_cat
                                                         .offerings!
                                                         .current!
                                                         .monthly!
                                                         .storeProduct
-                                                        .title !=
+                                                        .description !=
                                                     ''
-                                            ? revenue_cat.offerings!.current!
-                                                .monthly!.storeProduct.title
-                                            : 'MySwimStats Premium',
-                                        textAlign: TextAlign.start,
+                                            ? true
+                                            : false)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 5.0, 0.0, 0.0),
+                                            child: SelectionArea(
+                                                child: Text(
+                                              revenue_cat
+                                                  .offerings!
+                                                  .current!
+                                                  .monthly!
+                                                  .storeProduct
+                                                  .description,
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .text3,
+                                                      ),
+                                            )),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      SelectionArea(
+                                          child: Text(
+                                        '${revenue_cat.offerings!.current!.monthly!.storeProduct.priceString} / maand',
                                         style: FlutterFlowTheme.of(context)
-                                            .titleMedium
+                                            .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .text3,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500,
                                             ),
-                                      ),
-                                      if (revenue_cat
-                                                      .offerings!
-                                                      .current!
-                                                      .monthly!
-                                                      .storeProduct
-                                                      .description !=
-                                                  ''
-                                          ? true
-                                          : false)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 5.0, 0.0, 0.0),
-                                          child: SelectionArea(
-                                              child: Text(
-                                            revenue_cat
-                                                .offerings!
-                                                .current!
-                                                .monthly!
-                                                .storeProduct
-                                                .description,
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodySmall
-                                                .override(
-                                                  fontFamily: 'Poppins',
+                                      )),
+                                      Builder(
+                                        builder: (context) {
+                                          if (!FFAppState().premium) {
+                                            return Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'REVENUE_CAT_SUBSRIPTION_PAYWALL_BUY_BTN_');
+                                                  logFirebaseEvent(
+                                                      'Button_revenue_cat');
+                                                  _model.didPurchaseMonth =
+                                                      await revenue_cat
+                                                          .purchasePackage(
+                                                              revenue_cat
+                                                                  .offerings!
+                                                                  .current!
+                                                                  .monthly!
+                                                                  .identifier);
+                                                  if (_model
+                                                      .didPurchaseMonth!) {
+                                                    logFirebaseEvent(
+                                                        'Button_bottom_sheet');
+                                                    Navigator.pop(context);
+                                                    logFirebaseEvent(
+                                                        'Button_action_block');
+                                                    await action_blocks
+                                                        .isPremium(context);
+                                                    setState(() {});
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Button_show_snack_bar');
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                          'Aankoop niet gelukt!',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFFF8FAFF),
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            Color(0xFF0B0D17),
+                                                      ),
+                                                    );
+                                                  }
+
+                                                  setState(() {});
+                                                },
+                                                text: 'Buy',
+                                                options: FFButtonOptions(
+                                                  width: 80.0,
+                                                  height: 32.0,
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .text3,
+                                                      .buttonYes,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                                  elevation: 2.0,
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
-                                          )),
-                                        ),
+                                              ),
+                                            );
+                                          } else {
+                                            return Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  logFirebaseEvent(
+                                                      'REVENUE_CAT_SUBSRIPTION_PAYWALL_BEHEER_B');
+                                                  logFirebaseEvent(
+                                                      'Button_launch_u_r_l');
+                                                  await launchURL(functions
+                                                      .getSubscriptionManagePage(
+                                                          isAndroid, isiOS));
+                                                  logFirebaseEvent(
+                                                      'Button_close_dialog,_drawer,_etc');
+                                                  Navigator.pop(context);
+                                                },
+                                                text: 'Beheer',
+                                                options: FFButtonOptions(
+                                                  width: 80.0,
+                                                  height: 32.0,
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiary,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                  elevation: 2.0,
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
                                     ],
                                   ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SelectionArea(
-                                        child: Text(
-                                      '${revenue_cat.offerings!.current!.monthly!.storeProduct.priceString} / maand',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .text3,
-                                          ),
-                                    )),
-                                    Builder(
-                                      builder: (context) {
-                                        if (!FFAppState().premium) {
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 10.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                _model.didPurchaseMonth =
-                                                    await revenue_cat
-                                                        .purchasePackage(
-                                                            revenue_cat
-                                                                .offerings!
-                                                                .current!
-                                                                .monthly!
-                                                                .identifier);
-                                                if (_model.didPurchaseMonth!) {
-                                                  Navigator.pop(context);
-                                                  await action_blocks
-                                                      .isPremium(context);
-                                                  setState(() {});
-                                                } else {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        'Aankoop niet gelukt!',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFFF8FAFF),
-                                                        ),
-                                                      ),
-                                                      duration: Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          Color(0xFF0B0D17),
-                                                    ),
-                                                  );
-                                                }
-
-                                                setState(() {});
-                                              },
-                                              text: 'Buy',
-                                              options: FFButtonOptions(
-                                                width: 80.0,
-                                                height: 32.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .buttonYes,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
-                                                elevation: 2.0,
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                          );
-                                        } else {
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 10.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await launchURL(functions
-                                                    .getSubscriptionManagePage(
-                                                        isAndroid, isiOS));
-                                                Navigator.pop(context);
-                                              },
-                                              text: 'Beheer',
-                                              options: FFButtonOptions(
-                                                width: 80.0,
-                                                height: 32.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .tertiary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                        ),
-                                                elevation: 2.0,
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -485,6 +525,10 @@ class _RevenueCatSubsriptionPaywallWidgetState
                                           0.0, 10.0, 0.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent(
+                                              'REVENUE_CAT_SUBSRIPTION_PAYWALL_NIET_BES');
+                                          logFirebaseEvent(
+                                              'Button_alert_dialog');
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {

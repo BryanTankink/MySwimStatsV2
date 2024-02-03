@@ -1,9 +1,9 @@
 import '/components/dashboard_performance_component_widget.dart';
+import '/components/short_long_course_switcher_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -20,7 +20,7 @@ class GrowthYearDetailsWidget extends StatefulWidget {
   final dynamic yearInfo;
 
   @override
-  _GrowthYearDetailsWidgetState createState() =>
+  State<GrowthYearDetailsWidget> createState() =>
       _GrowthYearDetailsWidgetState();
 }
 
@@ -77,6 +77,9 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => GrowthYearDetailsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'growthYearDetails'});
   }
 
   @override
@@ -120,7 +123,10 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('GROWTH_YEAR_DETAILS_arrow_left_ICN_ON_TA');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -144,12 +150,12 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -209,7 +215,7 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 0.0),
                             child: Text(
-                              'Onderstaand zijn de door jou gezwommen persoonlijke records in dit jaar.',
+                              'Onderstaand zijn de door jouw gezwommen persoonlijke records in dit jaar.',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
@@ -243,6 +249,15 @@ class _GrowthYearDetailsWidgetState extends State<GrowthYearDetailsWidget>
                         ],
                       ).animateOnPageLoad(
                           animationsMap['columnOnPageLoadAnimation2']!),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                      child: wrapWithModel(
+                        model: _model.shortLongCourseSwitcherModel,
+                        updateCallback: () => setState(() {}),
+                        child: const ShortLongCourseSwitcherWidget(),
+                      ),
                     ),
                   ],
                 ),

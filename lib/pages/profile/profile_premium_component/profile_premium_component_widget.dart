@@ -5,17 +5,21 @@ import '/pages/profile/profile_stroke_settings/profile_stroke_settings_widget.da
 import '/pages/profile/profile_users_page/profile_users_page_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'profile_premium_component_model.dart';
 export 'profile_premium_component_model.dart';
 
 class ProfilePremiumComponentWidget extends StatefulWidget {
-  const ProfilePremiumComponentWidget({super.key});
+  const ProfilePremiumComponentWidget({
+    super.key,
+    int? pageNumber,
+  }) : pageNumber = pageNumber ?? 0;
+
+  final int pageNumber;
 
   @override
-  _ProfilePremiumComponentWidgetState createState() =>
+  State<ProfilePremiumComponentWidget> createState() =>
       _ProfilePremiumComponentWidgetState();
 }
 
@@ -47,12 +51,13 @@ class _ProfilePremiumComponentWidgetState
     context.watch<FFAppState>();
 
     return Container(
-      decoration: const BoxDecoration(
+      height: MediaQuery.sizeOf(context).height * 1.0,
+      decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: CachedNetworkImageProvider(
-            'https://myswimstats.nl/Content/Images/General/background.webp',
-          ),
+          image: Image.asset(
+            'assets/images/background.webp',
+          ).image,
         ),
       ),
       child: Container(
@@ -84,7 +89,13 @@ class _ProfilePremiumComponentWidgetState
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
                       child: PageView(
                         controller: _model.pageViewController ??=
-                            PageController(initialPage: 0),
+                            PageController(
+                                initialPage: min(
+                                    valueOrDefault<int>(
+                                      widget.pageNumber,
+                                      0,
+                                    ),
+                                    2)),
                         scrollDirection: Axis.horizontal,
                         children: [
                           wrapWithModel(
@@ -118,7 +129,13 @@ class _ProfilePremiumComponentWidgetState
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: smooth_page_indicator.SmoothPageIndicator(
                           controller: _model.pageViewController ??=
-                              PageController(initialPage: 0),
+                              PageController(
+                                  initialPage: min(
+                                      valueOrDefault<int>(
+                                        widget.pageNumber,
+                                        0,
+                                      ),
+                                      2)),
                           count: 3,
                           axisDirection: Axis.horizontal,
                           onDotClicked: (i) async {

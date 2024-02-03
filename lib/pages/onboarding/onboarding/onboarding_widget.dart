@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -15,7 +14,7 @@ class OnboardingWidget extends StatefulWidget {
   const OnboardingWidget({super.key});
 
   @override
-  _OnboardingWidgetState createState() => _OnboardingWidgetState();
+  State<OnboardingWidget> createState() => _OnboardingWidgetState();
 }
 
 class _OnboardingWidgetState extends State<OnboardingWidget>
@@ -111,6 +110,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Onboarding'});
   }
 
   @override
@@ -141,21 +142,24 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                'https://myswimstats.nl/Content/Images/General/background.webp',
-              ),
+              image: Image.asset(
+                'assets/images/background.webp',
+              ).image,
             ),
           ),
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xD9000000), Color(0xF1000000)],
-                stops: [0.0, 1.0],
-                begin: AlignmentDirectional(0.0, -1.0),
-                end: AlignmentDirectional(0, 1.0),
+                colors: [
+                  FlutterFlowTheme.of(context).primary,
+                  FlutterFlowTheme.of(context).secondary
+                ],
+                stops: const [0.0, 1.0],
+                begin: const AlignmentDirectional(0.0, -1.0),
+                end: const AlignmentDirectional(0, 1.0),
               ),
             ),
             child: Column(
@@ -183,7 +187,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
-                                  'assets/images/logo_square_600x600.png',
+                                  'assets/images/logo_square.png',
                                   width: 100.0,
                                   height: 100.0,
                                   fit: BoxFit.contain,
@@ -209,7 +213,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 44.0, 8.0, 44.0, 0.0),
                             child: Text(
-                              'Wij gaan samen aan de slag om jou zwemgegevens makkelijk en overzichtelijk op 1 plek weer te geven!',
+                              'We gaan gezamenlijk aan de slag om jouw zwemgegevens eenvoudig en overzichtelijk op één plek te organiseren',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
@@ -242,6 +246,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               key: const ValueKey('OperationButton_bahn'),
                               text: 'Begin nu',
                               onClick: () async {
+                                logFirebaseEvent(
+                                    'ONBOARDING_Container_wfnv7ytl_CALLBACK');
+                                logFirebaseEvent('OperationButton_navigate_to');
+
                                 context.pushNamed(
                                   'LinkSwimrankings',
                                   queryParameters: {

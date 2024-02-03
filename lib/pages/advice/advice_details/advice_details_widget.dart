@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +22,7 @@ class AdviceDetailsWidget extends StatefulWidget {
   final dynamic advice;
 
   @override
-  _AdviceDetailsWidgetState createState() => _AdviceDetailsWidgetState();
+  State<AdviceDetailsWidget> createState() => _AdviceDetailsWidgetState();
 }
 
 class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
@@ -113,8 +112,12 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
     super.initState();
     _model = createModel(context, () => AdviceDetailsModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'adviceDetails'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('ADVICE_DETAILS_adviceDetails_ON_INIT_STA');
+      logFirebaseEvent('adviceDetails_backend_call');
       unawaited(
         () async {
           _model.apiResult5s0 = await ApiGroup.markRecomendationAsReadCall.call(
@@ -174,7 +177,10 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ADVICE_DETAILS_arrow_left_outlined_ICN_O');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
             },
           ),
@@ -195,12 +201,12 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -230,7 +236,11 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'ADVICE_DETAILS_Container_nedhprb0_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.selectionClick();
+                          logFirebaseEvent('Container_navigate_to');
 
                           context.pushNamed(
                             'RaceList',
@@ -601,7 +611,12 @@ class _AdviceDetailsWidgetState extends State<AdviceDetailsWidget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'ADVICE_DETAILS_Container_9q0vlhzv_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Container_haptic_feedback');
                                     HapticFeedback.selectionClick();
+                                    logFirebaseEvent('Container_navigate_to');
 
                                     context.pushNamed(
                                       'RaceList',

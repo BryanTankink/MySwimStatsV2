@@ -44,3 +44,13 @@ export '/pages/compare/compare_athlete_favorites/compare_athlete_favorites_widge
 export '/pages/generic/about/about_widget.dart' show AboutWidget;
 export '/pages/achievement_users/achievement_users_widget.dart'
     show AchievementUsersWidget;
+export '/pages/loaders/error_page/error_page_widget.dart' show ErrorPageWidget;
+export '/pages/race_details/race_details_widget.dart' show RaceDetailsWidget;
+export '/pages/profile/profile_quick_edit/profile_quick_edit_widget.dart'
+    show ProfileQuickEditWidget;
+export '/pages/dashboard/dashboard_v2/dashboard_v2_widget.dart'
+    show DashboardV2Widget;
+export '/pages/limits/limits_race_list/limits_race_list_widget.dart'
+    show LimitsRaceListWidget;
+export '/pages/limits/limits_race/limits_race_widget.dart'
+    show LimitsRaceWidget;

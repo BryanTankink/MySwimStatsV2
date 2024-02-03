@@ -14,7 +14,7 @@ class ActiveUserSwitchWidget extends StatefulWidget {
   const ActiveUserSwitchWidget({super.key});
 
   @override
-  _ActiveUserSwitchWidgetState createState() => _ActiveUserSwitchWidgetState();
+  State<ActiveUserSwitchWidget> createState() => _ActiveUserSwitchWidgetState();
 }
 
 class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
@@ -82,7 +82,11 @@ class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent(
+                        'ACTIVE_USER_SWITCH_ALS_ACTIEF_INSTELLEN_');
+                    logFirebaseEvent('Button_haptic_feedback');
                     HapticFeedback.selectionClick();
+                    logFirebaseEvent('Button_backend_call');
                     _model.apiResult0z8 = await ApiGroup.setActiveUserCall.call(
                       deviceIdentifier: FFAppState().deviceIdentifier,
                       swimrankingsIdentifier: getJsonField(
@@ -91,7 +95,9 @@ class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
                       ).toString(),
                     );
                     if ((_model.apiResult0z8?.succeeded ?? true)) {
+                      logFirebaseEvent('Button_action_block');
                       await action_blocks.getUserAuth(context);
+                      logFirebaseEvent('Button_navigate_to');
 
                       context.pushNamed('personalRecords');
                     }
@@ -119,7 +125,10 @@ class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('ACTIVE_USER_SWITCH_NIEUWE_GEBRUIKER_KOPP');
+                  logFirebaseEvent('Button_haptic_feedback');
                   HapticFeedback.selectionClick();
+                  logFirebaseEvent('Button_navigate_to');
 
                   context.pushNamed(
                     'LinkSwimrankings',
@@ -139,6 +148,7 @@ class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
                     }.withoutNulls,
                   );
 
+                  logFirebaseEvent('Button_bottom_sheet');
                   Navigator.pop(context);
                 },
                 text: 'Nieuwe gebruiker koppelen',
@@ -165,7 +175,10 @@ class _ActiveUserSwitchWidgetState extends State<ActiveUserSwitchWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  logFirebaseEvent('ACTIVE_USER_SWITCH_ANNULEREN_BTN_ON_TAP');
+                  logFirebaseEvent('Button_haptic_feedback');
                   HapticFeedback.selectionClick();
+                  logFirebaseEvent('Button_close_dialog,_drawer,_etc');
                   Navigator.pop(context);
                 },
                 text: 'Annuleren',

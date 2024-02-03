@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '/backend/schema/enums/enums.dart';
 
 import '/index.dart';
-import '/main.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -28,24 +28,25 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
+    GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => appStateNotifier.showSplashImage
           ? Builder(
               builder: (context) => Container(
-                color: const Color(0xF1000000),
+                color: FlutterFlowTheme.of(context).primary,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/logo_square_600x600.png',
-                    width: 150.0,
-                    fit: BoxFit.contain,
+                    'assets/images/logo_square.webp',
+                    width: 125.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
             )
-          : const InitialLoadingWidget(),
+          : entryPage ?? const InitialLoadingWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -53,17 +54,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: const Color(0xF1000000),
+                    color: FlutterFlowTheme.of(context).primary,
                     child: Center(
                       child: Image.asset(
-                        'assets/images/logo_square_600x600.png',
-                        width: 150.0,
-                        fit: BoxFit.contain,
+                        'assets/images/logo_square.webp',
+                        width: 125.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 )
-              : const InitialLoadingWidget(),
+              : entryPage ?? const InitialLoadingWidget(),
         ),
         FFRoute(
           name: 'Onboarding',
@@ -92,9 +93,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Dashboard',
           path: '/dashboard',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Dashboard')
-              : const DashboardWidget(),
+          builder: (context, params) => const DashboardWidget(),
         ),
         FFRoute(
           name: 'ListSwimrankingsAccounts',
@@ -138,19 +137,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'profile',
           path: '/profile',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'profile')
-              : ProfileWidget(
-                  distanceValueChanged:
-                      params.getParam('distanceValueChanged', ParamType.bool),
-                ),
+          builder: (context, params) => ProfileWidget(
+            distanceValueChanged:
+                params.getParam('distanceValueChanged', ParamType.bool),
+            page: params.getParam('page', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'contests',
           path: '/contests',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'contests')
-              : const ContestsWidget(),
+          builder: (context, params) => const ContestsWidget(),
         ),
         FFRoute(
           name: 'contestDetail',
@@ -186,9 +182,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'personalRecords',
           path: '/personalRecords',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'personalRecords')
-              : const PersonalRecordsWidget(),
+          builder: (context, params) => const PersonalRecordsWidget(),
         ),
         FFRoute(
           name: 'AchievementCategories',
@@ -256,6 +250,48 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'achievementUsers',
           path: '/achievementUsers',
           builder: (context, params) => const AchievementUsersWidget(),
+        ),
+        FFRoute(
+          name: 'ErrorPage',
+          path: '/errorPage',
+          builder: (context, params) => ErrorPageWidget(
+            message: params.getParam('message', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'raceDetails',
+          path: '/raceDetails',
+          builder: (context, params) => RaceDetailsWidget(
+            raceDetails: params.getParam('raceDetails', ParamType.JSON),
+            event: params.getParam('event', ParamType.String),
+            course: params.getParam('course', ParamType.String),
+            style: params.getParam('style', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'ProfileQuickEdit',
+          path: '/profileQuickEdit',
+          builder: (context, params) => ProfileQuickEditWidget(
+            page: params.getParam('page', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'DashboardV2',
+          path: '/dashboardV2',
+          builder: (context, params) => const DashboardV2Widget(),
+        ),
+        FFRoute(
+          name: 'LimitsRaceList',
+          path: '/limitsRaceList',
+          builder: (context, params) => const LimitsRaceListWidget(),
+        ),
+        FFRoute(
+          name: 'LimitsRace',
+          path: '/limitsRace',
+          builder: (context, params) => LimitsRaceWidget(
+            raceName: params.getParam('raceName', ParamType.String),
+            raceId: params.getParam('raceId', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

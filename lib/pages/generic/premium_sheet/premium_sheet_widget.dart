@@ -9,7 +9,7 @@ class PremiumSheetWidget extends StatefulWidget {
   const PremiumSheetWidget({super.key});
 
   @override
-  _PremiumSheetWidgetState createState() => _PremiumSheetWidgetState();
+  State<PremiumSheetWidget> createState() => _PremiumSheetWidgetState();
 }
 
 class _PremiumSheetWidgetState extends State<PremiumSheetWidget> {

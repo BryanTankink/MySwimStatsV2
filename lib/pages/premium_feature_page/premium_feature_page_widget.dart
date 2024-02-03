@@ -18,7 +18,7 @@ class PremiumFeaturePageWidget extends StatefulWidget {
   final String? description;
 
   @override
-  _PremiumFeaturePageWidgetState createState() =>
+  State<PremiumFeaturePageWidget> createState() =>
       _PremiumFeaturePageWidgetState();
 }
 
@@ -59,7 +59,7 @@ class _PremiumFeaturePageWidgetState extends State<PremiumFeaturePageWidget> {
             height: 200.0,
             fit: BoxFit.fitHeight,
             errorBuilder: (context, error, stackTrace) => Image.asset(
-              'assets/images/error_image.png',
+              'assets/images/error_image.webp',
               height: 200.0,
               fit: BoxFit.fitHeight,
             ),
@@ -68,7 +68,7 @@ class _PremiumFeaturePageWidgetState extends State<PremiumFeaturePageWidget> {
         Divider(
           height: 32.0,
           thickness: 1.0,
-          color: FlutterFlowTheme.of(context).text,
+          color: FlutterFlowTheme.of(context).cards,
         ),
         Align(
           alignment: const AlignmentDirectional(0.0, -1.0),

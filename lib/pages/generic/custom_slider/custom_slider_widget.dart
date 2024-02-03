@@ -19,10 +19,10 @@ class CustomSliderWidget extends StatefulWidget {
   final String? title;
   final int value;
   final int stepSize;
-  final Future<dynamic> Function()? onValueChanged;
+  final Future Function()? onValueChanged;
 
   @override
-  _CustomSliderWidgetState createState() => _CustomSliderWidgetState();
+  State<CustomSliderWidget> createState() => _CustomSliderWidgetState();
 }
 
 class _CustomSliderWidgetState extends State<CustomSliderWidget> {
@@ -91,7 +91,11 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                     divisions: 10,
                     onChanged: (newValue) async {
                       setState(() => _model.sliderValue = newValue);
+                      logFirebaseEvent(
+                          'CUSTOM_SLIDER_Slider_e3pdrki7_ON_FORM_WI');
+                      logFirebaseEvent('Slider_haptic_feedback');
                       HapticFeedback.lightImpact();
+                      logFirebaseEvent('Slider_execute_callback');
                       await widget.onValueChanged?.call();
                     },
                   ),

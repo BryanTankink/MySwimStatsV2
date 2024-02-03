@@ -18,7 +18,7 @@ class ProfileUsersPageWidget extends StatefulWidget {
   const ProfileUsersPageWidget({super.key});
 
   @override
-  _ProfileUsersPageWidgetState createState() => _ProfileUsersPageWidgetState();
+  State<ProfileUsersPageWidget> createState() => _ProfileUsersPageWidgetState();
 }
 
 class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
@@ -143,31 +143,30 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
               updateCallback: () => setState(() {}),
               child: const PremiumButtonWidget(),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Text(
-                      'Momenteel zien wij de data van',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Poppins',
-                            color: FlutterFlowTheme.of(context).text2,
-                          ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: Text(
+                        'Momenteel zien wij de data van',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).text2,
+                            ),
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Text(
                           getJsonField(
                             FFAppState().user,
@@ -181,16 +180,12 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                                   ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Text(
                           ' (${getJsonField(
                             FFAppState().user,
-                            r'''$.active.birthYear''',
+                            r'''$.active.ageGroupName''',
                           ).toString()})',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -200,11 +195,54 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                                   ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation1']!),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (getJsonField(
+                                FFAppState().user,
+                                r'''$.active.disability''',
+                              ).toString() !=
+                              FFAppConstants.noDisability
+                          ? true
+                          : false)
+                        Align(
+                          alignment: const AlignmentDirectional(-1.0, 0.0),
+                          child: Text(
+                            '${getJsonField(
+                              FFAppState().user,
+                              r'''$.active.disability''',
+                            ).toString()}, ',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).text3,
+                                  fontSize: 14.0,
+                                ),
+                          ),
+                        ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        child: Text(
+                          getJsonField(
+                            FFAppState().user,
+                            r'''$.active.birthYear''',
+                          ).toString(),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text3,
+                                    fontSize: 14.0,
+                                  ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation1']!),
+            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -228,6 +266,8 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    logFirebaseEvent('PROFILE_USERS_Container_pcfaiudz_ON_TAP');
+                    logFirebaseEvent('SwimrankingsListItem_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
@@ -305,6 +345,10 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          logFirebaseEvent(
+                              'PROFILE_USERS_Container_ax8k3kt6_ON_TAP');
+                          logFirebaseEvent('Container_navigate_to');
+
                           context.pushNamed(
                             'LinkSwimrankings',
                             queryParameters: {
@@ -366,10 +410,14 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
+                            logFirebaseEvent(
+                                'PROFILE_USERS_Container_nkvl50l2_ON_TAP');
+                            logFirebaseEvent('Container_alert_dialog');
                             await showDialog(
                               context: context,
                               builder: (dialogContext) {
                                 return Dialog(
+                                  elevation: 0,
                                   insetPadding: EdgeInsets.zero,
                                   backgroundColor: Colors.transparent,
                                   alignment: const AlignmentDirectional(0.0, 0.0)
@@ -447,6 +495,10 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PROFILE_USERS_Container_3imhjj5n_ON_TAP');
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_bottom_sheet');
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
@@ -512,6 +564,10 @@ class _ProfileUsersPageWidgetState extends State<ProfileUsersPageWidget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PROFILE_USERS_Container_nvuwjsak_ON_TAP');
+                                    logFirebaseEvent(
+                                        'SwimrankingsListItem_bottom_sheet');
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,

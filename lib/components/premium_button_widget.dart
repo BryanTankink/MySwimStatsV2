@@ -10,7 +10,7 @@ class PremiumButtonWidget extends StatefulWidget {
   const PremiumButtonWidget({super.key});
 
   @override
-  _PremiumButtonWidgetState createState() => _PremiumButtonWidgetState();
+  State<PremiumButtonWidget> createState() => _PremiumButtonWidgetState();
 }
 
 class _PremiumButtonWidgetState extends State<PremiumButtonWidget> {
@@ -52,6 +52,9 @@ class _PremiumButtonWidgetState extends State<PremiumButtonWidget> {
                 child: OperationButtonWidget(
                   text: 'Unlock premium',
                   onClick: () async {
+                    logFirebaseEvent(
+                        'PREMIUM_BUTTON_Container_q8nxvtrx_CALLBA');
+                    logFirebaseEvent('OperationButton_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,
@@ -77,6 +80,9 @@ class _PremiumButtonWidgetState extends State<PremiumButtonWidget> {
                 child: OperationButtonWidget(
                   text: 'Premium beheren',
                   onClick: () async {
+                    logFirebaseEvent(
+                        'PREMIUM_BUTTON_Container_prnqsgx7_CALLBA');
+                    logFirebaseEvent('OperationButton_bottom_sheet');
                     await showModalBottomSheet(
                       isScrollControlled: true,
                       backgroundColor: Colors.transparent,

@@ -14,10 +14,10 @@ class OperationButtonWidget extends StatefulWidget {
   });
 
   final String? text;
-  final Future<dynamic> Function()? onClick;
+  final Future Function()? onClick;
 
   @override
-  _OperationButtonWidgetState createState() => _OperationButtonWidgetState();
+  State<OperationButtonWidget> createState() => _OperationButtonWidgetState();
 }
 
 class _OperationButtonWidgetState extends State<OperationButtonWidget> {
@@ -54,14 +54,20 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
+          logFirebaseEvent('OPERATION_BUTTON_Container_fdeyud7v_ON_T');
           if (_model.isLoading) {
+            logFirebaseEvent('Container_haptic_feedback');
             HapticFeedback.lightImpact();
           } else {
+            logFirebaseEvent('Container_update_component_state');
             setState(() {
               _model.isLoading = true;
             });
+            logFirebaseEvent('Container_haptic_feedback');
             HapticFeedback.selectionClick();
+            logFirebaseEvent('Container_execute_callback');
             await widget.onClick?.call();
+            logFirebaseEvent('Container_update_component_state');
             setState(() {
               _model.isLoading = false;
             });
@@ -72,6 +78,13 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
           height: 52.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).buttonsnew,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4.0,
+                color: FlutterFlowTheme.of(context).cards,
+                offset: const Offset(2.0, 2.0),
+              )
+            ],
             borderRadius: BorderRadius.circular(14.0),
           ),
           child: Padding(
@@ -80,36 +93,49 @@ class _OperationButtonWidgetState extends State<OperationButtonWidget> {
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: FlutterFlowTheme.of(context).text3,
-                  width: 0.25,
-                ),
+                borderRadius: BorderRadius.circular(0.0),
               ),
-              child: Stack(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (!_model.isLoading)
-                    Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: Text(
-                        widget.text!,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.of(context).text3,
-                              fontSize: 16.0,
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        if (!_model.isLoading)
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              widget.text!,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context).text3,
+                                    fontSize: 16.0,
+                                  ),
                             ),
-                      ),
+                          ),
+                        if (_model.isLoading)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/images/Ripple-1s-200px_(2).gif',
+                              width: 300.0,
+                              height: 200.0,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                      ],
                     ),
-                  if (_model.isLoading)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/images/Ripple-1s-200px_(2).gif',
-                        width: 300.0,
-                        height: 200.0,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  ),
+                  Divider(
+                    height: 5.0,
+                    thickness: 1.0,
+                    indent: 10.0,
+                    endIndent: 10.0,
+                    color: FlutterFlowTheme.of(context).cards,
+                  ),
                 ],
               ),
             ),

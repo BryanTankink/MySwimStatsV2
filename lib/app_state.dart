@@ -32,8 +32,30 @@ class FFAppState extends ChangeNotifier {
               _deviceIdentifier;
     });
     await _safeInitAsync(() async {
+      if (await secureStorage.read(key: 'ff_user') != null) {
+        try {
+          _user = jsonDecode(await secureStorage.getString('ff_user') ?? '');
+        } catch (e) {
+          print("Can't decode persisted json. Error: $e.");
+        }
+      }
+    });
+    await _safeInitAsync(() async {
       _activeUserId =
           await secureStorage.getString('ff_activeUserId') ?? _activeUserId;
+    });
+    await _safeInitAsync(() async {
+      _recommendationsCount =
+          await secureStorage.getInt('ff_recommendationsCount') ??
+              _recommendationsCount;
+    });
+    await _safeInitAsync(() async {
+      _premium = await secureStorage.getBool('ff_premium') ?? _premium;
+    });
+    await _safeInitAsync(() async {
+      _displayLongCourse =
+          await secureStorage.getBool('ff_displayLongCourse') ??
+              _displayLongCourse;
     });
   }
 
@@ -70,6 +92,11 @@ class FFAppState extends ChangeNotifier {
   dynamic get user => _user;
   set user(dynamic value) {
     _user = value;
+    secureStorage.setString('ff_user', jsonEncode(value));
+  }
+
+  void deleteUser() {
+    secureStorage.delete(key: 'ff_user');
   }
 
   String _activeUserId = '';
@@ -87,17 +114,27 @@ class FFAppState extends ChangeNotifier {
   int get recommendationsCount => _recommendationsCount;
   set recommendationsCount(int value) {
     _recommendationsCount = value;
+    secureStorage.setInt('ff_recommendationsCount', value);
+  }
+
+  void deleteRecommendationsCount() {
+    secureStorage.delete(key: 'ff_recommendationsCount');
   }
 
   bool _premium = false;
   bool get premium => _premium;
   set premium(bool value) {
     _premium = value;
+    secureStorage.setBool('ff_premium', value);
+  }
+
+  void deletePremium() {
+    secureStorage.delete(key: 'ff_premium');
   }
 
   ActivePageInfoStruct _activePageInfo =
       ActivePageInfoStruct.fromSerializableMap(
-          jsonDecode('{"activePage":"zbad0"}'));
+          jsonDecode('{"activePage":"Dashboard"}'));
   ActivePageInfoStruct get activePageInfo => _activePageInfo;
   set activePageInfo(ActivePageInfoStruct value) {
     _activePageInfo = value;
@@ -111,6 +148,17 @@ class FFAppState extends ChangeNotifier {
   bool get isPremiumAllowed => _isPremiumAllowed;
   set isPremiumAllowed(bool value) {
     _isPremiumAllowed = value;
+  }
+
+  bool _displayLongCourse = false;
+  bool get displayLongCourse => _displayLongCourse;
+  set displayLongCourse(bool value) {
+    _displayLongCourse = value;
+    secureStorage.setBool('ff_displayLongCourse', value);
+  }
+
+  void deleteDisplayLongCourse() {
+    secureStorage.delete(key: 'ff_displayLongCourse');
   }
 
   final _dashboardManager = FutureRequestManager<ApiCallResponse>();
@@ -143,20 +191,35 @@ class FFAppState extends ChangeNotifier {
   void clearRankingCacheKey(String? uniqueKey) =>
       _rankingManager.clearRequest(uniqueKey);
 
-  final _raceListManager = FutureRequestManager<ApiCallResponse>();
-  Future<ApiCallResponse> raceList({
+  final _dashboardGraphManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> dashboardGraph({
     String? uniqueQueryKey,
     bool? overrideCache,
     required Future<ApiCallResponse> Function() requestFn,
   }) =>
-      _raceListManager.performRequest(
+      _dashboardGraphManager.performRequest(
         uniqueQueryKey: uniqueQueryKey,
         overrideCache: overrideCache,
         requestFn: requestFn,
       );
-  void clearRaceListCache() => _raceListManager.clear();
-  void clearRaceListCacheKey(String? uniqueKey) =>
-      _raceListManager.clearRequest(uniqueKey);
+  void clearDashboardGraphCache() => _dashboardGraphManager.clear();
+  void clearDashboardGraphCacheKey(String? uniqueKey) =>
+      _dashboardGraphManager.clearRequest(uniqueKey);
+
+  final _racesListManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> racesList({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _racesListManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearRacesListCache() => _racesListManager.clear();
+  void clearRacesListCacheKey(String? uniqueKey) =>
+      _racesListManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

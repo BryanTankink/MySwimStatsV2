@@ -27,7 +27,7 @@ class AchievementCategoryDetailsWidget extends StatefulWidget {
   final String? categoryName;
 
   @override
-  _AchievementCategoryDetailsWidgetState createState() =>
+  State<AchievementCategoryDetailsWidget> createState() =>
       _AchievementCategoryDetailsWidgetState();
 }
 
@@ -78,6 +78,9 @@ class _AchievementCategoryDetailsWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AchievementCategoryDetailsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AchievementCategoryDetails'});
   }
 
   @override
@@ -121,7 +124,10 @@ class _AchievementCategoryDetailsWidgetState
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ACHIEVEMENT_CATEGORY_DETAILS_arrow_left_');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -142,12 +148,12 @@ class _AchievementCategoryDetailsWidgetState
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -215,7 +221,11 @@ class _AchievementCategoryDetailsWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'ACHIEVEMENT_CATEGORY_DETAILS_Container_2');
+                                logFirebaseEvent('Container_haptic_feedback');
                                 HapticFeedback.selectionClick();
+                                logFirebaseEvent('Container_navigate_to');
 
                                 context.pushNamed(
                                   'AchievementLevels',
@@ -273,7 +283,7 @@ class _AchievementCategoryDetailsWidgetState
                                             errorWidget:
                                                 (context, error, stackTrace) =>
                                                     Image.asset(
-                                              'assets/images/error_image.png',
+                                              'assets/images/error_image.webp',
                                               width: 300.0,
                                               height: 200.0,
                                               fit: BoxFit.cover,

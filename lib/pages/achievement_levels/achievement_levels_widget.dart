@@ -23,7 +23,7 @@ class AchievementLevelsWidget extends StatefulWidget {
   final dynamic achievement;
 
   @override
-  _AchievementLevelsWidgetState createState() =>
+  State<AchievementLevelsWidget> createState() =>
       _AchievementLevelsWidgetState();
 }
 
@@ -113,6 +113,9 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AchievementLevelsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AchievementLevels'});
   }
 
   @override
@@ -156,7 +159,10 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ACHIEVEMENT_LEVELS_arrow_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -179,12 +185,12 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -213,7 +219,7 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
                           child: Text(
-                            'Jou score',
+                            'Jouw score',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
@@ -287,6 +293,10 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'ACHIEVEMENT_LEVELS_Image_3z0xek24_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Image_expand_image');
                                                 await Navigator.push(
                                                   context,
                                                   PageTransition(
@@ -313,7 +323,7 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
                                                                 error,
                                                                 stackTrace) =>
                                                             Image.asset(
-                                                          'assets/images/error_image.png',
+                                                          'assets/images/error_image.webp',
                                                           fit: BoxFit.contain,
                                                         ),
                                                       ),
@@ -356,7 +366,7 @@ class _AchievementLevelsWidgetState extends State<AchievementLevelsWidget>
                                                             error,
                                                             stackTrace) =>
                                                         Image.asset(
-                                                      'assets/images/error_image.png',
+                                                      'assets/images/error_image.webp',
                                                       width: 300.0,
                                                       height: 200.0,
                                                       fit: BoxFit.contain,

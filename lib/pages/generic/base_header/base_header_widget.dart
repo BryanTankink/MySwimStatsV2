@@ -12,10 +12,10 @@ class BaseHeaderWidget extends StatefulWidget {
     required this.drawerClick,
   });
 
-  final Future<dynamic> Function()? drawerClick;
+  final Future Function()? drawerClick;
 
   @override
-  _BaseHeaderWidgetState createState() => _BaseHeaderWidgetState();
+  State<BaseHeaderWidget> createState() => _BaseHeaderWidgetState();
 }
 
 class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
@@ -59,7 +59,7 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
                   image: DecorationImage(
                     fit: BoxFit.contain,
                     image: Image.asset(
-                      'assets/images/Color_logo_-_no_background.png',
+                      'assets/images/logo_wide.webp',
                     ).image,
                   ),
                 ),
@@ -76,7 +76,10 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
+                logFirebaseEvent('BASE_HEADER_Container_w0wx0u1b_ON_TAP');
+                logFirebaseEvent('Container_haptic_feedback');
                 HapticFeedback.selectionClick();
+                logFirebaseEvent('Container_navigate_to');
 
                 context.pushNamed('advice');
               },
@@ -143,7 +146,10 @@ class _BaseHeaderWidgetState extends State<BaseHeaderWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
+            logFirebaseEvent('BASE_HEADER_Container_gpshr38v_ON_TAP');
+            logFirebaseEvent('Container_haptic_feedback');
             HapticFeedback.selectionClick();
+            logFirebaseEvent('Container_execute_callback');
             await widget.drawerClick?.call();
           },
           child: Container(

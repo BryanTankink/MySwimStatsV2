@@ -20,6 +20,8 @@ class RevenueCatSubsriptionPaywallModel
   late PremiumFeaturePageModel premiumFeaturePageModel2;
   // Model for premiumFeaturePage component.
   late PremiumFeaturePageModel premiumFeaturePageModel3;
+  // Model for premiumFeaturePage component.
+  late PremiumFeaturePageModel premiumFeaturePageModel4;
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
   bool? didPurchaseMonth;
 
@@ -33,6 +35,8 @@ class RevenueCatSubsriptionPaywallModel
         createModel(context, () => PremiumFeaturePageModel());
     premiumFeaturePageModel3 =
         createModel(context, () => PremiumFeaturePageModel());
+    premiumFeaturePageModel4 =
+        createModel(context, () => PremiumFeaturePageModel());
   }
 
   @override
@@ -40,6 +44,7 @@ class RevenueCatSubsriptionPaywallModel
     premiumFeaturePageModel1.dispose();
     premiumFeaturePageModel2.dispose();
     premiumFeaturePageModel3.dispose();
+    premiumFeaturePageModel4.dispose();
   }
 
   /// Action blocks are added here.

@@ -2,11 +2,11 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/contests/contest_swim_line/contest_swim_line_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -28,7 +28,7 @@ class ContestDetailWidget extends StatefulWidget {
   final String? contestId;
 
   @override
-  _ContestDetailWidgetState createState() => _ContestDetailWidgetState();
+  State<ContestDetailWidget> createState() => _ContestDetailWidgetState();
 }
 
 class _ContestDetailWidgetState extends State<ContestDetailWidget>
@@ -115,15 +115,15 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
       effects: [
         MoveEffect(
           curve: Curves.easeInOut,
-          delay: 750.ms,
-          duration: 699.ms,
+          delay: 0.ms,
+          duration: 400.ms,
           begin: const Offset(0.0, 50.0),
           end: const Offset(0.0, 0.0),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
-          delay: 750.ms,
-          duration: 699.ms,
+          delay: 0.ms,
+          duration: 400.ms,
           begin: 0.0,
           end: 1.0,
         ),
@@ -132,10 +132,10 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
     'swimrankingsListItemOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
-        VisibilityEffect(duration: 1000.ms),
+        VisibilityEffect(duration: 100.ms),
         FadeEffect(
           curve: Curves.easeInOut,
-          delay: 1000.ms,
+          delay: 100.ms,
           duration: 600.ms,
           begin: 0.0,
           end: 1.0,
@@ -148,6 +148,9 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => ContestDetailModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'contestDetail'});
   }
 
   @override
@@ -191,7 +194,10 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('CONTEST_DETAIL_arrow_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -212,12 +218,12 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -236,7 +242,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(6.0, 15.0, 6.0, 15.0),
                 child: FutureBuilder<ApiCallResponse>(
                   future: _model.raceInfoCache(
                     uniqueQueryKey:
@@ -328,7 +334,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
+                                  8.0, 16.0, 8.0, 0.0),
                               child: Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 25.0,
@@ -418,6 +424,28 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                                         ),
                                       ),
                                     ),
+                                    Opacity(
+                                      opacity: 0.0,
+                                      child: ToggleIcon(
+                                        onPressed: () async {
+                                          setState(() => FFAppState().premium =
+                                              !FFAppState().premium);
+                                        },
+                                        value: FFAppState().premium,
+                                        onIcon: Icon(
+                                          Icons.check_box,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 25.0,
+                                        ),
+                                        offIcon: Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -469,7 +497,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                                 valueOrDefault<String>(
                                   '${ApiGroup.getContestCall.clubPerformance(
                                         listViewGetContestResponse.jsonBody,
-                                      ).toString()}%',
+                                      )?.toString()}%',
                                   '100%',
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -482,7 +510,7 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                                                     listViewGetContestResponse
                                                         .jsonBody,
                                                   )
-                                                  .toString())!
+                                                  ?.toString())!
                                           ? FlutterFlowTheme.of(context)
                                               .performanceGood
                                           : FlutterFlowTheme.of(context)
@@ -504,7 +532,13 @@ class _ContestDetailWidgetState extends State<ContestDetailWidget>
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'CONTEST_DETAIL_Container_y9x6408u_ON_TAP');
+                                logFirebaseEvent(
+                                    'SwimrankingsListItem_haptic_feedback');
                                 HapticFeedback.selectionClick();
+                                logFirebaseEvent(
+                                    'SwimrankingsListItem_navigate_to');
 
                                 context.pushNamed(
                                   'contestClubDetails',

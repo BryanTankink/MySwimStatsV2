@@ -19,7 +19,7 @@ class DashboardPerformanceComponentWidget extends StatefulWidget {
   final String? year;
 
   @override
-  _DashboardPerformanceComponentWidgetState createState() =>
+  State<DashboardPerformanceComponentWidget> createState() =>
       _DashboardPerformanceComponentWidgetState();
 }
 
@@ -107,70 +107,90 @@ class _DashboardPerformanceComponentWidgetState
             children: [
               Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                  child: wrapWithModel(
+                    model: _model.dashboardTabPageModel1,
+                    updateCallback: () => setState(() {}),
+                    child: DashboardTabPageWidget(
+                      strokes: getJsonField(
+                        widget.dashboardperformances,
+                        r'''$.butterfly''',
+                        true,
+                      )!,
+                      titleAddon: widget.titleAddon,
+                      year: widget.year,
+                      longCourse: FFAppState().displayLongCourse,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: wrapWithModel(
-                  model: _model.dashboardTabPageModel1,
+                  model: _model.dashboardTabPageModel2,
                   updateCallback: () => setState(() {}),
                   child: DashboardTabPageWidget(
                     strokes: getJsonField(
                       widget.dashboardperformances,
-                      r'''$.butterfly''',
+                      r'''$.backstroke''',
                       true,
                     )!,
                     titleAddon: widget.titleAddon,
                     year: widget.year,
+                    longCourse: FFAppState().displayLongCourse,
                   ),
                 ),
               ),
-              wrapWithModel(
-                model: _model.dashboardTabPageModel2,
-                updateCallback: () => setState(() {}),
-                child: DashboardTabPageWidget(
-                  strokes: getJsonField(
-                    widget.dashboardperformances,
-                    r'''$.backstroke''',
-                    true,
-                  )!,
-                  titleAddon: widget.titleAddon,
-                  year: widget.year,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: wrapWithModel(
+                  model: _model.dashboardTabPageModel3,
+                  updateCallback: () => setState(() {}),
+                  child: DashboardTabPageWidget(
+                    strokes: getJsonField(
+                      widget.dashboardperformances,
+                      r'''$.breaststroke''',
+                      true,
+                    )!,
+                    titleAddon: widget.titleAddon,
+                    year: widget.year,
+                    longCourse: FFAppState().displayLongCourse,
+                  ),
                 ),
               ),
-              wrapWithModel(
-                model: _model.dashboardTabPageModel3,
-                updateCallback: () => setState(() {}),
-                child: DashboardTabPageWidget(
-                  strokes: getJsonField(
-                    widget.dashboardperformances,
-                    r'''$.breaststroke''',
-                    true,
-                  )!,
-                  titleAddon: widget.titleAddon,
-                  year: widget.year,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: wrapWithModel(
+                  model: _model.dashboardTabPageModel4,
+                  updateCallback: () => setState(() {}),
+                  child: DashboardTabPageWidget(
+                    strokes: getJsonField(
+                      widget.dashboardperformances,
+                      r'''$.freeStyle''',
+                      true,
+                    )!,
+                    titleAddon: widget.titleAddon,
+                    year: widget.year,
+                    longCourse: FFAppState().displayLongCourse,
+                  ),
                 ),
               ),
-              wrapWithModel(
-                model: _model.dashboardTabPageModel4,
-                updateCallback: () => setState(() {}),
-                child: DashboardTabPageWidget(
-                  strokes: getJsonField(
-                    widget.dashboardperformances,
-                    r'''$.freeStyle''',
-                    true,
-                  )!,
-                  titleAddon: widget.titleAddon,
-                  year: widget.year,
-                ),
-              ),
-              wrapWithModel(
-                model: _model.dashboardTabPageModel5,
-                updateCallback: () => setState(() {}),
-                child: DashboardTabPageWidget(
-                  strokes: getJsonField(
-                    widget.dashboardperformances,
-                    r'''$.medley''',
-                    true,
-                  )!,
-                  titleAddon: widget.titleAddon,
-                  year: widget.year,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: wrapWithModel(
+                  model: _model.dashboardTabPageModel5,
+                  updateCallback: () => setState(() {}),
+                  child: DashboardTabPageWidget(
+                    strokes: getJsonField(
+                      widget.dashboardperformances,
+                      r'''$.medley''',
+                      true,
+                    )!,
+                    titleAddon: widget.titleAddon,
+                    year: widget.year,
+                    longCourse: FFAppState().displayLongCourse,
+                  ),
                 ),
               ),
             ],

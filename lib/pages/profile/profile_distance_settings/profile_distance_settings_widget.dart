@@ -13,7 +13,7 @@ class ProfileDistanceSettingsWidget extends StatefulWidget {
   const ProfileDistanceSettingsWidget({super.key});
 
   @override
-  _ProfileDistanceSettingsWidgetState createState() =>
+  State<ProfileDistanceSettingsWidget> createState() =>
       _ProfileDistanceSettingsWidgetState();
 }
 
@@ -78,6 +78,9 @@ class _ProfileDistanceSettingsWidgetState
                         r'''$.distance50m''',
                       ),
                       onValueChanged: () async {
+                        logFirebaseEvent(
+                            'PROFILE_DISTANCE_SETTINGS_meter50_CALLBA');
+                        logFirebaseEvent('meter50_action_block');
                         await _model.distancePropertyChangedComp(context);
                         setState(() {});
                       },
@@ -96,6 +99,9 @@ class _ProfileDistanceSettingsWidgetState
                         r'''$.distance100m''',
                       ),
                       onValueChanged: () async {
+                        logFirebaseEvent(
+                            'PROFILE_DISTANCE_SETTINGS_meter100_CALLB');
+                        logFirebaseEvent('meter100_action_block');
                         await _model.distancePropertyChangedComp(context);
                         setState(() {});
                       },
@@ -114,6 +120,9 @@ class _ProfileDistanceSettingsWidgetState
                         r'''$.distance200m''',
                       ),
                       onValueChanged: () async {
+                        logFirebaseEvent(
+                            'PROFILE_DISTANCE_SETTINGS_meter200_CALLB');
+                        logFirebaseEvent('meter200_action_block');
                         await _model.distancePropertyChangedComp(context);
                         setState(() {});
                       },
@@ -132,6 +141,9 @@ class _ProfileDistanceSettingsWidgetState
                         r'''$.distance400m''',
                       ),
                       onValueChanged: () async {
+                        logFirebaseEvent(
+                            'PROFILE_DISTANCE_SETTINGS_meter400_CALLB');
+                        logFirebaseEvent('meter400_action_block');
                         await _model.distancePropertyChangedComp(context);
                         setState(() {});
                       },
@@ -150,6 +162,9 @@ class _ProfileDistanceSettingsWidgetState
                         r'''$.distanceMoreThen400''',
                       ),
                       onValueChanged: () async {
+                        logFirebaseEvent(
+                            'PROFILE_DISTANCE_SETTINGS_meterMoreThen4');
+                        logFirebaseEvent('meterMoreThen400_action_block');
                         await _model.distancePropertyChangedComp(context);
                         setState(() {});
                       },
@@ -165,6 +180,9 @@ class _ProfileDistanceSettingsWidgetState
                       child: OperationButtonWidget(
                         text: 'Opslaan',
                         onClick: () async {
+                          logFirebaseEvent(
+                              'PROFILE_DISTANCE_SETTINGS_Container_76bb');
+                          logFirebaseEvent('OperationButton_backend_call');
                           _model.apiResulte3q = await ApiGroup
                               .updateUserDistancePropertiesCall
                               .call(
@@ -201,10 +219,13 @@ class _ProfileDistanceSettingsWidgetState
                             ),
                           );
                           if ((_model.apiResulte3q?.succeeded ?? true)) {
+                            logFirebaseEvent(
+                                'OperationButton_update_component_state');
                             _model.updatePage(() {
                               _model.distancePropertyChanged = false;
                             });
                           } else {
+                            logFirebaseEvent('OperationButton_alert_dialog');
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
@@ -224,6 +245,7 @@ class _ProfileDistanceSettingsWidgetState
                             );
                           }
 
+                          logFirebaseEvent('OperationButton_action_block');
                           await action_blocks.getUserAuth(context);
                           setState(() {});
 

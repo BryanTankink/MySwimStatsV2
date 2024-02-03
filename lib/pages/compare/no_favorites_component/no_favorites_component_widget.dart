@@ -10,7 +10,7 @@ class NoFavoritesComponentWidget extends StatefulWidget {
   const NoFavoritesComponentWidget({super.key});
 
   @override
-  _NoFavoritesComponentWidgetState createState() =>
+  State<NoFavoritesComponentWidget> createState() =>
       _NoFavoritesComponentWidgetState();
 }
 
@@ -67,7 +67,7 @@ class _NoFavoritesComponentWidgetState
           Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
             child: Text(
-              'Om gegevens te vergelijken moet jij eerst favorieten toevoegen aan je account!',
+              'Om gegevens te vergelijken, dien je eerst favorieten toe te voegen aan je account!',
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
                     fontFamily: 'Poppins',
@@ -83,6 +83,9 @@ class _NoFavoritesComponentWidgetState
               child: OperationButtonWidget(
                 text: 'Toevoegen',
                 onClick: () async {
+                  logFirebaseEvent('NO_FAVORITES_COMPONENT_Container_ipogllw');
+                  logFirebaseEvent('OperationButton_navigate_to');
+
                   context.goNamed('profile');
                 },
               ),

@@ -1,10 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/short_long_course_switcher_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/generic/operation_button/operation_button_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -17,7 +18,7 @@ class AdviceWidget extends StatefulWidget {
   const AdviceWidget({super.key});
 
   @override
-  _AdviceWidgetState createState() => _AdviceWidgetState();
+  State<AdviceWidget> createState() => _AdviceWidgetState();
 }
 
 class _AdviceWidgetState extends State<AdviceWidget>
@@ -66,6 +67,8 @@ class _AdviceWidgetState extends State<AdviceWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AdviceModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'advice'});
   }
 
   @override
@@ -103,13 +106,16 @@ class _AdviceWidgetState extends State<AdviceWidget>
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_left,
-              color: Colors.white,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('ADVICE_PAGE_arrow_left_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -117,7 +123,7 @@ class _AdviceWidgetState extends State<AdviceWidget>
             'Adviezen',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
-                  color: Colors.white,
+                  color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
                 ),
           ),
@@ -128,12 +134,12 @@ class _AdviceWidgetState extends State<AdviceWidget>
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -141,10 +147,10 @@ class _AdviceWidgetState extends State<AdviceWidget>
                 gradient: LinearGradient(
                   colors: [
                     FlutterFlowTheme.of(context).primary,
-                    const Color(0xDA000000),
-                    const Color(0xF2000000)
+                    FlutterFlowTheme.of(context).transitionMiddle,
+                    FlutterFlowTheme.of(context).primary
                   ],
-                  stops: const [0.0, 0.25, 1.0],
+                  stops: const [0.0, 0.5, 1.0],
                   begin: const AlignmentDirectional(0.0, -1.0),
                   end: const AlignmentDirectional(0, 1.0),
                 ),
@@ -154,6 +160,56 @@ class _AdviceWidgetState extends State<AdviceWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                      child: Text(
+                        'Verkeerde adviezen?',
+                        style: FlutterFlowTheme.of(context).labelLarge.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).text3,
+                            ),
+                      ),
+                    ),
+                    Text(
+                      'Je kunt je persoonlijke adviezen aanpassen, zodat je doelgerichter kunt trainen en op de juiste momenten de juiste afstanden kunt zwemmen!',
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).text3,
+                            fontSize: 12.0,
+                          ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                      child: wrapWithModel(
+                        model: _model.operationButtonModel,
+                        updateCallback: () => setState(() {}),
+                        child: OperationButtonWidget(
+                          text: 'Gegevens aanpassen',
+                          onClick: () async {
+                            logFirebaseEvent(
+                                'ADVICE_PAGE_Container_ph8yyf7p_CALLBACK');
+                            logFirebaseEvent('OperationButton_navigate_to');
+
+                            context.pushNamed(
+                              'profile',
+                              queryParameters: {
+                                'distanceValueChanged': serializeParam(
+                                  false,
+                                  ParamType.bool,
+                                ),
+                                'page': serializeParam(
+                                  1,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: FutureBuilder<ApiCallResponse>(
                         future: ApiGroup.advicesCall.call(
@@ -181,7 +237,21 @@ class _AdviceWidgetState extends State<AdviceWidget>
                                       .advices(
                                         listViewAdvicesResponse.jsonBody,
                                       )
-                                      ?.toList() ??
+                                      ?.where((e) =>
+                                          (FFAppState().displayLongCourse &&
+                                              functions.isLongCourseType(
+                                                  getJsonField(
+                                                e,
+                                                r'''$.toSwim.courseType''',
+                                              ))) ||
+                                          (!FFAppState().displayLongCourse &&
+                                              !functions.isLongCourseType(
+                                                  getJsonField(
+                                                e,
+                                                r'''$.toSwim.courseType''',
+                                              ))))
+                                      .toList()
+                                      .toList() ??
                                   [];
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
@@ -196,7 +266,12 @@ class _AdviceWidgetState extends State<AdviceWidget>
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'ADVICE_PAGE_Container_5xd3f2on_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Container_haptic_feedback');
                                       HapticFeedback.selectionClick();
+                                      logFirebaseEvent('Container_navigate_to');
 
                                       context.pushNamed(
                                         'adviceDetails',
@@ -371,6 +446,16 @@ class _AdviceWidgetState extends State<AdviceWidget>
                             },
                           );
                         },
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                      child: wrapWithModel(
+                        model: _model.shortLongCourseSwitcherModel,
+                        updateCallback: () => setState(() {}),
+                        updateOnChange: true,
+                        child: const ShortLongCourseSwitcherWidget(),
                       ),
                     ),
                   ],

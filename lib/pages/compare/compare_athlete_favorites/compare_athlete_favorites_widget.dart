@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/compare/no_favorites_component/no_favorites_component_widget.dart';
 import '/pages/generic/swimrankings_list_item/swimrankings_list_item_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +15,14 @@ class CompareAthleteFavoritesWidget extends StatefulWidget {
     required this.otherAthlete,
     bool? isComparer,
     this.doubleBack,
-  })  : isComparer = isComparer ?? true;
+  }) : isComparer = isComparer ?? true;
 
   final dynamic otherAthlete;
   final bool isComparer;
   final bool? doubleBack;
 
   @override
-  _CompareAthleteFavoritesWidgetState createState() =>
+  State<CompareAthleteFavoritesWidget> createState() =>
       _CompareAthleteFavoritesWidgetState();
 }
 
@@ -37,6 +36,9 @@ class _CompareAthleteFavoritesWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => CompareAthleteFavoritesModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'compareAthleteFavorites'});
   }
 
   @override
@@ -80,6 +82,8 @@ class _CompareAthleteFavoritesWidgetState
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('COMPARE_ATHLETE_FAVORITES_arrow_left_ICN');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -100,12 +104,12 @@ class _CompareAthleteFavoritesWidgetState
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -179,6 +183,10 @@ class _CompareAthleteFavoritesWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'COMPARE_ATHLETE_FAVORITES_Container_ur5s');
+                                logFirebaseEvent(
+                                    'SwimrankingsListItem_navigate_to');
                                 if (Navigator.of(context).canPop()) {
                                   context.pop();
                                 }

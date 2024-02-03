@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/generic/operation_button/operation_button_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -15,7 +14,7 @@ class CompareAthletesObtainWidget extends StatefulWidget {
   const CompareAthletesObtainWidget({super.key});
 
   @override
-  _CompareAthletesObtainWidgetState createState() =>
+  State<CompareAthletesObtainWidget> createState() =>
       _CompareAthletesObtainWidgetState();
 }
 
@@ -53,6 +52,8 @@ class _CompareAthletesObtainWidgetState
     super.initState();
     _model = createModel(context, () => CompareAthletesObtainModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'compareAthletesObtain'});
     _model.nameFieldController ??= TextEditingController();
     _model.nameFieldFocusNode ??= FocusNode();
   }
@@ -98,6 +99,8 @@ class _CompareAthletesObtainWidgetState
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('COMPARE_ATHLETES_OBTAIN_arrow_left_ICN_O');
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -114,12 +117,12 @@ class _CompareAthletesObtainWidgetState
           elevation: 2.0,
         ),
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                'https://myswimstats.nl/Content/Images/General/background.webp',
-              ),
+              image: Image.asset(
+                'assets/images/background.webp',
+              ).image,
             ),
           ),
           child: Container(
@@ -151,7 +154,7 @@ class _CompareAthletesObtainWidgetState
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
-                            'assets/images/logo_square_600x600.png',
+                            'assets/images/logo_square.webp',
                             width: 100.0,
                             height: 100.0,
                             fit: BoxFit.fill,

@@ -16,7 +16,7 @@ class SplitTimesDisplayWidget extends StatefulWidget {
   final String? title;
 
   @override
-  _SplitTimesDisplayWidgetState createState() =>
+  State<SplitTimesDisplayWidget> createState() =>
       _SplitTimesDisplayWidgetState();
 }
 

@@ -2,11 +2,11 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/contests/contest_swim_line/contest_swim_line_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -25,7 +25,7 @@ class ContestClubDetailsWidget extends StatefulWidget {
   final String? raceName;
 
   @override
-  _ContestClubDetailsWidgetState createState() =>
+  State<ContestClubDetailsWidget> createState() =>
       _ContestClubDetailsWidgetState();
 }
 
@@ -154,6 +154,9 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => ContestClubDetailsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'contestClubDetails'});
   }
 
   @override
@@ -197,7 +200,10 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('CONTEST_CLUB_DETAILS_arrow_left_ICN_ON_T');
+              logFirebaseEvent('IconButton_haptic_feedback');
               HapticFeedback.selectionClick();
+              logFirebaseEvent('IconButton_navigate_back');
               context.pop();
             },
           ),
@@ -218,12 +224,12 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  'https://myswimstats.nl/Content/Images/General/background.webp',
-                ),
+                image: Image.asset(
+                  'assets/images/background.webp',
+                ).image,
               ),
             ),
             child: Container(
@@ -242,7 +248,7 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -429,10 +435,16 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'CONTEST_CLUB_DETAILS_Container_2fztwluf_');
+                                    logFirebaseEvent(
+                                        'Container_haptic_feedback');
                                     HapticFeedback.selectionClick();
+                                    logFirebaseEvent('Container_navigate_to');
 
                                     context.pushNamed('genericLoader');
 
+                                    logFirebaseEvent('Container_backend_call');
                                     _model.setActiveUser =
                                         await ApiGroup.setActiveUserCall.call(
                                       deviceIdentifier:
@@ -444,13 +456,18 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
                                     );
                                     if ((_model.setActiveUser?.succeeded ??
                                         true)) {
+                                      logFirebaseEvent(
+                                          'Container_action_block');
                                       await action_blocks.getUserAuth(context);
                                       setState(() {});
+                                      logFirebaseEvent('Container_navigate_to');
                                       if (Navigator.of(context).canPop()) {
                                         context.pop();
                                       }
                                       context.pushNamed('Dashboard');
                                     } else {
+                                      logFirebaseEvent(
+                                          'Container_alert_dialog');
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
@@ -479,182 +496,227 @@ class _ContestClubDetailsWidgetState extends State<ContestClubDetailsWidget>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.stretch,
                                       children: [
-                                        Text(
-                                          getJsonField(
-                                            userDetailsItem,
-                                            r'''$.name''',
-                                          ).toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .text,
-                                                fontSize: 16.0,
-                                              ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 8.0, 0.0),
+                                          child: Text(
+                                            getJsonField(
+                                              userDetailsItem,
+                                              r'''$.name''',
+                                            ).toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .text,
+                                                  fontSize: 16.0,
+                                                ),
+                                          ),
                                         ),
                                         Align(
                                           alignment:
                                               const AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 8.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 8.0),
+                                                    child: Text(
+                                                      'Performance:',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .text,
+                                                                fontSize: 14.0,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    '${getJsonField(
+                                                      userDetailsItem,
+                                                      r'''$.averagePerformance''',
+                                                    ).toString()}%',
+                                                    textAlign: TextAlign.end,
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelLarge
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              color: functions
+                                                                      .isGoodPercentage(
+                                                                          getJsonField(
+                                                                userDetailsItem,
+                                                                r'''$.averagePerformance''',
+                                                              ).toString())!
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .performanceGood
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .performanceBad,
+                                                              fontSize: 14.0,
+                                                            ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 8.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Expanded(
-                                                flex: 1,
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 8.0),
+                                                flex: 2,
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          -1.0, 0.0),
                                                   child: Text(
-                                                    'Performance:',
+                                                    'Afstand',
+                                                    textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .labelLarge
+                                                        .labelMedium
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .text,
-                                                          fontSize: 14.0,
+                                                              .text3,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
                                                   ),
                                                 ),
                                               ),
                                               Expanded(
                                                 flex: 1,
-                                                child: Text(
-                                                  '${getJsonField(
-                                                    userDetailsItem,
-                                                    r'''$.averagePerformance''',
-                                                  ).toString()}%',
-                                                  textAlign: TextAlign.end,
-                                                  style:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            color: functions
-                                                                    .isGoodPercentage(
-                                                                        getJsonField(
-                                                              userDetailsItem,
-                                                              r'''$.averagePerformance''',
-                                                            ).toString())!
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .performanceGood
-                                                                : FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .performanceBad,
-                                                            fontSize: 14.0,
-                                                          ),
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    '%',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .text3,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    'Tijd',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .text3,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          1.0, 0.0),
+                                                  child: Text(
+                                                    'Punten',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .text3,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Opacity(
+                                                opacity: 0.0,
+                                                child: ToggleIcon(
+                                                  onPressed: () async {
+                                                    setState(() => FFAppState()
+                                                            .premium =
+                                                        !FFAppState().premium);
+                                                  },
+                                                  value: FFAppState().premium,
+                                                  onIcon: Icon(
+                                                    Icons.check_box,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 25.0,
+                                                  ),
+                                                  offIcon: Icon(
+                                                    Icons
+                                                        .check_box_outline_blank,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 25.0,
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    -1.0, 0.0),
-                                                child: Text(
-                                                  'Afstand',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .text3,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Text(
-                                                  '%',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .text3,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Text(
-                                                  'Tijd',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .text3,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    1.0, 0.0),
-                                                child: Text(
-                                                  'Punten',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .text3,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
                                         ),
                                         Builder(
                                           builder: (context) {

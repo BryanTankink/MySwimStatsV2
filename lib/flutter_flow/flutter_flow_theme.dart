@@ -42,6 +42,12 @@ abstract class FlutterFlowTheme {
   late Color performanceBad;
   late Color cards;
   late Color weatherCloudy;
+  late Color transitionMiddle;
+  late Color newOne;
+  late Color newTwo;
+  late Color newThree;
+  late Color newFour;
+  late Color newFive;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -118,8 +124,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color secondary = const Color(0xFF1A1A1A);
   late Color tertiary = const Color(0xFFE5D9B6);
   late Color alternate = const Color(0xFFDBE2E7);
-  late Color primaryText = const Color(0xFF14181B);
-  late Color secondaryText = const Color(0xFF57636C);
+  late Color primaryText = const Color(0xFFFFFFFF);
+  late Color secondaryText = const Color(0xFFA2A9AC);
   late Color primaryBackground = const Color(0xFFF1F4F8);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
   late Color accent1 = const Color(0xFF616161);
@@ -141,6 +147,12 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color performanceBad = const Color(0xFFFF8F95);
   late Color cards = const Color(0x4DBE9E44);
   late Color weatherCloudy = const Color(0xFF0F120D);
+  late Color transitionMiddle = const Color(0xCD000000);
+  late Color newOne = const Color(0xFF51E6EA);
+  late Color newTwo = const Color(0xFF5794EB);
+  late Color newThree = const Color(0xFF5666EA);
+  late Color newFour = const Color(0xFF7857EB);
+  late Color newFive = const Color(0xFFA857EB);
 }
 
 abstract class Typography {
