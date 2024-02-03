@@ -230,15 +230,8 @@ class _RevenueCatSubsriptionPaywallWidgetState
                                           CrossAxisAlignment.start,
                                       children: [
                                         AutoSizeText(
-                                          revenue_cat
-                                                          .offerings!
-                                                          .current!
-                                                          .monthly!
-                                                          .storeProduct
-                                                          .title !=
-                                                      ''
-                                              ? revenue_cat.offerings!.current!
-                                                  .monthly!.storeProduct.title
+                                          revenue_cat.offerings?.current?.monthly?.storeProduct?.title? != ''
+                                              ? revenue_cat.offerings?.current?.monthly?.storeProduct?.title?
                                               : 'MySwimStats Premium',
                                           textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
@@ -253,11 +246,11 @@ class _RevenueCatSubsriptionPaywallWidgetState
                                               ),
                                         ),
                                         if (revenue_cat
-                                                        .offerings!
-                                                        .current!
-                                                        .monthly!
-                                                        .storeProduct
-                                                        .description !=
+                                                        .offerings?
+                                                        .current?
+                                                        .monthly?
+                                                        .storeProduct?
+                                                        .description? !=
                                                     ''
                                             ? true
                                             : false)
@@ -268,11 +261,11 @@ class _RevenueCatSubsriptionPaywallWidgetState
                                             child: SelectionArea(
                                                 child: Text(
                                               revenue_cat
-                                                  .offerings!
-                                                  .current!
-                                                  .monthly!
-                                                  .storeProduct
-                                                  .description,
+                                                  .offerings?
+                                                  .current?
+                                                  .monthly?
+                                                  .storeProduct?
+                                                  .description?,
                                               textAlign: TextAlign.start,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -321,9 +314,9 @@ class _RevenueCatSubsriptionPaywallWidgetState
                                                       await revenue_cat
                                                           .purchasePackage(
                                                               revenue_cat
-                                                                  .offerings!
-                                                                  .current!
-                                                                  .monthly!
+                                                                  .offerings?
+                                                                  .current?
+                                                                  .monthly?
                                                                   .identifier);
                                                   if (_model
                                                       .didPurchaseMonth!) {
