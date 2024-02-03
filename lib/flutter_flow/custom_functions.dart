@@ -83,6 +83,8 @@ bool greaterThan(
 }
 
 String achievementCategoryIdToName(String? achievementId) {
+  if (achievementId == null) return "Overig";
+
   if (achievementId == "0")
     return "Vlinderslag";
   else if (achievementId == "1")
@@ -98,12 +100,12 @@ String achievementCategoryIdToName(String? achievementId) {
 }
 
 String getSubscriptionManagePage(
-  bool isAndroid,
-  bool isIos,
+  bool? isAndroid,
+  bool? isIos,
 ) {
-  if (isAndroid) {
+  if (isAndroid != null && isAndroid) {
     return "https://play.google.com/store/account/subscriptions";
-  } else if (isIos) {
+  } else if (isIos != null && isIos) {
     return "https://apps.apple.com/account/subscriptions";
   } else {
     return "https://swimscore.nl";
@@ -111,14 +113,19 @@ String getSubscriptionManagePage(
 }
 
 dynamic getDataByIndex(
-  List<dynamic> input,
-  int index,
+  List<dynamic>? input,
+  int? index,
 ) {
+  if (input == null) return null;
+
+  if (index == null) return input[0];
   return input[index];
 }
 
-List<int> calculateTimeSet(double seconds) {
+List<int> calculateTimeSet(double? seconds) {
   List<int> results = [0, 0, 0];
+  if (seconds == null) return results;
+
   results[0] = (seconds / 60.0).toInt();
   results[1] = (seconds - results[0] * 60).toInt();
   results[2] = ((seconds - results[0] * 60 - results[1]) * 100.0).toInt();
@@ -126,9 +133,10 @@ List<int> calculateTimeSet(double seconds) {
 }
 
 bool stringContains(
-  String input,
-  String contains,
+  String? input,
+  String? contains,
 ) {
+  if (input == null) return false;
   if (contains == null || contains.isEmpty) {
     return true;
   }
@@ -143,16 +151,19 @@ bool stringContains(
   return true;
 }
 
-bool isLongCourseType(int courseType) {
+bool isLongCourseType(int? courseType) {
+  if (courseType == null) return false;
   return courseType == 1;
 }
 
 List<dynamic> filterRacesForCourse(
-  List<dynamic> races,
-  bool isLongCourse,
+  List<dynamic>? races,
+  bool? isLongCourse,
 ) {
+  if (races == null) return List.empty();
+
   int longCourseState = 0;
-  if (isLongCourse) {
+  if (isLongCourse != null && isLongCourse) {
     longCourseState = 1;
   }
   return races

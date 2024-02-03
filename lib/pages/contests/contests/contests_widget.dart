@@ -429,7 +429,7 @@ class _ContestsWidgetState extends State<ContestsWidget>
                                                       .jsonBody,
                                                   r'''$.data.contests''',
                                                   true,
-                                                )!,
+                                                ),
                                                 FFAppState().displayLongCourse)
                                             .toList();
                                         return ListView.builder(
